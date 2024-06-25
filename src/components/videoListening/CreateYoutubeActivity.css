@@ -1,0 +1,57 @@
+.videoSettingsContainer{
+  width: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.videoSettingsDiv{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.videoSettingTimeInputDiv{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  margin-bottom: var(--margin-xs);
+  border: solid var(--color-303) 1px;
+  padding: var(--padding-s) var(--padding-s);
+}
+
+.addYoutubeLinkAndButtonDiv{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.submitVideoTimeButton{
+  margin-top: var(--margin-xs);
+  padding: var(--padding-xs) var(--padding-s);
+  background-color: var(--button-color-002);
+  color: var(--color-000);
+  border: none;
+}
+
+@media (max-width: 900px) {
+  .videoSettingsContainer{
+    width: max-content;
+  }
+
+
+  .videoSettingTimeInputDiv{
+    min-width: 250px;
+  }
+
+  .addYoutubeLinkAndButtonDiv{
+    min-width: 250px;
+    margin-bottom: var(--margin-m);
+    padding-bottom: var(--padding-m);
+  }
+
+}

@@ -1,0 +1,48 @@
+.classManagerExampleDiv{
+  position: absolute;
+  z-index: 99999;
+  width: 80%;
+  max-width: 500px;
+  height: max-content;
+  background-color: white;
+  border: 15px solid var(--color-101);
+  border-image: var(--color-105) 1;
+  padding: var(--padding-m);
+  padding-bottom: var(--padding-s);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+}
+
+.pageExpTitle{
+  text-align: center;
+  color: var(--color-202);
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.pageExpText{
+  padding: var(--padding-xxs);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.closeButtonPageExp{
+  margin-top: var(--margin-xs);
+  align-self: center;
+  padding: var(--padding-xxs) var(--padding-s);
+  background: var(--button-color-001);
+  color: var(--color-000);
+  font-weight: 600;
+  border: none;
+  width: 100PX;
+}
+
+@media (max-width: 600px) {
+  .classManagerExampleDiv{
+    overflow-y: auto;
+    max-height: 500px;
+  }
+}

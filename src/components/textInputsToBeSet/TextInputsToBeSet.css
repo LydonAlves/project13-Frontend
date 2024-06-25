@@ -1,0 +1,85 @@
+.containerTextInputsToBeSet{
+  width: max-content;
+  width: 300px;
+  padding-left: var(--padding-s);
+}
+
+.titleTextInputsToBeSet{
+  text-align: center;
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.textInputULDiv{
+  overflow-y: auto;
+  height:350px;
+}
+
+.ULTextInputsToBeSet{
+ padding-top: var(--padding-xs);
+}
+
+.liTextInputsToBeSet{
+  padding: 6px 0px;
+  margin-bottom: var(--margin-m);
+  height: max-content;
+}
+
+.gapTextInputsToBeSet{
+  font-weight: 700;
+}
+
+.inputTextInputsToBeSet{
+  margin: 0px 10px;
+  width: 60%;
+  height: 25px;
+}
+
+.assignedRuleDiv{
+  width: 250px;
+}
+
+.assignedRuleTitle{
+  font-weight: 600;
+  margin-top: var(--padding-xs);
+  margin-bottom: var(--padding-xs);
+  font-size: 18px;
+}
+
+.assignedRuleText{
+  width: 100%;
+  width: 80%;
+  font-size: 17px;
+} 
+
+.buttonTextIntputsToBeSet{
+  border: none;
+  background-color: var(--button-color-002);
+  color: var(--color-000);
+  padding: var(--padding-xxs) var(--padding-xs);
+  margin-top: var(--margin-xs);
+}
+
+.selectedBTextInp{
+  border: none;
+  background-color: var(--button-color-012);
+  color: var(--color-000);
+  padding: var(--padding-xxs) var(--padding-xs);
+  margin-top: var(--margin-xs);
+}
+
+@media (max-width: 900px) {
+
+  .assignedRuleDiv{
+    width: 250px;
+  }
+
+  .assignedRuleTitle{
+    width: 70%;
+  }
+
+  .assignedRuleText{
+    width: 70%;
+    font-size: 12px;
+  } 
+}

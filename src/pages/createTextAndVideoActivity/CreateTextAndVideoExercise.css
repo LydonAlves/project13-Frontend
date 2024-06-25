@@ -1,0 +1,485 @@
+.createTextSection{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 89svh;
+  z-index: 0;
+  position: relative;
+}
+
+.welcomeCreateActivity{
+  position: absolute;
+  width: 100%;
+  background-color: white;
+  height:100%;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.createExerciseH1{
+  margin-top: var(--margin-s);
+  margin-bottom: var(--margin-s);
+  font-size: 40px;
+  color: var(--color-202);
+}
+
+.H1youtubeTitleCreate{
+margin-top: var(--margin-l);
+}
+
+.welcomeCreateActivity> h3{
+  margin-bottom: var(--margin-m);
+  color: var(--color-302);
+}
+
+/* ---CHOOSE EXERCISE---------------------- */
+.chooseExercisecontainer{
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  width: 100%;
+  gap: var(--gap-xl);
+}
+
+.chooseExerciseDiv{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: max-content;
+  width: 400px;
+  width: 25%;
+}
+
+.exerciseTitleDiv{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: var(--padding-s) var(--padding-m);
+  background-color: var(--color-102);
+  color: var(--color-000);
+  font-weight: 600;
+  width: 400px;
+  width: 100%;
+}
+
+.chooseExerciseImg{
+  margin-top: var(--margin-xs);
+  height: 380px;
+  width: 100%;
+  object-fit: cover;
+  box-shadow: 2px 6px 5px 0px rgba(201,199,201,1)
+}
+
+.selectButtonCreateE{
+  width: 50%;
+  min-width: none;
+  height: 40px;
+  margin-top: var(--margin-s);
+  background: var(--button-color-001);
+  color: var(--color-000);
+  border: none;
+  font-weight: 600;
+}
+
+@media (max-width: 830px) {
+  .chooseExercisecontainer{
+    gap: var(--gap-m);
+  }
+
+  .exerciseTitleDiv{
+    font-size: 12px;
+  }
+
+}
+
+@media (max-width: 600px) {
+  .createExerciseH1{
+    margin-top: var(--margin-l);
+    font-size: 26px;
+  }
+
+  .chooseExercisecontainer{
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: var(--margin-m);
+    width: 100%;
+    height: 600px;
+    overflow-y: auto;
+  }
+
+  .chooseExerciseDiv{
+    height: 500px;
+    width: 80%;
+  }
+}
+
+@media (max-width: 480px) {
+  .createExerciseH1{
+    margin-top: var(--margin-l);
+    font-size: 26px;
+  }
+
+  /* .aiH1{
+    margin-bottom: var(--margin-l);
+  } */
+
+  .chooseExerciseDiv{
+    height: max-content;
+    margin-bottom: var(--margin-m);
+    margin-top: var(--margin-m);
+  }
+
+  .chooseExerciseImg:nth-child(2){
+    height: 70%;
+  }
+}
+
+/* ------------------------- */
+/* Dont change height */
+.mainContentDivCreateExercise{
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  width: 100%;
+  height: 450px;
+  margin-top: var(--padding-s);
+}
+
+/* ------------------------- */
+.gapsAndRulesContainer{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+}
+
+.gapAndRulesDiv{
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  flex-direction: row;
+  width: 75%;
+  height: 100%;
+}
+
+.gapAndRulesEmptyDiv{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60%;
+  height: 100%;
+  font-size: 25px;
+}
+
+.gapTextExerciseDiv{
+  display: flex;
+  justify-content: center;
+  height: 85%;
+  max-height: 400px;
+  width: 100%;
+  padding: var(--padding-xxs) var(--padding-s);
+  padding-right: var(--padding-xs);
+  overflow-y: auto;
+}
+
+.textInputDiv{
+  display: flex;
+  width: 75%;
+  height: 95%;
+  justify-content: center;
+  /* background-color: bisque; */
+}
+
+@media (max-width: 900px) {
+  .mainContentDivCreateExercise{
+    flex-direction: column;
+    height: 89svh;
+    overflow-y: auto;
+    justify-content: flex-start;
+  }
+  
+  .gapsAndRulesContainer{
+    flex-direction: column;
+    height: max-content;
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .gapAndRulesDiv{
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .gapAndRulesEmptyDiv{
+    padding: 0 var(--padding-m);
+    width: 100%;
+    font-size: 15px;
+  }
+
+  .gapTextExerciseDiv{
+    overflow: visible;
+    max-width: 500px;
+    height: 100%;
+    padding: var(--padding-xxs) var(--padding-xs);
+    margin-right: 0;
+    margin-bottom: var(--margin-s);
+    font-size: 10px;
+  }
+
+  .gapTextExerciseDiv > .gapTextDiv > .gapFillTextDiv >span{
+    font-size: 10px;
+  }
+
+  .gapTextExerciseDiv > .gapTextDiv > .gapFillTextDiv >span> input{
+    height: 11px;
+
+  }
+}
+
+
+/* --- YOU TUBE ------------------------- */
+.createVideoAndGapFillDiv{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 80%;
+  width: 100%;
+  align-items: center;
+}
+
+.videoAndSettingsDiv{
+  display: flex;
+  justify-content: center;
+  gap: var(--gap-xl);
+  width: 100%;
+  margin-top: var(--margin-l);
+}
+
+.createYouTubeActivityDiv{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap-xs);
+  font-size: larger;
+  margin-top: var(--margin-m);
+}
+
+
+@media (max-width: 900px) {
+  .createVideoAndGapFillDiv{
+    margin-bottom: var(--margin-m);
+    height: auto;
+  }
+
+  .videoAndSettingsDiv{
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: var(--gap-l);
+
+  }
+
+  .createYouTubeActivityDiv{
+    font-size: medium;
+    margin-top: 0;
+  }
+}
+
+/* --Rules div---------------------------------------------------- */
+.rulesDiv{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 25%;
+  height: 100%;
+}
+
+.rulesSearchTitle{
+  margin-bottom: var(--margin-s);
+ padding-top: 14px;
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.rulesButtonsDiv{
+  display: flex;
+  gap: var(--gap-xs);
+  margin-bottom: var(--margin-xs);
+}
+
+.rulesSearchButton{
+  width: 100px;
+  height: 30px;
+  background-color: var(--button-color-002);
+  color: var(--color-000);
+}
+
+.rulesSearchButtonSelected{
+  width: 100px;
+  height: 30px;
+  background-color: var(--color-000);
+  border: solid 2px var(--button-color-002);
+}
+
+@media (max-width: 900px) {
+  .rulesDiv{
+    width: 100%;
+    margin-bottom: var(--margin-m);
+    padding-top: var(--padding-m);
+  }
+}
+
+/* ----Buttons bottom of screen--------------------------------------------------------- */
+.setupButtonDiv{
+  display: flex;
+  width: max-content;
+  height: max-content;
+}
+
+.setupButtonDiv > li > button{
+  cursor: pointer;
+
+}
+
+.createActivityButtonsDiv{
+  display: flex;
+  height: 30px;
+  padding: 0px;
+  align-items: center;
+  width: max-content;
+}
+
+.createNewActivityButton{
+  height: 20px;
+}
+
+
+/* --Finished activity---------------------------------------------- */
+
+.savedFinalExerciseDiv{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: start;
+  width: 100%;
+  height: 89%;
+}
+
+.youtubeFinishedTask{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: var(--margin-l);
+  margin-left: 3%;
+  padding-top: var(--padding-s);
+}
+
+.GapFillSavedFinalTextDiv{
+  display: flex;
+  margin: var(--margin-s) var(--margin-s) 0 var(--margin-m);
+  padding-right: var(--padding-xs);
+  width: 400px;
+  width: 80%;
+
+
+  max-width: 600px;
+  height: 450px;
+  overflow-y: auto;
+}
+
+@media (max-width: 1200px){
+  .savedFinalExerciseDiv{
+    flex-direction: column;
+    align-items: center;
+    height: 500px;
+    height: 100%;
+    /* overflow-y: auto; */
+  }
+
+  .GapFillSavedFinalTextDiv{
+    min-width: 320px;
+    margin-bottom: var(--margin-l);
+    overflow-y: visible;
+  }
+}
+
+
+@media (max-width: 830px) {
+  .savedFinalExerciseDiv{
+    align-items: center;
+    gap: var(--gap-m);
+    overflow-y: scroll;
+    margin-bottom: var(--margin-s);
+  }
+}
+
+
+@media (max-width: 600px) {
+    .savedFinalExerciseDiv{
+    margin: 0;
+    margin-left: var(--margin-xs);
+    width: 95%;
+    height: 520px;
+  }
+
+  .GapFillSavedFinalTextDiv {
+    margin: 0;
+    margin-bottom: var(--margin-l);
+  }
+
+  .GapFillSavedFinalTextDiv > .gapTextDiv{
+    height: 500px;
+    width: 80%;
+    min-width: 310px;
+    overflow-y: scroll;
+  }
+}
+
+
+
+/* --------------------------------------------- */
+.nextButtonsDiv{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  gap: var(--gap-m);
+  margin-bottom: var(--margin-xs);
+}
+
+.howToButtonCreateEx{
+  position: absolute;
+  bottom: 10px;
+  left: 15px;
+  height: 25px;
+}
+
+
+@media (max-width: 900px) {
+  .nextButtonsDiv{
+    margin-top: var(--margin-xs);
+  }
+}
+
+@media (max-width: 830px) {
+  .howToButtonCreateEx{
+    position: absolute;
+    bottom: 55px;
+    left: 15px;
+  }
+}
+
+@media (max-width: 600px) {
+
+  .howToButtonCreateEx{
+    top: 10px;
+    font-size: 10px;
+  }
+}
+

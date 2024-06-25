@@ -1,0 +1,19 @@
+.timeInputDiv{
+  display: flex;
+  margin-bottom: var(--margin-xxs);
+  gap: var(--gap-xs);
+  width: 100%;
+  justify-content: space-between;
+}
+
+.timeTitle{
+  font-weight: 600;
+}
+
+.timeInput{
+  height: 20px; 
+  line-height: 20px; 
+  text-align: center;
+  width: 100px;
+  padding: 0 var(--padding-xxs);
+}

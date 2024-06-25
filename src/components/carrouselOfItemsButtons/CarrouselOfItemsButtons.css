@@ -1,0 +1,23 @@
+.carrouselOfItemsButtonsDiv{
+  display: flex;
+  width: 200px;
+  justify-content: space-around;
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.carrouselOfItemsButtonsDiv > button{
+padding: var(--padding-xxs) var(--padding-xs);
+border: solid 1px rgba(0, 0, 0, 0.253);
+}
+
+
+@media (max-width: 830px) {
+  .carrouselOfItemsButtonsDiv{
+    top: 45px;
+    height: 25px; 
+  }
+
+}

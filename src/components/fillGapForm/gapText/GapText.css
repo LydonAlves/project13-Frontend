@@ -1,0 +1,43 @@
+.gapTextDiv{
+  width: 100%;
+  height: max-content;
+  color: var(--color-000);
+  background-color: var(--color-202);
+  padding: var(--padding-s);
+  padding-bottom: var(--padding-m);
+  border-radius: 15px;
+}
+
+.gapTextTitle{
+  margin-bottom: var(--margin-xs);
+  text-align: center;
+}
+
+.gapFillTextSegments{
+font-size: var(--fontSize-ml);
+}
+
+.gapsTextInput{
+  width: 60px;
+  display: inline-flex;
+  align-items: center;
+  margin: 3px 5px; 
+  width: 80px;
+  flex-shrink: 0; 
+  border: none;
+  background-color: var(--color-200);
+  padding-left: var(--padding-xxs);
+}
+
+.gapsTextInput:focus {
+  outline: none;
+}
+
+.gapNumber{
+  margin-left: var(--margin-xxs);
+}
+
+.gapsTextInput{
+  margin-top: var(--margin-xxs);
+  background-color: var(--color-000);
+}

@@ -1,0 +1,38 @@
+.startPageSection{
+  height: 100svh;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.startPageDiv{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 40%;
+  padding-left: var(--padding-l);
+}
+
+.logoStartPage{
+  height: 350px;
+}
+
+.startPageTextDiv{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 500px;
+  height: 300px;
+  text-align: center;
+  margin-top: var(--margin-l);
+}
+
+.welcomeH1{
+  font-size: 45px;
+  margin-bottom: var(--margin-l);
+}
+
+.welcomeText{
+  font-size: 20px;
+  margin-bottom: var(--margin-l);
+}

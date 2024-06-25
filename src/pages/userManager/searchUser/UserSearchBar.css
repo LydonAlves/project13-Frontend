@@ -1,0 +1,47 @@
+.userSearchBarTitle{
+  text-align: center;
+  margin-top: var(--margin-s);
+}
+
+.userSearchInput{
+  margin-bottom: var(--margin-s);
+  align-self: center;
+  height: 30px;
+}
+
+.userSearchContainer{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+  margin-bottom: var(--margin-xxs);
+}
+
+.userSearchBarDiv{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: solid black 1px;
+  padding: var(--padding-xs);
+  margin: var(--margin-xs);
+}
+
+.userSearchBarDiv:first-child{
+  margin-top: 0;
+}
+
+.userListButton{
+  font-size: 14px;
+}
+
+@media (max-width: 750px) {
+  .userSearchContainer{
+    min-width: 310px;
+    height: 200px;
+    align-items: center;
+  }
+
+  .userSearchBarDiv{
+    width: 270px;
+  }
+}

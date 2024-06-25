@@ -1,0 +1,38 @@
+.activityTypeTaskDiv{
+  padding: var(--padding-xs) var(--padding-s);
+  border: none;
+  color: var(--color-101);
+  border: 3px solid var(--color-101);
+  border-right: 0px;
+  font-weight: 600;
+}
+
+.activityTypeTaskDiv:hover{
+  cursor: default;
+}
+
+.activityTypeTaskDiv:last-child{
+  border-right: 3px solid var(--color-101);
+}
+
+.selectedTask{
+  background-color: var( --color-101);
+  color: white;
+}
+
+
+@media (max-width: 600px) {
+  .activityTypeTaskDiv{
+    padding: var(--padding-xxs) var(--padding-xs);
+  }
+
+  .activityTypeText{
+    font-size: 10px;
+  }
+
+  .selectedTask{
+    color: white;
+  }
+}
+
+

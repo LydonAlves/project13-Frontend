@@ -1,0 +1,13 @@
+footer{
+  width: 100%;
+  background: var(--color-104);
+  height: 4svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footerDiv{
+color: var(--color-000);
+font-size: x-small;
+}

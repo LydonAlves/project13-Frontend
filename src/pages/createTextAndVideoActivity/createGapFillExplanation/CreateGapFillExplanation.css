@@ -1,0 +1,66 @@
+.gapFillExampleDiv{
+  position: absolute;
+  z-index: 99999;
+  width: 80%;
+  max-width: 500px;
+  height: max-content;
+  background-color: var(--color-000);
+  border: 15px solid var(--color-101);
+  padding: var(--padding-m);
+  padding-bottom: var(--padding-s);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-image: var(--color-105) 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.closeButtonCreateExp{
+  margin-top: var(--margin-xs);
+  align-self: center;
+  padding: var(--padding-xxs) var(--padding-s);
+  background: var(--button-color-001);
+  color: var(--color-000);
+  font-weight: 600;
+  border: none;
+  width: 100PX;
+}
+
+.titleCreateExExplanation{
+  color: var( --color-202);
+  font-size: 28px;
+  text-align: center;
+  margin-bottom: var(--margin-xs);
+}
+
+/* --- AI -------------------------- */
+.aiExampleText{
+  margin-bottom: var(--margin-xs);
+}
+
+/* --- YouTube -------------------------- */
+
+.youtubeExampleText{
+  margin-bottom: var(--margin-xs);
+}
+
+/* --- FILL GAP -------------------------- */
+.fillGapExplanationDiv{
+  margin: var(--margin-xxs) 0;
+}
+
+.fillGapExplanationTitle{
+font-weight: 600;
+}
+
+@media (max-width: 600px) {
+.gapFillExampleDiv{
+  overflow-y: auto;
+  max-height: 500px;
+}
+
+  .titleCreateExExplanation{
+    font-size: 20px;
+  }
+}

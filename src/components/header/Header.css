@@ -1,0 +1,154 @@
+header{
+height: 7svh;
+width: 100%;
+background: var(--color-104);
+display: flex;
+align-items: center;
+justify-content: space-between;
+}
+
+.whiteLogoDiv{
+  margin-left: var(--margin-s);
+}
+
+.headingLogo{
+  width: 100px;
+  height: 100px;
+}
+
+.menuDiv{
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.menuList {
+  display: flex;
+  width: 90%;
+  justify-content: center;
+  gap: var(--gap-m);
+}
+
+.headerLink{
+  font-weight: 400;
+  font-size: 18px; 
+  color: var(--color-000);
+}
+
+.loguserDiv{
+  display: flex;
+  margin-left: auto;
+  margin-right: var(--margin-s);
+}
+
+.logoutButton{
+  background: transparent;
+  border: none;
+  font-size: larger;
+  font-weight: 500;
+  padding: var(--padding-xxs);
+  color: var(--color-000);
+}
+
+.logoutImg{
+  height: 26px;
+}
+
+.active {
+  color: var(--color-201);
+}
+
+.menuButton{
+  height: 20px;
+  width:20px;
+  position: absolute;
+  z-index: 99999;
+  top: 15px;
+  right: 12px; 
+  filter: brightness(0) invert(1);
+  display: none;
+}
+
+.menuButton:hover{
+  filter: brightness(10) invert(1) sepia(10) saturate(100) hue-rotate(320deg);
+}
+
+.visibleClass{
+  filter: brightness(10) invert(1) sepia(10) saturate(100) hue-rotate(320deg);
+}
+
+
+@media (max-width: 900px) {
+  .whiteLogoDiv{
+    width: 100%;
+  }
+
+  .menuDiv{
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-102);
+    width: max-content;
+    height: max-content;
+    position: absolute;
+    z-index: 9999999;
+    left: -300px;
+    top: 0px;
+    padding-bottom: var(--padding-s);
+    transition: left 0.3s ease; 
+  }
+
+  .menuDiv.visible {
+    left: 0px; 
+  }
+  
+  .menuDiv.hidden {
+    left: -300px;
+  }
+
+  .menuList{
+   flex-direction: column;
+   height: 100%;
+   height: max-content;
+   padding: var(--padding-l) var(--padding-s) var(--padding-s) var(--padding-l);
+   gap: var(--gap-s);
+   justify-content: flex-start;
+  } 
+
+  .headerLink{
+    color: var(--color-000);
+  }
+
+  .headerLink:hover{
+    color: #ffa500;
+  }
+
+  .logUserButton{
+    display: flex;
+    padding-left: var(--padding-l);
+  }
+
+  .logoutImg{
+    display: none;
+  }
+
+  .loguserDiv{
+    display: flex;
+    width: 100%;
+  }
+
+.logoutButton{
+  color: var(--color-000);
+  padding: 0;
+  padding-bottom: var(--padding-s);
+}
+
+.logoutButton:hover{
+  color: orange;
+}
+
+.menuButton{
+display: block;
+}
+
+}
+

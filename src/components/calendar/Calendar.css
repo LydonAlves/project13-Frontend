@@ -1,0 +1,13 @@
+.calendarDiv{
+  display: flex;
+  margin-bottom: var(--margin-s);
+}
+
+.react-datepicker {
+  transform: scale(1); 
+  transform-origin: top left; 
+   width: max-content; 
+   height: min-content;
+  }
+
+

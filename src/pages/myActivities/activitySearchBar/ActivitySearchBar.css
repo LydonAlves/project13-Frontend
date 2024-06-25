@@ -1,0 +1,63 @@
+.activitySearchBarContainer{
+  height: 100%;
+  margin-right: var(--margin-xxs);
+}
+
+.activitySearchBarTitle{
+  margin-bottom: var(--margin-xxs); 
+  color: var(--color-202);
+}
+
+.activityContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+  height: 280px;
+  width: 250px;
+  margin-top: var(--margin-s);
+}
+
+.activityDiv{
+  border: solid 1px var(--color-303);
+  padding: var(--padding-s) var(--padding-xxs);
+  padding-bottom: var(--padding-xs);
+  margin: var(--margin-xxs) 0px;
+  margin-right: var(--margin-xxs);
+  width: 200px;
+}
+
+.activityTitleActivitySearchBar{
+  margin-bottom: var(--margin-xs);
+  font-size: 18px;
+}
+
+.classActivityButtonDiv{
+  display: flex;
+  gap: var(--gap-xs);
+  justify-content: center;
+  width: 100%;
+}
+
+.activitySearchButton{
+  background-color: var(--color-102);
+  color: var(--color-000);
+  padding: var(--padding-xxs) var(--padding-xs);
+  font-weight: 600;
+  border: none;
+  font-size: 10px;
+}
+
+@media (max-width: 830px) {
+  .activitySearchBarContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media (max-width: 740px) {
+  .activityContainer{
+    height: 120px;
+  }
+}

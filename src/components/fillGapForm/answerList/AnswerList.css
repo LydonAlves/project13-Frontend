@@ -1,0 +1,72 @@
+.answerListContainer{
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+}
+
+.answerListDiv{
+  padding: var(--padding-s);
+  
+  border: solid 1px var(--color-303);
+}
+
+.answerListUl{
+  height: 450px;
+  padding-right: var(--padding-xs);
+  overflow-y: auto;
+}
+
+
+.studentAnswer{
+  text-align: center;
+  margin-bottom: var(--margin-xxs);
+}
+
+.answerDiv{
+  display: flex;
+  gap: 5px;
+  margin-bottom: var(--margin-xs);
+  min-height: 80px;
+  padding: var(--padding-xs);
+  border: solid 1px var(--color-303);
+}
+
+.studentAnswerGapFill{
+  padding: var(--padding-xs);
+  width: 40%;
+}
+
+.individualAnswerDiv{
+  height: max-content;
+  font-size: 13px;
+  padding: var(--padding-xs);
+  padding-left: 5%;
+  width: 60%;
+}
+
+.answerListCorrectAnswer, .answerListRule{
+  margin-bottom: var(--margin-xs);
+}
+
+.answerListButtonGapfill{
+  margin-top: var(--margin-s);
+  margin-left: var(--margin-xs);
+  font-size: 12px;
+}
+
+
+
+
+.isCorrect,.incorrect{
+  font-size: 17px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.isCorrect{
+  color: rgb(1, 156, 1);
+}
+
+.incorrect{
+  color: red;
+} 

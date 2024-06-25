@@ -1,0 +1,85 @@
+.gapfillDiv{
+  display: flex;
+  align-items: center;
+  width: 65%;
+  margin-top: var(--margin-xl);
+}
+
+.fillGapFormGapFill{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 70%;
+  min-width: 420px;
+  max-height: 400px;
+  height: 100%;
+  padding-top: var(--padding-s);
+}
+
+.gapFillAnswerList{
+  display: flex;
+  width: 35%;
+}
+
+.fillGapTextDiv{
+  width: 80%;
+  height: max-content;
+  text-align: center;
+}
+
+.fillGapTextDiv > span {
+  margin-bottom: 8px;
+  height: max-content;
+}
+
+.fillGapTextDiv >input{
+  width: 50px;
+  border: 1px rgba(0, 0, 0, 0.356) solid;
+  margin: 5px;
+}
+
+@media (max-width: 1300px) {
+  .gapfillDiv{
+    margin-top: var(--margin-xxl); 
+    width: 45%;
+
+    height: 440px;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+
+  .fillGapFormGapFill{
+    width: 100%;
+    height: max-content;
+    max-height: none;
+    min-width: min-content;
+  }
+
+  .gapFillAnswerList{
+    width: 100%;
+    justify-content: center;
+    margin: var(--margin-l) 0;
+  }
+
+
+}
+
+
+@media (max-width: 830px) {
+  .gapfillDiv{
+    /* margin-top: var(--margin-xxl); 
+    width: 45%;
+    height: 440px;
+    flex-direction: column;
+    overflow-y: auto; */
+
+    width: 100%;
+    margin-top: 0;
+    margin-top: var(--padding-xxs);
+  }
+}
+
+
+@media (max-width: 600px) {
+
+}

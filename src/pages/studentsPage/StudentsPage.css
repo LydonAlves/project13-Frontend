@@ -1,0 +1,108 @@
+.studentsPageSection{
+  display: flex;
+  height: 89svh;
+  justify-content: center;
+  align-items: center;
+  position: relative; 
+}
+
+.buttonsDateStudentsPage{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute; 
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+}
+
+.studentsPageYoutubeDiv{
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+
+.studentsPageYouTube{
+  display: flex;
+  margin-left: var(--margin-l);
+  padding-top: var(--padding-xl);
+  width: 400px;
+  height: max-content;
+}
+
+.studentsPageNoContentDiv{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: var(--gap-xs);
+  font-size: large;
+}
+
+.noActivityNotificationStudentPage{
+  font-weight: 600;
+text-align: center;
+padding: var(--padding-xl);
+}
+
+.howToButtonStudentsPage{
+ position: absolute;
+ bottom: 10px;
+ left: 10px;
+ height: 25px;   
+}
+
+.clearButtonSPage{
+  padding: var(--padding-xxs) var(--padding-xs);
+}
+
+
+@media (max-width: 1300px){
+  .studentsPageYoutubeDiv{
+    justify-content: space-evenly;
+  }
+
+}
+
+@media (max-width: 830px) {
+  .buttonsDateStudentsPage{
+    top: 8px;
+  }
+
+  .studentsPageYoutubeDiv{
+    flex-direction: column;
+    align-self: flex-end;
+    height: 90%;
+    width: 500px;
+    justify-content: center;
+    margin-bottom: var(--margin-xxs);    
+  }
+
+  .studentsPageYouTube{
+    width: 100%;
+    margin: 0;
+    justify-content: center;
+  }
+
+  .howToButtonStudentsPage{
+    top: 6px;
+    left: 10px;
+    height: 20px;  
+    font-size: 10px;
+
+
+   }
+}
+
+
+@media (max-width: 600px) {
+
+}
+
+
+@media (max-width: 480px) {
+
+}

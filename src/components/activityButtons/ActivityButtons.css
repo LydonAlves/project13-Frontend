@@ -1,0 +1,11 @@
+.activityButtonsDivSPage{
+  margin-top: var(--margin-s);
+  display: flex;
+  gap: var(--gap-s);
+}
+
+@media (max-width: 830px){
+  .activityButtonsDivSPage{
+    margin-top: var(--margin-xxs);
+  }
+}

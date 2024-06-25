@@ -1,0 +1,36 @@
+.createRule{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.addRuleTitle{
+font-size: 20px;
+font-weight: 600;
+margin-top: var(--margin-s);
+}
+
+.inputCreateRule{
+  width: 300px;
+  margin-top: var(--margin-xxs);
+}
+
+.textareaCreateRule{
+  width: 300px;
+  height: 100px;
+  margin: 10px 0px;
+}
+
+.buttonCreateRule{
+  padding: var(--padding-xxs) var(--padding-xs);
+  background: var(--button-color-001);
+  border: none;
+  font-size: 17px;
+  color: var(--color-000);
+}
+
+@media (max-width: 600px) {
+  .inputCreateRule, .textareaCreateRule{
+    width: 200px;
+  }
+}

@@ -1,0 +1,27 @@
+.divNavButtonsCreateExercise{
+  display: flex;
+  width: max-content;
+  gap: var(--gap-m);
+  justify-self: center;
+}
+
+.navButtonsCreateExercise{
+  width: max-content;
+  padding: var(--padding-xs) var(--padding-s);
+  background: var(--button-color-001);
+  color: var(--color-000);
+  font-weight: 600;
+  border: none;
+}
+
+.navButtonsCreateExercise:disabled{
+  background: var(  --button-color-000);
+  cursor: default;
+}
+
+@media (max-width: 600px) {
+  .navButtonsCreateExercise{
+    padding: var(--padding-xxs) var(--padding-xs);
+    font-size: 10px;
+  }
+}

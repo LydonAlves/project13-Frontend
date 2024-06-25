@@ -1,0 +1,250 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Rubik', sans-serif;
+  /* Above code "font-family" must be changed */
+}
+
+body {
+  margin: 0px;
+}
+
+main{
+  height: 100svh;
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+button{
+  cursor: pointer;
+}
+
+input{
+  outline: none;
+}
+
+:root {
+  /* COLORS */
+  --color-000: #ffffff;
+
+  /* blues */
+  /* could this be deactivated? */
+  /* --color-100: #e3f2fd; */
+  --color-101: #044CB8;
+  --color-102: #01377D;
+  --color-103: linear-gradient(180deg, #01377D 0%, #009DD1 100%);
+  --color-104: linear-gradient(90deg, #01377D 0%, #009DD1 100%);
+  --color-105: linear-gradient(0deg, #01377D 0%, #009DD1 100%);
+
+/* greens */
+/* could this be deactivated? */
+  /* --color-200: #e1f6f8;   */
+  --color-201: #7ED348;
+  --color-202: #26B170;
+  
+  --color-300: #EDEDED;
+  --color-301: #848484;
+  --color-302: #000000;
+
+  /* border grey */
+  --color-303: #00000067;
+
+
+  /* BUTTON COLOR */
+  --button-color-000:linear-gradient(90deg, #7dd348bb 0%, #26b17096 100%);
+  --button-color-001:linear-gradient(90deg, #7ED348 0%, #26B170 100%);
+  --button-color-002: #01377D;
+  --button-color-012: #0268ef;
+  --button-color-003: #FFFFFF;
+
+
+  /* SPACINGS */
+  --margin-xxxs: 3px;
+  --margin-xxs: 5px;
+  --margin-xs: 10px;
+  --margin-s: 20px;
+  --margin-m: 30px;
+  --margin-l: 40px;
+  --margin-xl: 50px;
+  --margin-xxl: 60px;
+
+  --padding-xxs: 5px;
+  --padding-xs: 10px;
+  --padding-s: 20px;
+  --padding-m: 30px;
+  --padding-l: 40px;
+  --padding-xl: 50px;
+  --padding-xxl: 60px;
+
+  --gap-xs: 10px;
+  --gap-s: 20px;
+  --gap-m: 30px;
+  --gap-l: 40px;
+  --gap-xl: 50px;
+  --gap-xxl: 60px;
+
+  --fontSize-xxs: 4px;
+  --fontSize-xs: 7px;
+  --fontSize-s: 10px;
+  --fontSize-m: 12px;
+  --fontSize-ml: 15px;
+
+
+  /* BORDER RADIUS */
+  --border-radius: 10px;
+  --border-radius-round: 25px;
+  --border-radius-circle: 50%;
+
+
+
+  --scrollbar-track-shadow: inset 0 0 5px grey;
+  --scrollbar-thumb-bg: #01377D;
+  --scrollbar-thumb-bg-background:#E5DCDC
+  --scrollbar-thumb-bg-hover: #b30000;
+  --scrollbar-track-bg: #f0f0f0;
+  --scrollbar-border-radius: 15px;
+  --scrollbar-width: 12px;
+}
+
+::-webkit-scrollbar {
+  width: 20px;
+}
+
+/* WebKit Browsers */
+::-webkit-scrollbar {
+  width: var(--scrollbar-width);
+  height: var(--scrollbar-width);
+  border-radius: var(--scrollbar-border-radius);  
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: var(--scrollbar-track-shadow); 
+  border-radius: var(--scrollbar-border-radius);
+
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb-bg); 
+  border-radius: var(--scrollbar-border-radius);
+}
+
+/* ---- GREEN BUTTON ----------------------------------- */
+.greenButtonColorOnly{
+  background: var(--button-color-001);
+  color: var(--color-000);
+  border: none;
+}
+
+.greenButtonColorOnlyUnselected{
+  background-color: var(--color-000);
+  border: solid 2px var(--color-202);
+  color: var(--color-202);
+}
+
+.largeGreenButton{
+  padding: var(--padding-xs) var(--padding-s);
+  background: var(--button-color-001);
+  color: var(--color-000);
+  border: solid 2px var(--button-color-001);
+}
+
+.largeGreenButtonUnselected{
+  padding: var(--padding-xs) var(--padding-s);
+  background-color: var(--color-000);
+  border: solid 2px var(--color-202);
+  color: var(--color-202);
+}
+
+.primaryGreenButton{
+  padding: var(--padding-xxs) var(--padding-xs);
+  background: var(--button-color-001);
+  color: var(--color-000);
+  border: solid 2px var(--button-color-001);
+}
+
+.primaryGreenButton:disabled{
+  padding: var(--padding-xxs) var(--padding-xs);
+  background: var(--button-color-000);
+  color: var(--color-000);
+  border: solid 2px var(--button-color-000);
+}
+
+.primaryGreenButtonUnselected{
+  padding: var(--padding-xxs) var(--padding-xs);
+  background-color: var(--color-000);
+  border: solid 2px var(--color-202);
+  color: var(--color-202);
+}
+
+/* ---- BLUE BUTTON ----------------------------------- */
+
+.largeBlueButton{
+  padding: var(--padding-xs) var(--padding-s);
+  background-color: var(--color-102);
+  color: var(--color-000);
+  border: 2px solid var(--color-102);
+}
+
+.largeBlueButtonUnselected{
+  padding: var(--padding-xs) var(--padding-s);
+  background-color: var(--color-000);
+  border: solid 2px var(--color-102);
+  color: var(--color-102);
+}
+
+
+.primaryBlueButton{
+  padding: var(--padding-xxs) var(--padding-xs);
+  background: var(--color-102);
+  color: var(--color-000);
+  border: 1px solid var(--color-102);
+}
+
+.primaryBlueButtonUnselected{
+  padding: var(--padding-xxs) var(--padding-xs);
+  background-color: var(--color-000);
+  border: solid 1px var(--color-102);
+  color: var(--color-102);
+}
+
+
+/* ---- HOW TO BUTTON ----------------------------------- */
+
+.howToButton{
+  border-radius: var(--border-radius-round);
+  padding: var(--padding-xxs) var(--padding-s);
+  border: none;
+  background-color: var(--color-301);
+  color: var(--color-000);
+  font-weight: 600;
+}
+
+
+
+
+
+@media (max-width: 830px) {
+
+}
+
+
+@media (max-width: 600px) {
+
+}
+
+
+@media (max-width: 480px) {
+
+}

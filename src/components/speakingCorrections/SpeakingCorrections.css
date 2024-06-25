@@ -1,0 +1,127 @@
+.voiceToTextCorrectonDiv{
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  height: 60%;
+  margin-right: var(--margin-xxl);
+}
+
+.questionAndAnswer{
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  align-items: center;
+  border: solid 1px var(--color-303);
+  padding: var(--padding-s);
+  margin-top: var(--margin-m);
+
+  height: max-content;
+  padding-bottom: var(--padding-m);
+}
+
+.questionText{
+  width: 100%;
+  font-weight: 600;
+  padding: var(--padding-s);
+  text-align: center;
+}
+
+.studentInputDiv{
+  overflow-y: auto;
+  text-align: center;
+}
+
+.errorsAndCorrections{
+  margin: var(--margin-xxs) 0px;
+  padding-bottom: var(--padding-xs);
+  font-weight: 600;
+  text-align: center;
+  font-size: 23px;
+
+}
+
+.errorsListDiv{
+  height: 365px;
+  width: 600px;
+  overflow-y: auto;
+  padding-right: var(--padding-xs);
+}
+
+
+.voiceToTextErrorDiv{
+  margin-bottom: var(--margin-s);
+  border-radius: var(--border-radius);
+ padding: var(--padding-xxs);
+}
+
+.voiceToTextErrorDiv>p{
+padding-left: 8px;
+}
+
+.error{
+  padding: 8px 0px;
+  background-color: rgba(255, 0, 0, 0.726);
+  color: var(--color-000);
+  font-weight: 600;
+}
+
+.correction{
+  padding: var(--padding-xs) 0;
+  background-color: rgba(0, 128, 0, 0.26);
+}
+
+.explanation{
+  background-color: rgba(0, 128, 0, 0.26);
+  padding-bottom: var(--padding-xs);
+}
+
+@media (max-width: 1400px) {
+  .voiceToTextCorrectonDiv{
+    width: 90%;
+    gap: var(--gap-l);
+    margin-right: 0;
+  }
+
+  .questionAndAnswer{
+    min-width: 300px;
+  }
+}
+
+@media (max-width: 1000px) {
+  
+  .errorsListDiv{
+    width: 400px;
+  }
+}
+
+
+@media (max-width: 830px) {
+  .voiceToTextCorrectonDiv{
+    height: 600px;
+    overflow-y: auto;
+    flex-direction: column;
+    align-items: center;
+    margin: var(--margin-s) 0;
+  }
+
+  .errorsListContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .errorsListDiv{
+    width: 80%;
+  }
+  
+}
+
+
+@media (max-width: 600px) {
+
+}
+
+
+@media (max-width: 480px) {
+
+}

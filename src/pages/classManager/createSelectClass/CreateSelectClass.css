@@ -1,0 +1,117 @@
+.createdClassContainer{
+  height: 400px;
+  width: 430px;
+  padding: var(--padding-xxs) var(--padding-xs);
+}
+
+.classSelectContainer{
+  padding: var(--padding-xs);
+  border: solid 1px var(--color-303);
+}
+
+.classSelectUl{
+  width: 100%;
+  height: 450px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+}
+
+.classTitle{
+  margin-bottom: var(--margin-xs);
+  text-align: center;
+}
+
+.createdClassDiv{
+  position: relative;
+  margin: var(--margin-xs) 0;
+  width: 350px;
+  height: 500px;
+  border: solid rgba(0, 0, 0, 0.521) 1px;
+  background-color: white;
+  padding: var(--padding-xxs) var(--padding-s); 
+}
+
+.classNameCreateSelectClass{
+  margin: var(--margin-xs) 0;
+}
+
+.buttonDivCreateSelectedClass,.buttonRemovePresent{
+  display: flex;
+  width: 100%;
+  margin-bottom: var(--margin-xxs);
+  gap: 5px;
+  margin-top: var(--margin-xs);
+}
+
+.buttonDivCreateSelectedClass{
+justify-content: flex-start;
+}
+
+.buttonRemovePresent{
+justify-content: flex;
+}
+
+.classGroupButton{
+  background-color: var(--color-102);
+  color: var(--color-000);
+  padding: var(--padding-xxs) var(--padding-xs);
+  border: none;
+}
+
+.deleteButton:hover{
+  background-color: red;
+}
+
+.seeClassCodeButton{
+  position: absolute;
+  font-size: 10px;
+  top: 10px;
+  right: 10px;
+
+}
+
+.seeClassCode{
+  margin: var(--margin-xs) 0px;
+  font-size: small;
+}
+
+
+
+@media (max-width: 1000px){
+  .classSelectUl{
+    height: 300px;
+  }
+}
+
+@media (max-width: 600px) {
+  .createdClassContainer{
+    width: 330px;
+    padding: 0 var(--padding-xs);
+  }
+  
+  .classSelectContainer{
+    width: 310px;
+    padding: var(--padding-xxs);
+  }
+  
+  .createdClassDiv{
+    width: 280px;
+  }
+  
+
+.assignedActivityTitle{
+  font-size: 10px;
+}
+
+  .buttonDivCreateSelectedClass{
+    flex-direction: column;
+    width: 100px;
+  }
+
+  .classGroupButton{
+    font-size: 10px;
+  }
+
+}

@@ -1,0 +1,70 @@
+.chosenActivityDiv{
+  background-color: var(--color-000);
+  display: flex;
+  flex-direction: column;
+  padding: var(--padding-s);
+  margin: 20px;
+  width: 340px;
+  border: solid 1px var(--color-303);
+  align-items: center;
+  height: 170px;
+}
+
+
+.activityCardActType{
+  margin-bottom: var(--margin-s);
+  margin-top: var(--margin-s);
+  font-weight: 600;
+}
+
+.activityCardButtonsDiv{
+  display: flex;
+  height: max-content;
+  align-items: center;
+  gap: var(--gap-xs);
+  margin-top: var(--margin-s);
+}
+
+
+.seeActivityButton, .removeActivitybutton{
+  width: 100px;
+  background-color: var(--color-102);
+  border: none;
+  color: var(--color-000);
+  padding: var(--padding-xxs);
+}
+
+.removeActivitybutton:hover{
+background-color: red;
+}
+
+@media (max-width: 740px) {
+  .chosenActivityDiv{
+    margin: 5px;
+    width: max-content;
+    padding: var(--padding-xxs) var(--padding-xs);
+    height: 100px;
+  }
+
+  .activityCardActType{
+    margin-bottom: var(--margin-xxs);
+    margin-top: var(--margin-xxs);
+    font-size: 12px;
+  }
+
+  .activityCardActTitle{
+    font-size: 12px;
+    margin-bottom: var(--margin-xxs);
+  }
+  
+  .activityCardButtonsDiv{
+    margin-top: var(--margin-xxs);
+  }
+  
+  
+  .seeActivityButton, .removeActivitybutton{
+    font-size: 10px;
+    width: max-content;
+    padding: var(--padding-xxs);
+  }
+}
