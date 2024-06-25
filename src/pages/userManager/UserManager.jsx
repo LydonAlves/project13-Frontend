@@ -24,17 +24,12 @@ const UserManager = () => {
   const [selectedGroup, setSelectedGroup] = useState()
   const [studentsInGroup, setStudentsInGroup] = useState([])
   const [loading, setLoading] = useState(false)
-
   const { userObj } = useAuth()
 
   let userType = userRoleSelected === "teacher" ? teachers : students
   let arrayForSearch = userObj && userObj.role === "teacher" ? studentsInGroup : userType
-
-  // console.log(users);
-  // console.log("teachers", teachers)
-  // console.log("students", students);
-
   const { searchQuery, search, filteredItems } = useSearch(arrayForSearch)
+
 
   //! Error settings done
   useEffect(() => {
@@ -50,7 +45,6 @@ const UserManager = () => {
       } catch (error) {
         console.error('Error fetching users:', error);
         toast.error(`Error: We had some difficulty loading data`)
-
       } finally {
         setLoading(false)
       }
@@ -71,7 +65,6 @@ const UserManager = () => {
     setStudents(studentList)
   }, [users]);
 
-
   //* Fetch teacher's groups
   //! Error settings done
   useEffect(() => {
@@ -84,7 +77,6 @@ const UserManager = () => {
       setLoading(true)
       try {
         const result = await fetchByUser("classGroup", userObj._id)
-        // console.log(result);
         if (result.error) {
           throw new Error(result.error);
         } else {
@@ -104,28 +96,16 @@ const UserManager = () => {
     }
   }, [userObj])
 
-
   useEffect(() => {
     if (!selectedGroup) {
       return
     }
-    console.log(students);
     const studentsByclass = students.filter(student => student.classGroup === selectedGroup._id)
-    console.log("students by class", studentsByclass);
     setStudentsInGroup(studentsByclass)
   }, [selectedGroup])
 
-
-
   //! Error settings done
   const deleteUser = async (user) => {
-    // try {
-    //   deleteByIdinDB("user", user._id)
-    //   setUpdate(true)
-    // } catch (error) {
-    //   // setErrorMessage('Failed to update role. Please try again.');
-    // }
-
     setLoading(true)
     try {
       const result = await deleteByIdinDB("user", user._id)
@@ -141,23 +121,12 @@ const UserManager = () => {
     } finally {
       setLoading(false)
     }
-
-
-
   }
 
   //! Error settings done
   const changeRole = async (user) => {
-    // console.log(user);
     const newRole = selectedUser.role === 'student' ? 'teacher' : 'student';
     const updatedData = { role: newRole }
-    // try {
-    //   await updateById("user", user._id, updatedData)
-    //   setUpdate(true)
-    // } catch (error) {
-    //   console.error('Failed to update role:', error);
-    // }
-
     setLoading(true)
     try {
       const result = await updateById("user", user._id, updatedData)
@@ -173,10 +142,8 @@ const UserManager = () => {
     } finally {
       setLoading(false)
     }
-
   }
 
-  // console.log(userRoleSelected)
 
   return (
     <section className="userManagerSection">

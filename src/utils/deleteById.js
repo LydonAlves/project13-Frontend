@@ -1,15 +1,12 @@
-export const deleteById = (id, setList) => {
-  console.log(id);
+import { backendURL } from "./backendURL";
 
+export const deleteById = (id, setList) => {
   setList(prev => prev.filter(item => item._id !== id && item.id !== id))
 }
 
 export const deleteByIdinDB = async (exerciseType, _id) => {
-  // console.log("Exercise type", exerciseType)
-  // console.log("Exercise id", _id);
-
   try {
-    const response = await fetch(`http://localhost:3000/api/v1/${exerciseType}/${_id}`, {
+    const response = await fetch(`${backendURL}${exerciseType}/${_id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'

@@ -1,6 +1,8 @@
+import { backendURL } from "../../../utils/backendURL";
+
 export const removeClassFromActivitiesById = async (classIDToRemove) => {
   try {
-    const response = await fetch(`http://localhost:3000/api/v1/classActivityByDate/removeClass/${classIDToRemove}`, {
+    const response = await fetch(`${backendURL}classActivityByDate/removeClass/${classIDToRemove}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
@@ -9,7 +11,6 @@ export const removeClassFromActivitiesById = async (classIDToRemove) => {
 
     if (response.status === 404) {
       console.warn(`No document found with classID ${classIDToRemove}.`);
-      // Return an empty object or a specific value to indicate no document was found
       return { message: `No document found with classID ${classIDToRemove}.` };
     }
 
@@ -18,7 +19,6 @@ export const removeClassFromActivitiesById = async (classIDToRemove) => {
     }
 
     const data = await response.json();
-    console.log(data);
     return data;
   } catch (error) {
     console.error(`Failed to update class activities:`, error);

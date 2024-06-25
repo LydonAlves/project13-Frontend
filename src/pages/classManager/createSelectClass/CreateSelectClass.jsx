@@ -10,8 +10,6 @@ const CreateSelectClass = ({ classList, setClassList, setUpdateClass, setUpdateR
   const [seeClassCodeToggle, setSeeClassCodeToggle] = useToggle(false)
   const [selectedClasses, setSelectedClasses] = useState([])
   const [classIndex, setClassIndex] = useState()
-  // const classNameRef = useRef()
-  const { userObj } = useAuth()
 
   useEffect(() => {
     setSelectedClasses([])
@@ -49,7 +47,6 @@ const CreateSelectClass = ({ classList, setClassList, setUpdateClass, setUpdateR
 
   const removeActivity = (classItem) => {
     const itemToUpdate = classList.find(classListItem => classListItem._id === classItem._id)
-    // console.log(itemToUpdate);
     setClassList(prev => prev.map(classListItem => {
       if (classListItem === itemToUpdate) {
         return { ...classListItem, activityObj: null }

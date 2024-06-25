@@ -18,8 +18,7 @@ export const INITIAL_VIDEO_STATE = {
 }
 
 export const videoReducer = (state, action) => {
-  // console.log(action.type);
-  // console.log(state);
+
   switch (action.type) {
     case 'UPDATE_VIDEO_PARAMS':
       return {

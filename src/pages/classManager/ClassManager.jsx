@@ -37,7 +37,6 @@ const ClassManager = () => {
   const { userObj } = useAuth()
   const classNameRef = useRef()
 
-
   //* This does the initial fetch of all data
   //! Error settings done 
   useEffect(() => {
@@ -70,7 +69,6 @@ const ClassManager = () => {
     fetchData()
     setUpdateRequired(false)
   }, [updateRequired, userObj])
-
 
   //*This sets an empty classlist object. class names and empty values
   useEffect(() => {
@@ -118,7 +116,6 @@ const ClassManager = () => {
 
   }, [dateSelected])
 
-
   //? This brings me an updated list after classes set or updated
   //! Error settings done
   useEffect(() => {
@@ -138,7 +135,6 @@ const ClassManager = () => {
       } finally {
         setLoading(false)
       }
-
 
       //! Error settings done
       if (classesForDay) {
@@ -289,9 +285,6 @@ const ClassManager = () => {
     }
   }
 
-
-
-
   return (
 
     <section className="classManagerSection">
@@ -332,7 +325,6 @@ const ClassManager = () => {
             </div>
           </div>
         </div>
-
 
         {classList && (
           <div className="createSelectClassDiv">

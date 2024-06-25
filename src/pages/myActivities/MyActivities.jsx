@@ -80,12 +80,9 @@ const MyActivities = () => {
   }, [gapFillExercises])
 
   useEffect(() => {
-    // console.log(activityTypeSelected);
     if (activityTypeSelected === "gapFill") {
-      // console.log("fillgap working");
       setActivityType(gapFillExercises)
     } else if (activityTypeSelected === "video") {
-      // console.log("video working");
       setActivityType(youTubeExercises)
     }
     else {
@@ -234,7 +231,6 @@ const MyActivities = () => {
       isActive: title ? true : false
     },
   ]
-
 
 
   return (

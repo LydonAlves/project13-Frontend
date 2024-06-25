@@ -1,3 +1,5 @@
+import { backendURL } from "../../../utils/backendURL"
+
 export const saveClassActivity = async (classActivity) => {
   const headers = {
     "Content-Type": "application/json"
@@ -5,7 +7,7 @@ export const saveClassActivity = async (classActivity) => {
 
   try {
     const response = await fetch(
-      `http://localhost:3000/api/v1/classActivity`,
+      `${backendURL}/v1/classActivity`,
       {
         method: "POST",
         headers: headers,

@@ -20,8 +20,6 @@ const TextInputsToBeSet = ({
   }
 
 
-  // console.log(inputsToFill);
-  // console.log(gapIndex);
   return (
     <>
       <div className="containerTextInputsToBeSet">

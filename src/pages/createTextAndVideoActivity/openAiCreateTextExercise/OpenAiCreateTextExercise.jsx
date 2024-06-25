@@ -7,6 +7,7 @@ import { saveCompleteExercise } from "../functionsCreateActivity/saveCompleteExe
 import { useAuth } from "../../../context/AuthContext";
 import { toast } from "react-toastify";
 import Loading from "../../../components/loading/Loading";
+import { backendURL } from "../../../utils/backendURL";
 
 
 const OpenAiCreateTextExercise = ({ resetCreateActivity }) => {
@@ -24,7 +25,7 @@ const OpenAiCreateTextExercise = ({ resetCreateActivity }) => {
   const handleSubmit = async () => {
     setLoading(true)
     try {
-      const res = await fetch('http://localhost:3000/api/v1/openai/createExamAi', {
+      const res = await fetch(`${backendURL}v1/openai/createExamAi`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import Loading from "../../components/loading/Loading";
 import { useNavigate } from "react-router-dom";
 import { StartPageContext } from './../../context/StartPageContext';
+import { backendURL } from "../../utils/backendURL";
 
 const LoginRegister = () => {
   const [register, toggleRegister] = useToggle();
@@ -29,7 +30,7 @@ const LoginRegister = () => {
     };
     setLoading(true)
     try {
-      const response = await fetch("http://localhost:3000/api/v1/user/login", {
+      const response = await fetch(`${backendURL}api/v1/user/login`, {
         method: "POST",
         headers: headers,
         body: JSON.stringify({ email, password })

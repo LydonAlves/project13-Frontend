@@ -52,15 +52,12 @@ const PreviousSpeakingCorrections = () => {
     }
   }, [allSpeakingCorrections])
 
-
-
   useEffect(() => {
     if (answersToShow) {
       let chosenDate = formatDate(answersToShow.date)
       setDateOfCorrections(chosenDate)
     }
   }, [answersToShow])
-  // console.log(needHelp);
 
 
   return (

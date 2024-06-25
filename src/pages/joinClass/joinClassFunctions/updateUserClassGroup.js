@@ -1,10 +1,12 @@
+import { backendURL } from "../../../utils/backendURL";
+
 export const updateUserClassGroup = async (userId, classGroup) => {
   const headers = {
     "Content-Type": "application/json"
   }
 
   try {
-    const response = await fetch(`http://localhost:3000/api/v1/user/${userId}`, {
+    const response = await fetch(`${backendURL}v1/user/${userId}`, {
       method: "PUT",
       headers: headers,
       body: JSON.stringify({ classGroup })

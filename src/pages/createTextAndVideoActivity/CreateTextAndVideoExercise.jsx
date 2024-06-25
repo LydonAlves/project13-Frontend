@@ -80,7 +80,6 @@ const CreateTextAndVideoExercise = () => {
     if (videoData === "") {
       return
     }
-
     const mediaQuery = window.matchMedia('(max-width: 600px)');
     mediaQuery.addEventListener('change', handleScreenChange);
     if (mediaQuery.matches && videoData.opts.width === "500px") {
@@ -92,8 +91,7 @@ const CreateTextAndVideoExercise = () => {
       mediaQuery.removeEventListener('change', handleScreenChange);
     };
   }, [videoData]);
-  // console.log("video data", videoData);
-  // console.log(typeof videoData);
+
 
   //! Error settings done
   useEffect(() => {
@@ -158,19 +156,12 @@ const CreateTextAndVideoExercise = () => {
   const submitRuleForm = async (e) => {
     e.preventDefault()
 
-    // const newRule = await createRule()
-    // if (newRule === undefined) {
-    //   return
-    // }
     setLoading(true)
     try {
       const result = await createRule()
       if (result.error) {
         throw new Error(result.error);
       }
-      // else {
-      //   setSomething(result)
-      // }
     } catch (error) {
       console.error('Error saving saving the rule:', error);
       toast.error(`Error: Could not save the rule`)
@@ -213,7 +204,6 @@ const CreateTextAndVideoExercise = () => {
 
     const exercise = createNewExercise(finalText, inputsToFill, userId, videoObj)
     const endpoint = videoData !== "" ? 'videoExercise' : 'gapfillText';
-    // console.log(endpoint);
     //!--------------------------------------------
     setLoading(true)
     try {
@@ -229,8 +219,6 @@ const CreateTextAndVideoExercise = () => {
     } finally {
       setLoading(false)
     }
-
-    // saveCompleteExercise(exercise, setSavedFinalExercise)
     chooseStepOfProcess("finishedTask")
   }
 
@@ -285,9 +273,6 @@ const CreateTextAndVideoExercise = () => {
   ]
 
   const activityButtonArray = setUpButtons.filter(info => !(activityType === "fillGapText" && info.id === 1))
-
-  console.log(activityType);
-
 
 
   return (

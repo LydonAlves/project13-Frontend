@@ -1,6 +1,8 @@
+import { backendURL } from "./backendURL";
+
 export const updateById = async (exerciseType, _id, updatedData) => {
   try {
-    const response = await fetch(`http://localhost:3000/api/v1/${exerciseType}/${_id}`, {
+    const response = await fetch(`${backendURL}${exerciseType}/${_id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'

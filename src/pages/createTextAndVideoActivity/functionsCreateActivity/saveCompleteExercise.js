@@ -1,10 +1,11 @@
+import { backendURL } from "../../../utils/backendURL";
 
 export const saveCompleteExercise = async (exercise, endpoint) => {
   const headers = {
     "Content-Type": "application/json"
   }
 
-  const apiUrl = `http://localhost:3000/api/v1/${endpoint}`;
+  const apiUrl = `${backendURL}/v1/${endpoint}`;
 
   try {
     const response = await fetch(apiUrl,

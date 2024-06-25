@@ -1,6 +1,5 @@
 import "./ActivityCardClassManager.css"
 
-
 const ActivityCardClassManager = ({
   removeActivity,
   activityName,

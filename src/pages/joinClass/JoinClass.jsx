@@ -13,9 +13,6 @@ const JoinClass = () => {
   const { userObj } = useAuth()
   const idInputRef = useRef()
 
-  // console.log("current class", currentClass);
-  // console.log("userObj", userObj);
-
   //! Error settings done
   const submitId = async () => {
     let classId = idInputRef.current.value
@@ -24,7 +21,6 @@ const JoinClass = () => {
 
     try {
       const result = await updateUserClassGroup(userId, classId)
-
       if (result.error) {
         throw new Error(result.error);
       } else {
@@ -46,7 +42,6 @@ const JoinClass = () => {
       setLoading(true)
       try {
         const result = await fetchById("classGroup", userObj.classGroup)
-        // console.log(result);
         if (result.error) {
           throw new Error(result.error);
         } else {
@@ -63,9 +58,6 @@ const JoinClass = () => {
       fetchClass()
     }
   }, [userObj])
-
-
-
 
   return (
     <section className="joinClassSection">

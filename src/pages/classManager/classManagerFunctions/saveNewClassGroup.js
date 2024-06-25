@@ -1,12 +1,13 @@
+import { backendURL } from "../../../utils/backendURL"
+
 export const saveNewClassGroup = async (classGroup) => {
   const headers = {
     "Content-Type": "application/json"
   }
-  console.log(classGroup);
 
   try {
     const response = await fetch(
-      `http://localhost:3000/api/v1/classGroup`,
+      `${backendURL}/classGroup`,
       {
         method: "POST",
         headers: headers,

@@ -6,7 +6,7 @@ const UserSearchBar = ({
   filteredItems,
   setSelectedUser
 }) => {
-  // console.log(filteredItems);
+
   return (
     <>
       <h3 className="userSearchBarTitle">Search</h3>

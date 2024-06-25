@@ -7,6 +7,5 @@ export const createSegmentsFromText = (text) => {
     .filter((_, index) => index < segments.length - 1)
     .map((_, index) => (index + 1).toString())
 
-  // console.log(segments);
   return { segments, initialInputs }
 }

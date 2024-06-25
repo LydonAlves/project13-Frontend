@@ -1,12 +1,13 @@
+import { backendURL } from "../../../utils/backendURL"
+
 export const saveActivityToClassGroup = async (classList) => {
   const headers = {
     "Content-Type": "application/json"
   }
-  // console.log(classList);
 
   try {
     const response = await fetch(
-      `http://localhost:3000/api/v1/classActivityByDate`,
+      `${backendURL}classActivityByDate`,
       {
         method: "POST",
         headers: headers,

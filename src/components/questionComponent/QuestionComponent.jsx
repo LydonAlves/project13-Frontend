@@ -3,7 +3,6 @@ import { useState } from 'react'
 const QuestionComponent = ({ questions }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
   const [questionAnswer, setQuestionAnswer] = useState("")
-  // console.log(questionAnswer);
 
 
   const nextQuestion = () => {
