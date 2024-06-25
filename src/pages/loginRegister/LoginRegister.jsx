@@ -67,7 +67,7 @@ const LoginRegister = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:3000/api/v1/user/register", {
+      const response = await fetch(`${backendURL}/api/v1/user/register`, {
         method: "POST",
         headers: headers,
         body: JSON.stringify({ userName, email, password, country })
