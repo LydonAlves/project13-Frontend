@@ -41,7 +41,6 @@ const MyActivities = () => {
   const currentDate = useContext(DateContext)
   const { userObj } = useAuth()
 
-  //! Error settings done
   useEffect(() => {
     setSelectedId(0)
     const fetchExercises = async () => {
@@ -135,7 +134,7 @@ const MyActivities = () => {
     }
   }
 
-  //! Error settings done
+
   const saveQuestion = () => {
     if (questionList.length === 3) {
       toast.error(`You can have a max of three questions`)
@@ -154,7 +153,7 @@ const MyActivities = () => {
     }
   }
 
-  //! Error settings done
+
   const saveActivity = async () => {
     let activitiesID = {
       gapFill: activities.gapFill._id,

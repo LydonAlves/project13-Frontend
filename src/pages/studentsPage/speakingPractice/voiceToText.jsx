@@ -26,7 +26,6 @@ const AudioRecorder = ({ questions }) => {
   const { userObj } = useAuth()
   const currentDate = useContext(DateContext)
 
-
   const extractDate = (isoString) => {
     return isoString.split('T')[0];
   };

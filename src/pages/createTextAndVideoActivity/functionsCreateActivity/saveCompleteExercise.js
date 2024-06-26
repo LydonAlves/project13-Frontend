@@ -5,7 +5,7 @@ export const saveCompleteExercise = async (exercise, endpoint) => {
     "Content-Type": "application/json"
   }
 
-  const apiUrl = `${backendURL}/v1/${endpoint}`;
+  const apiUrl = `${backendURL}${endpoint}`;
 
   try {
     const response = await fetch(apiUrl,

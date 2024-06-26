@@ -24,7 +24,7 @@ const OpenAiCreateTextExercise = ({ resetCreateActivity }) => {
   const handleSubmit = async () => {
     setLoading(true)
     try {
-      const res = await fetch(`${backendURL}v1/openai/createExamAi`, {
+      const res = await fetch(`${backendURL}openai/createExamAi`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
