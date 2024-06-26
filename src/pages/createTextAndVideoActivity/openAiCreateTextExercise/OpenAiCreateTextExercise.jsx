@@ -46,6 +46,7 @@ const OpenAiCreateTextExercise = ({ resetCreateActivity }) => {
     }
   };
 
+
   const saveActivity = async (data) => {
     const userId = userObj._id
     let finalText = data.gapFill.textObj

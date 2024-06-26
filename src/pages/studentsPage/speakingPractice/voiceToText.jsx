@@ -7,6 +7,7 @@ import { useAuth } from "../../../context/AuthContext";
 import SpeakingCorrections from "../../../components/speakingCorrections/SpeakingCorrections";
 import Loading from "../../../components/loading/Loading";
 import { fetchByUser } from "../../../utils/fetchByUser";
+import { backendURL } from "../../../utils/backendURL";
 
 const AudioRecorder = ({ questions }) => {
   const date = useContext(DateContext)
@@ -31,7 +32,6 @@ const AudioRecorder = ({ questions }) => {
   };
   const currentDateWithoutTime = extractDate(currentDate)
 
-  //? This fetches the previous corrections if any
   useEffect(() => {
     const fetchCorrections = async () => {
       setLoading(true)
@@ -61,7 +61,6 @@ const AudioRecorder = ({ questions }) => {
   useEffect(() => {
     if (todaysCorrections.length > 0) {
       const corrections = todaysCorrections.find(item => item.question.id === question.id)
-      // console.log("correction by id", corrections);
       setAnswersToShow(corrections)
     }
 
@@ -130,9 +129,7 @@ const AudioRecorder = ({ questions }) => {
       setAudio(audioUrl);
 
       const file = new File([audioBlob], 'recording.webm', { type: 'audio/webm' });
-      // console.log('Converted audio file:', file);
       setAudioFile(file)
-
       setAudioChunks([]);
 
     };
@@ -145,7 +142,7 @@ const AudioRecorder = ({ questions }) => {
       setLoading(true)
 
       try {
-        const response = await fetch('http://localhost:3000/api/v1/openai/uploadTranscribe', {
+        const response = await fetch(`${backendURL}openai/uploadTranscribe`, {
           method: "POST",
           body: formData
         });
