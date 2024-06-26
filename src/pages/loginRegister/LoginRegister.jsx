@@ -30,7 +30,7 @@ const LoginRegister = () => {
     };
     setLoading(true)
     try {
-      const response = await fetch(`${backendURL}api/v1/user/login`, {
+      const response = await fetch(`${backendURL}user/login`, {
         method: "POST",
         headers: headers,
         body: JSON.stringify({ email, password })
