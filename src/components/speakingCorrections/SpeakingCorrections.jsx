@@ -1,10 +1,10 @@
 import "./SpeakingCorrections.css"
 
 const SpeakingCorrections = ({ answersToShow }) => {
+  console.log("answers to show", answersToShow);
 
   return (
     <div className="voiceToTextCorrectonDiv">
-
       <div className="questionAndAnswer">
         <p className="questionText">{answersToShow.question.text}</p>
         <div className="studentInputDiv">

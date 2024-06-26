@@ -119,6 +119,7 @@ const AudioRecorder = ({ questions }) => {
     };
     setAudioChunks(localAudioChunks);
   };
+  console.log("audio chunk", audioChunks);
 
   const stopRecording = () => {
     setRecordingStatus("inactive");
@@ -149,6 +150,8 @@ const AudioRecorder = ({ questions }) => {
 
         const result = await response.json()
 
+        console.log("speaking corrections", result);
+
         let speakingResult = {
           question: question,
           corrections: result.jsonObject,
@@ -168,9 +171,6 @@ const AudioRecorder = ({ questions }) => {
     setAudio(null)
   }
 
-
-
-  // console.log(answersToShow);
   return (
     <>
       <Loading
