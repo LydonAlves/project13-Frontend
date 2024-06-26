@@ -13,7 +13,6 @@ const JoinClass = () => {
   const { userObj } = useAuth()
   const idInputRef = useRef()
 
-  //! Error settings done
   const submitId = async () => {
     let classId = idInputRef.current.value
     let userId = userObj.user._id
@@ -36,7 +35,7 @@ const JoinClass = () => {
     }
   }
 
-  //! Error settings done
+
   useEffect(() => {
     const fetchClass = async () => {
       setLoading(true)
