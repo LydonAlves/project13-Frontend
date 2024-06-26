@@ -5,7 +5,7 @@ import "./StartPage.css"
 const StartPage = () => {
   const navigate = useNavigate()
   const startFunction = () => {
-    navigate('api/v1/login-register')
+    navigate('/login-register')
   }
 
   return (
