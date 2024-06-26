@@ -7,7 +7,7 @@ const RuleSearchBar = ({
   updateRuleInGap
 }) => {
 
-  // console.log(filteredItems);
+
   return (
     <div className="searchBarRules">
       <div className="searchTitleAndInput">
