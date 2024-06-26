@@ -1,6 +1,6 @@
 import { backendURL } from "./backendURL";
 
-export const fetchByRole = async (url, userRole, setItem) => {
+export const fetchByRole = async (url, userRole) => {
   try {
     const response = await fetch(`${backendURL}${url}/by-userRole/${userRole}`);
     if (!response.ok) {
@@ -8,7 +8,7 @@ export const fetchByRole = async (url, userRole, setItem) => {
     }
 
     const data = await response.json();
-    // setItem(data ? data : [])
+
     return data
   } catch (error) {
     console.error(`Error fetching ${url}:`, error);
