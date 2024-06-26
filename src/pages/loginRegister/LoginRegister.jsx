@@ -28,6 +28,7 @@ const LoginRegister = () => {
     const headers = {
       "Content-Type": "application/json"
     };
+
     setLoading(true)
     try {
       const response = await fetch(`${backendURL}user/login`, {
@@ -86,7 +87,6 @@ const LoginRegister = () => {
     }
   };
 
-
   const navigateToInitialPage = () => {
     if (userLoggedIn.role === "admin" || userLoggedIn.role === "teacher") {
       navigate('/create-exercise')
@@ -102,8 +102,6 @@ const LoginRegister = () => {
       setUserLoggedIn(userObj)
     }
   }, [userObj])
-
-
 
   return (
     <section className="loginSection">
