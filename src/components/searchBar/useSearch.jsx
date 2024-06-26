@@ -2,14 +2,11 @@ import { useMemo, useState } from "react"
 
 const useSearch = (array) => {
   const [searchQuery, setSearchQuery] = useState("")
-  // console.log(array);
 
   const search = (value) => {
     setSearchQuery(value)
   }
 
-  //*use useMemo here because this function has to do calculations, we don't want it to change every time
-  //* something on the page changes, rather only when info pertaining to it changes
   const filteredItems = useMemo(() => {
     if (array.length === 0) {
       return
@@ -24,8 +21,6 @@ const useSearch = (array) => {
     }
 
   }, [array, searchQuery]);
-
-
 
 
   return {

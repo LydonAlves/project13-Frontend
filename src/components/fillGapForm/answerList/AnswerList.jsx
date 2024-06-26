@@ -10,12 +10,10 @@ const AnswerList = ({ answerList, handleExplanationToggle, inputs, showExplanati
             <li className="answerDiv" key={index}>
               <div className="studentAnswerGapFill">
                 <p>{index + 1}. {inputs[index].answer}</p>
-
                 <button
                   onClick={() => handleExplanationToggle(index)}
                   className="answerListButtonGapfill primaryBlueButton">See Answer</button>
               </div>
-
               <div className="individualAnswerDiv">
                 {showExplanationIndex === index ? (
                   <>

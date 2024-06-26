@@ -5,8 +5,7 @@
 }
 
 .answerListDiv{
-  padding: var(--padding-s);
-  
+  padding: var(--padding-s); 
   border: solid 1px var(--color-303);
 }
 
@@ -15,7 +14,6 @@
   padding-right: var(--padding-xs);
   overflow-y: auto;
 }
-
 
 .studentAnswer{
   text-align: center;
@@ -54,9 +52,6 @@
   font-size: 12px;
 }
 
-
-
-
 .isCorrect,.incorrect{
   font-size: 17px;
   font-weight: 600;
@@ -64,9 +59,9 @@
 }
 
 .isCorrect{
-  color: rgb(1, 156, 1);
+  color: var(--color-401);
 }
 
 .incorrect{
-  color: red;
+  color: var(--color-400);
 } 

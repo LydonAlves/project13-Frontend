@@ -4,7 +4,6 @@ const CreateGapFillExplanation = ({ activitySetupStage, setNeedHelp, needHelp })
 
   return (
     <>
-
       {activitySetupStage === "AIfillGapText" && needHelp === true && (
         <div className="gapFillExampleDiv">
           <h1 className="titleCreateExExplanation">How to create a gap fill exercise by AI</h1>
@@ -15,7 +14,6 @@ const CreateGapFillExplanation = ({ activitySetupStage, setNeedHelp, needHelp })
           <button className="closeButtonCreateExp" onClick={() => setNeedHelp(false)}>GOT IT</button>
         </div>
       )}
-
 
       {activitySetupStage === "youTubeFillGap" && needHelp === true && (
         <div className="gapFillExampleDiv">

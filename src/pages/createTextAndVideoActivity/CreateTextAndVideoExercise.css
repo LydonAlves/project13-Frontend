@@ -11,7 +11,7 @@
 .welcomeCreateActivity{
   position: absolute;
   width: 100%;
-  background-color: white;
+  background-color: var(--color-000);
   height:100%;
   z-index: 999;
   display: flex;
@@ -126,10 +126,6 @@ margin-top: var(--margin-l);
     font-size: 26px;
   }
 
-  /* .aiH1{
-    margin-bottom: var(--margin-l);
-  } */
-
   .chooseExerciseDiv{
     height: max-content;
     margin-bottom: var(--margin-m);
@@ -142,7 +138,6 @@ margin-top: var(--margin-l);
 }
 
 /* ------------------------- */
-/* Dont change height */
 .mainContentDivCreateExercise{
   display: flex;
   justify-content: center;
@@ -194,7 +189,6 @@ margin-top: var(--margin-l);
   width: 75%;
   height: 95%;
   justify-content: center;
-  /* background-color: bisque; */
 }
 
 @media (max-width: 900px) {
@@ -400,7 +394,6 @@ margin-top: var(--margin-l);
     align-items: center;
     height: 500px;
     height: 100%;
-    /* overflow-y: auto; */
   }
 
   .GapFillSavedFinalTextDiv{
@@ -441,8 +434,6 @@ margin-top: var(--margin-l);
     overflow-y: scroll;
   }
 }
-
-
 
 /* --------------------------------------------- */
 .nextButtonsDiv{

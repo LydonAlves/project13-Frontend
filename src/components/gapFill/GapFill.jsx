@@ -6,15 +6,11 @@ import AnswerList from '../../components/fillGapForm/answerList/AnswerList'
 import { checkIfInputsFull } from '../../components/fillGapForm/fillGapFormFunctions/checkIfInputsFull'
 import { updateAnswers } from '../../components/fillGapForm/fillGapFormFunctions/updateAnswers'
 
-
 const GapFill = ({ chosenText, inputs, setInputs }) => {
   const [answers, setAnswers] = useState([])
   const [textAndTitle, setTextAndTitle] = useState("")
   const [text, setText] = useState("")
   const [initialAnswersSubmitted, setInitialAnswersSubmitted] = useState(false)
-  console.log("chosen text", chosenText);
-  console.log("inputs", inputs);
-
 
   useEffect(() => {
     setAnswers(chosenText.answers)
@@ -29,8 +25,6 @@ const GapFill = ({ chosenText, inputs, setInputs }) => {
   }, [])
 
 
-  //?---needed in other pages
-  //todo ----- answers block---------------------------------------
   const [answerList, setAnswerList] = useState(answers || [])
   useEffect(() => {
     setAnswerList(answers)
@@ -38,13 +32,7 @@ const GapFill = ({ chosenText, inputs, setInputs }) => {
 
 
   const [showExplanationIndex, setShowExplanationIndex] = useState(null)
-  //todo ----- answers block---------------------------------------
-
-
-  //?---initial inputs is necessary to have the number of inputs and compare them
-  //todo ----- inputs block---------------------------------------
   const { initialInputs } = createSegmentsFromText(text)
-  // const [inputs, setInputs] = useState([])
 
   const handleInputChange = (index, e) => {
     const updateInputs = [...inputs]
@@ -54,8 +42,6 @@ const GapFill = ({ chosenText, inputs, setInputs }) => {
     }
     setInputs(updateInputs)
   }
-  //todo ----- inputs block---------------------------------------
-
 
   const submitGapFillExercise = (e) => {
     e.preventDefault()

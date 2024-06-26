@@ -67,7 +67,7 @@ const LoginRegister = () => {
     };
 
     try {
-      const response = await fetch(`${backendURL}/api/v1/user/register`, {
+      const response = await fetch(`${backendURL}user/register`, {
         method: "POST",
         headers: headers,
         body: JSON.stringify({ userName, email, password, country })
@@ -95,7 +95,6 @@ const LoginRegister = () => {
       navigate('/students-page')
       setStartPage(false)
     }
-
   }
 
   useEffect(() => {
@@ -124,8 +123,6 @@ const LoginRegister = () => {
             {!userLoggedIn && (
               <p className="signInTitle">{!register ? 'Sign into your account' : 'Register an account'}</p>
             )}
-
-
             {!register && (
               !userLoggedIn ? (
                 <form onSubmit={submitLogin} className="loginForm" >

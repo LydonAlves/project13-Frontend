@@ -1,10 +1,12 @@
+import { backendURL } from './../../../utils/backendURL';
+
 export const saveSpeakingCorrection = async (exercise, setCorrectedTextArray) => {
   const headers = {
     "Content-Type": "application/json"
   }
 
   try {
-    const response = await fetch("http://localhost:3000/api/v1/speakingCorrection",
+    const response = await fetch(`${backendURL}speakingCorrection`,
       {
         method: "POST",
         headers: headers,

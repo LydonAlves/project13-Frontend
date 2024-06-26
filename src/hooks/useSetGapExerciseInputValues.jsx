@@ -1,11 +1,9 @@
 import { useContext, useState } from "react"
 import { DateContext } from '../context/DateContext';
 
-
 const useSetGapExerciseInputValues = () => {
   const [gapIndex, setGapindex] = useState(null)
   const date = useContext(DateContext)
-
 
   const updateGapIndex = (value) => {
     setGapindex(value)
@@ -13,7 +11,6 @@ const useSetGapExerciseInputValues = () => {
 
   const createNewExercise = (finalText, inputsToFill, userId, videoObj) => {
     if (videoObj) {
-      console.log("save video working");
       return {
         dateCreated: date,
         textObj: finalText,
@@ -22,7 +19,6 @@ const useSetGapExerciseInputValues = () => {
         createdBy: userId
       }
     } else {
-      console.log("save text Working");
       return {
         answers: inputsToFill,
         dateCreated: date,
@@ -31,7 +27,6 @@ const useSetGapExerciseInputValues = () => {
       }
     }
   }
-
 
   return {
     gapIndex,

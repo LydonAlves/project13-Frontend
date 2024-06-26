@@ -1,7 +1,7 @@
 import "./PageExplanation.css"
 
 const PageExplanation = ({ setNeedHelp, info }) => {
-  console.log(info[0]);
+
   return (
     <div className="classManagerExampleDiv">
       <p className="pageExpTitle">{info[0].title} </p>

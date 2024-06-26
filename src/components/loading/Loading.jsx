@@ -4,7 +4,6 @@ import "./Loading.css"
 
 const Loading = ({ loading }) => {
 
-
   return (
     <>
       {loading === true && (

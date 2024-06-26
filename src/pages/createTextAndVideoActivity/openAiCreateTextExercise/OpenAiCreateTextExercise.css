@@ -94,7 +94,6 @@ font-size: 30px;
   padding: var(--padding-xxs) var(--padding-xs) ;
 }
 
-
 .mockupAnswerListContainer{
   display: flex;
   flex-direction: column;
@@ -142,9 +141,6 @@ font-size: 30px;
   .inputCreateTextOpenai{
     font-size: 10px;
   }
-
-
-
 }
 
 

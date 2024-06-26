@@ -103,7 +103,7 @@
 .showActivitiesClassManager{
   position: absolute;
   z-index: 999;
-  background-color: white;
+  background-color: var(--color-000);
   height: 90%;
   width: 90%;
   top: 53%;
@@ -176,7 +176,6 @@
   .saveChangesButton{
     font-size: 10px;
   }
-
 }
 
 @media (max-width: 1000px) {

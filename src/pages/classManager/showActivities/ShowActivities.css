@@ -23,7 +23,7 @@
   width: 97%;
   display: flex;
   flex-direction: column;
-  border: solid rgba(0, 0, 0, 0.247) 1px;
+  border: solid var(--color-302) 1px;
   padding: var(--padding-xs);
 }
 
@@ -74,10 +74,6 @@
   }
 }
 
-/* @media (max-width: 830px) {
-
-} */
-
 
 @media (max-width: 600px) {
   .showActivitiesDiv{
@@ -94,7 +90,6 @@
   .myActivitiesContainer{
     padding: var(--padding-xs);
     border: solid 1px var(--color-303);
-   
     width: 310px;
   }
 
@@ -105,10 +100,8 @@
     padding: var(--padding-xs);
     flex-direction: column;  
     overflow-y: auto;
-
     width: 300px;
-    margin-bottom: var(--margin-xs);
-   
+    margin-bottom: var(--margin-xs); 
   }
   
   .showActivitiesLi{
@@ -143,6 +136,3 @@
 }
 
 
-@media (max-width: 480px) {
-
-}

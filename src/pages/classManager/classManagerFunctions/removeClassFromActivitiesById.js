@@ -10,7 +10,6 @@ export const removeClassFromActivitiesById = async (classIDToRemove) => {
     });
 
     if (response.status === 404) {
-      console.warn(`No document found with classID ${classIDToRemove}.`);
       return { message: `No document found with classID ${classIDToRemove}.` };
     }
 

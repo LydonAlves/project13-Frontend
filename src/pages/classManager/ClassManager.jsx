@@ -17,7 +17,7 @@ import Loading from "../../components/loading/Loading"
 import PageExplanation from "../../components/pageExplanation/PageExplanation"
 import { infoForClassManager } from "../../components/pageExplanation/infoForexplanations/infoForExplanations"
 import { v4 as uuidv4 } from 'uuid';
-// import useToggle from "../../hooks/useToggle"
+
 
 const ClassManager = () => {
   const [updateRequired, setUpdateRequired] = useState(true)
@@ -37,8 +37,7 @@ const ClassManager = () => {
   const { userObj } = useAuth()
   const classNameRef = useRef()
 
-  //* This does the initial fetch of all data
-  //! Error settings done 
+
   useEffect(() => {
     if (updateRequired === false) {
       return
@@ -70,7 +69,7 @@ const ClassManager = () => {
     setUpdateRequired(false)
   }, [updateRequired, userObj])
 
-  //*This sets an empty classlist object. class names and empty values
+
   useEffect(() => {
     if (!classList) {
       return
@@ -81,7 +80,7 @@ const ClassManager = () => {
   }, [classList]);
 
 
-  //* This sets the classes for the startup day
+
   useEffect(() => {
     if (!oneUse && classByDate && classByDate.length > 0) {
       setOneUse(false)
@@ -116,8 +115,7 @@ const ClassManager = () => {
 
   }, [dateSelected])
 
-  //? This brings me an updated list after classes set or updated
-  //! Error settings done
+
   useEffect(() => {
     const checkUpdatedClasses = async () => {
       setLoading(true)
@@ -136,7 +134,7 @@ const ClassManager = () => {
         setLoading(false)
       }
 
-      //! Error settings done
+
       if (classesForDay) {
         setLoading(true)
         try {
@@ -189,7 +187,7 @@ const ClassManager = () => {
     setUpdateNeeded(true)
   }
 
-  //! Error settings done
+
   const saveClassesUpdated = async () => {
     setUpdateNeeded(false)
 
@@ -199,9 +197,8 @@ const ClassManager = () => {
         date: dateSelected.toISOString(),
         createdBy: userObj._id
       }
-      let classByDateId = classByDate._id
 
-      //! Error settings done
+      let classByDateId = classByDate._id
       setLoading(true)
       try {
         const result = await updateById("classActivityByDate", classByDateId, classesUpdate)
@@ -225,7 +222,6 @@ const ClassManager = () => {
         createdBy: userObj._id
       }
 
-      //! Error settings done
       setLoading(true)
       try {
         const result = await saveActivityToClassGroup(classesUpdated)
@@ -251,7 +247,7 @@ const ClassManager = () => {
     return formattedDate
   }
 
-  //* move this to its own file
+
   const createNewClass = async () => {
     if (classNameRef.current.value !== "") {
       let classGroup = {
@@ -266,7 +262,6 @@ const ClassManager = () => {
         return [...prev, classGroup]
       })
 
-      //! Error settings done
       setLoading(true)
       try {
         const result = await saveNewClassGroup(classGroup)
@@ -286,13 +281,11 @@ const ClassManager = () => {
   }
 
   return (
-
     <section className="classManagerSection">
       <Loading
         loading={loading}
       />
       <h1 className="H1ClassManager">Class Manager</h1>
-
       <div className="mainContentClassManager">
         <div className="calendarAndCreateClassInputDiv">
           <h1 className="classDetailsTitle">CLASS DETAILS</h1>
@@ -347,7 +340,6 @@ const ClassManager = () => {
           />
         )}
 
-        {/* Popup to see activity */}
         {showActivites && (
           <div className="showActivitiesClassManager">
             <StudentsPage

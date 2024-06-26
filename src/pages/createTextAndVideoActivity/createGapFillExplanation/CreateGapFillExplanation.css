@@ -34,18 +34,14 @@
   margin-bottom: var(--margin-xs);
 }
 
-/* --- AI -------------------------- */
 .aiExampleText{
   margin-bottom: var(--margin-xs);
 }
-
-/* --- YouTube -------------------------- */
 
 .youtubeExampleText{
   margin-bottom: var(--margin-xs);
 }
 
-/* --- FILL GAP -------------------------- */
 .fillGapExplanationDiv{
   margin: var(--margin-xxs) 0;
 }
@@ -55,10 +51,10 @@ font-weight: 600;
 }
 
 @media (max-width: 600px) {
-.gapFillExampleDiv{
-  overflow-y: auto;
-  max-height: 500px;
-}
+  .gapFillExampleDiv{
+    overflow-y: auto;
+    max-height: 500px;
+  }
 
   .titleCreateExExplanation{
     font-size: 20px;

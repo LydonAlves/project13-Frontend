@@ -5,7 +5,6 @@
   justify-content: center;
   align-items: center;
   height: 89svh;
-  
  }
 
  .previousSpeakingCorrectionsContainer{
@@ -21,7 +20,6 @@
   flex-direction: column;
   align-items: center;
   padding-top: var(--padding-m);
-
  }
 
  .dateOfCorrection{

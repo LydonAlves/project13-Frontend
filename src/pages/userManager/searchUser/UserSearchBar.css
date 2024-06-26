@@ -21,7 +21,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: solid black 1px;
+  border: solid var(--color-302) 1px;
   padding: var(--padding-xs);
   margin: var(--margin-xs);
 }

@@ -1,6 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
-
 const AuthContext = createContext()
 
 export const useAuth = () => useContext(AuthContext)
@@ -17,7 +16,6 @@ export const AuthProvider = ({ children }) => {
   }, [])
 
   const login = (userData) => {
-    console.log(userData);
     localStorage.setItem("user", JSON.stringify(userData))
     let user = userData.user
     setUserObj(user)

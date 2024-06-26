@@ -7,7 +7,7 @@ export const saveClassActivity = async (classActivity) => {
 
   try {
     const response = await fetch(
-      `${backendURL}/v1/classActivity`,
+      `${backendURL}classActivity`,
       {
         method: "POST",
         headers: headers,

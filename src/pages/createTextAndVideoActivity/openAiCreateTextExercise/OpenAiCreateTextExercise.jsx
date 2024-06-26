@@ -21,7 +21,6 @@ const OpenAiCreateTextExercise = ({ resetCreateActivity }) => {
     setContent(e.target.value);
   };
 
-  //! Error settings done
   const handleSubmit = async () => {
     setLoading(true)
     try {
@@ -38,7 +37,6 @@ const OpenAiCreateTextExercise = ({ resetCreateActivity }) => {
       }
 
       const data = await res.json();
-      console.log(data);
       saveActivity(data)
     } catch (error) {
       console.error('Error sending the message:', error);
@@ -46,10 +44,8 @@ const OpenAiCreateTextExercise = ({ resetCreateActivity }) => {
     } finally {
       setLoading(false)
     }
-
   };
 
-  //! Error settings done
   const saveActivity = async (data) => {
     const userId = userObj._id
     let finalText = data.gapFill.textObj
@@ -112,7 +108,6 @@ const OpenAiCreateTextExercise = ({ resetCreateActivity }) => {
               >Save and continue</button>
             </div>
           </div>
-
           <MockupAnswerList
             answerList={response.answers}
           />

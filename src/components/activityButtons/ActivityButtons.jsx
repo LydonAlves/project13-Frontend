@@ -1,6 +1,5 @@
 import "./ActivityButtons.css"
 
-
 const ActivityButtons = ({ buttonArray, setActivityType, activityType }) => {
   return (
     <div className="activityButtonsDivSPage">

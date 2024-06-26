@@ -64,7 +64,6 @@ padding: var(--padding-xl);
   .studentsPageYoutubeDiv{
     justify-content: space-evenly;
   }
-
 }
 
 @media (max-width: 830px) {
@@ -92,17 +91,6 @@ padding: var(--padding-xl);
     left: 10px;
     height: 20px;  
     font-size: 10px;
-
-
    }
 }
 
-
-@media (max-width: 600px) {
-
-}
-
-
-@media (max-width: 480px) {
-
-}

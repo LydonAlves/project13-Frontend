@@ -1,10 +1,8 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import "./CreateSelectClass.css"
 import useToggle from "../../../hooks/useToggle"
 import { deleteById, deleteByIdinDB } from "../../../utils/deleteById";
 import { removeClassFromActivitiesById } from "../classManagerFunctions/removeClassFromActivitiesById";
-import { useAuth } from './../../../context/AuthContext';
-
 
 const CreateSelectClass = ({ classList, setClassList, setUpdateClass, setUpdateRequired, dateSelected, }) => {
   const [seeClassCodeToggle, setSeeClassCodeToggle] = useToggle(false)
@@ -14,7 +12,6 @@ const CreateSelectClass = ({ classList, setClassList, setUpdateClass, setUpdateR
   useEffect(() => {
     setSelectedClasses([])
   }, [dateSelected])
-
 
   const classesToUpdate = (classItem) => {
     const isIdUnique = !selectedClasses.some(item => item._id === classItem._id);
@@ -32,7 +29,6 @@ const CreateSelectClass = ({ classList, setClassList, setUpdateClass, setUpdateR
         })
       })
     } else {
-      //todo: This was a problem in selecting and deselecting
       deleteById(classItem._id, setSelectedClasses)
       setClassList(prev => {
         return prev.map(item => {
@@ -58,7 +54,6 @@ const CreateSelectClass = ({ classList, setClassList, setUpdateClass, setUpdateR
   }
 
   const deleteClass = async (classId) => {
-
     try {
       await removeClassFromActivitiesById(classId)
       await deleteByIdinDB("classGroup", classId)
@@ -66,7 +61,6 @@ const CreateSelectClass = ({ classList, setClassList, setUpdateClass, setUpdateR
     } catch (error) {
       console.error("Failed to delete class group:", error);
     }
-
   }
 
   const showClassCode = (index) => {
@@ -103,7 +97,6 @@ const CreateSelectClass = ({ classList, setClassList, setUpdateClass, setUpdateR
           </ul>
         </div>
       </div>
-
     </div>
   )
 }

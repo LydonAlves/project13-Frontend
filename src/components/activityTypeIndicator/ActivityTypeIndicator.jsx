@@ -4,7 +4,7 @@ const ActivityTypeIndicator = ({
   activityButtonArray,
   selectedId
 }) => {
-  // console.log(activityButtonArray);
+
   return (
     <ul className="setupButtonDiv">
       {activityButtonArray && activityButtonArray.map((info, index) => (

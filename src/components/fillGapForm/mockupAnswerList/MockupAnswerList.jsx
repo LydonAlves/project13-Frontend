@@ -14,7 +14,6 @@ const MockupAnswerList = ({ answerList }) => {
                 <p><strong>Correct Answer:</strong> {answer.answer}</p>
               </div>
               <p className="mockupExplanation"><strong>Explanation:</strong> {answer.rule.explanation}</p>
-
             </div>
           </div>
         ))}

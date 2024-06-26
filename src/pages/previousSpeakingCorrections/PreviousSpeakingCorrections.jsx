@@ -20,7 +20,6 @@ const PreviousSpeakingCorrections = () => {
   const answersToShow = lastTenResults[currentItemIndex];
   const { userObj } = useAuth()
 
-  //! Error settings done 
   useEffect(() => {
     const fetchCorrections = async () => {
       setLoading(true)
@@ -58,7 +57,6 @@ const PreviousSpeakingCorrections = () => {
       setDateOfCorrections(chosenDate)
     }
   }, [answersToShow])
-
 
   return (
     <section className="previousSpeakingCorrectionsSection">

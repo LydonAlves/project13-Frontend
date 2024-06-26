@@ -1,8 +1,5 @@
 import { useState } from "react"
 
-
-//! https://www.youtube.com/watch?v=uutiLsX5kFE
-
 const useLocalStorage = (key, initialValue) => {
   const [storedValue, setStoredValue] = useState(() => {
     try {

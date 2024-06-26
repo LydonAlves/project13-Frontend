@@ -43,7 +43,6 @@
     width: max-content;
   }
 
-
   .videoSettingTimeInputDiv{
     min-width: 250px;
   }
@@ -53,5 +52,4 @@
     margin-bottom: var(--margin-m);
     padding-bottom: var(--padding-m);
   }
-
 }

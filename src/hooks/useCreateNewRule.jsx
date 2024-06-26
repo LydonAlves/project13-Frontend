@@ -5,9 +5,7 @@ const useCreateNewRule = () => {
   const grammarTitleRef = useRef()
   const grammarExplanationRef = useRef()
 
-
   const createRule = async () => {
-
     const grammarTitle = grammarTitleRef.current.value
     if (grammarTitle === "") return
     const grammarExplanation = grammarExplanationRef.current.value
@@ -26,7 +24,6 @@ const useCreateNewRule = () => {
     grammarTitleRef,
     grammarExplanationRef,
     createRule
-
   }
 }
 

@@ -20,7 +20,6 @@ const useCreateFillGapTextInputs = () => {
       )
       setInputsToFill(inputObject)
     }
-
   }
 
   const updateInputToFill = (value) => {

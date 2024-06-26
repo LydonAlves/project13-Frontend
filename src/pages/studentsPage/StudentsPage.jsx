@@ -27,13 +27,10 @@ const StudentsPage = ({ activityCreatedId }) => {
   const [activityType, setActivityType] = useState("youTubeFillGap")
   const { userObj } = useAuth()
 
-  // console.log("activity created", activityCreatedId);
-
   const [answersVideo, setAnswersVideo] = useState(() => {
     const savedAnswersVideo = localStorage.getItem('answersVideo');
     return savedAnswersVideo === null || savedAnswersVideo === "undefined" ? [] : JSON.parse(savedAnswersVideo);
   });
-
 
   const [answersGapFill, setAnswersGapFill] = useState(() => {
     const savedAnswersGapFill = localStorage.getItem('answersGapFill');
@@ -61,13 +58,10 @@ const StudentsPage = ({ activityCreatedId }) => {
     localStorage.setItem('answersVideo', JSON.stringify(answersVideo));
   }, [answersVideo]);
 
-
   useEffect(() => {
     localStorage.setItem('answersGapFill', JSON.stringify(answersGapFill));
   }, [answersGapFill]);
 
-
-  //! Error settings done
   useEffect(() => {
     const fetchActivities = async () => {
       if (userObj) {
@@ -90,7 +84,6 @@ const StudentsPage = ({ activityCreatedId }) => {
             setLoading(false)
           }
         } else if (userObj.role === "student") {
-          // await fetchByUser("classActivity", userObj.user.classGroup, setAllActivities);
           setLoading(true)
           try {
             const result = await fetchByUser("classActivity", userObj.user.classGroup);
@@ -151,13 +144,10 @@ const StudentsPage = ({ activityCreatedId }) => {
     }
 
     let mostRecentActivity
-    // console.log("all activities", allActivities);
 
     if (activityCreatedId) {
-      // console.log("activity created working");
       mostRecentActivity = allActivities
     } else {
-      // console.log("working");
       mostRecentActivity = allActivities.reduce((latest, item) => {
         const itemDate = new Date(item.date)
         const latestDate = new Date(latest.date)
@@ -169,13 +159,10 @@ const StudentsPage = ({ activityCreatedId }) => {
         return latest
       })
     }
-    // console.log("most recent activity", mostRecentActivity);
-
-    // console.log(mostRecentActivity.activitiesID.video);
 
     if (mostRecentActivity.activitiesID.video) {
       let currentVideo = mostRecentActivity.activitiesID.video
-      // console.log("current video", currentVideo);
+
       const opts = {
         borderRadius: currentVideo.video.opts.borderRadius,
         height: '200',
@@ -202,7 +189,6 @@ const StudentsPage = ({ activityCreatedId }) => {
   }, [allActivities])
 
   useEffect(() => {
-    // console.log(activityType);
     if (activityType === "youTubeFillGap") {
       setInfoForExplanation(infoForYoutubeActivity)
     } else if (activityType === "fillGapText") {
@@ -227,11 +213,8 @@ const StudentsPage = ({ activityCreatedId }) => {
       id: 3,
       name: "Questions",
       value: "questions",
-      // isActive: userObj ? true : false
     },
   ]
-
-  // console.log(gapFill);
 
 
   return (
@@ -239,8 +222,6 @@ const StudentsPage = ({ activityCreatedId }) => {
       <Loading
         loading={loading}
       />
-
-
       {chosenDate && (
         <>
           <div className="buttonsDateStudentsPage">

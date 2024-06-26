@@ -10,7 +10,6 @@
   height: 170px;
 }
 
-
 .activityCardActType{
   margin-bottom: var(--margin-s);
   margin-top: var(--margin-s);
@@ -25,7 +24,6 @@
   margin-top: var(--margin-s);
 }
 
-
 .seeActivityButton, .removeActivitybutton{
   width: 100px;
   background-color: var(--color-102);
@@ -35,7 +33,7 @@
 }
 
 .removeActivitybutton:hover{
-background-color: red;
+background-color: var(--color-400);
 }
 
 @media (max-width: 740px) {
@@ -60,7 +58,6 @@ background-color: red;
   .activityCardButtonsDiv{
     margin-top: var(--margin-xxs);
   }
-  
   
   .seeActivityButton, .removeActivitybutton{
     font-size: 10px;

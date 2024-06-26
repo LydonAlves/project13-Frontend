@@ -13,7 +13,6 @@
   align-items: center;
 }
 
-/* ------------ */
 .loginImgDiv{
   height: 500px;
   width: 350px;
@@ -24,8 +23,6 @@
   width: 100%;
   object-fit: cover;
 }
-
-/* ------------ */
 
 .loginDiv{
   display: flex;
@@ -108,7 +105,6 @@ height: max-content;
   text-decoration: underline;
 }
 
-/* ------------------------------------- */
 .loginWelcomeDiv{
   display: flex;
   flex-direction: column;
@@ -160,7 +156,6 @@ height: max-content;
   .loginForm > input {
     height: 30px;
   }
-
 
   .loginButton {
     margin-top: var(--margin-xxs);

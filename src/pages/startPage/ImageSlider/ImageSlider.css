@@ -22,7 +22,7 @@
 
 .sliderTitle{
   font-size: 35px;
-  color: #7ed348;
+  color: var(--color-201);
   font-weight: 600;
   text-align: end;
   width: 450px;
@@ -43,8 +43,6 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-
-
 }
 
 .sliderDiv:focus,
@@ -77,4 +75,24 @@
 
 .slick-dots li.slick-active > div {
   background: var(--color-202);
+}
+
+
+@media (max-width: 1300px) {
+  .sliderTextDiv{
+    position: absolute;
+    right: 40px;
+    top: 80px;
+    z-index: 999;
+  }
+
+  .sliderTitle{
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .slider-container{
+    display: none;
+  }
 }

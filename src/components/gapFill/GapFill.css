@@ -34,7 +34,7 @@
 
 .fillGapTextDiv >input{
   width: 50px;
-  border: 1px rgba(0, 0, 0, 0.356) solid;
+  border: 1px var(--color-302) solid;
   margin: 5px;
 }
 
@@ -42,7 +42,6 @@
   .gapfillDiv{
     margin-top: var(--margin-xxl); 
     width: 45%;
-
     height: 440px;
     flex-direction: column;
     overflow-y: auto;
@@ -60,26 +59,14 @@
     justify-content: center;
     margin: var(--margin-l) 0;
   }
-
-
 }
 
 
 @media (max-width: 830px) {
   .gapfillDiv{
-    /* margin-top: var(--margin-xxl); 
-    width: 45%;
-    height: 440px;
-    flex-direction: column;
-    overflow-y: auto; */
-
     width: 100%;
     margin-top: 0;
     margin-top: var(--padding-xxs);
   }
 }
 
-
-@media (max-width: 600px) {
-
-}

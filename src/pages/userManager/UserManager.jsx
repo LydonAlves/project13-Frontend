@@ -10,7 +10,6 @@ import ClassGroupDropdown from "./classGroupDropdown/ClassGroupDropdown";
 import { fetchByUser } from './../../utils/fetchByUser';
 import Loading from "../../components/loading/Loading";
 import { toast } from "react-toastify";
-// import { fetchById } from "../../utils/fetchById";
 
 
 const UserManager = () => {
@@ -30,8 +29,6 @@ const UserManager = () => {
   let arrayForSearch = userObj && userObj.role === "teacher" ? studentsInGroup : userType
   const { searchQuery, search, filteredItems } = useSearch(arrayForSearch)
 
-
-  //! Error settings done
   useEffect(() => {
     const fetchUsers = async () => {
       setLoading(true)
@@ -65,15 +62,13 @@ const UserManager = () => {
     setStudents(studentList)
   }, [users]);
 
-  //* Fetch teacher's groups
-  //! Error settings done
+
   useEffect(() => {
     if (!userObj) {
       return
     }
 
     const fetchClassGroup = async () => {
-
       setLoading(true)
       try {
         const result = await fetchByUser("classGroup", userObj._id)
@@ -90,7 +85,6 @@ const UserManager = () => {
         setLoading(false)
       }
     }
-    //*Change the below to teacher
     if (userObj.role === "teacher") {
       fetchClassGroup()
     }
@@ -104,7 +98,6 @@ const UserManager = () => {
     setStudentsInGroup(studentsByclass)
   }, [selectedGroup])
 
-  //! Error settings done
   const deleteUser = async (user) => {
     setLoading(true)
     try {
@@ -123,7 +116,6 @@ const UserManager = () => {
     }
   }
 
-  //! Error settings done
   const changeRole = async (user) => {
     const newRole = selectedUser.role === 'student' ? 'teacher' : 'student';
     const updatedData = { role: newRole }
@@ -172,7 +164,6 @@ const UserManager = () => {
                 onSelect={setSelectedGroup}
               />
             )}
-
           </div>
           <UserSearchBar
             searchQuery={searchQuery}
@@ -181,8 +172,6 @@ const UserManager = () => {
             setSelectedUser={setSelectedUser}
           />
         </div>
-
-
         <div className="seeUserCardContainer">
           <div className="seeUserCardDiv">
             {selectedUser ? (

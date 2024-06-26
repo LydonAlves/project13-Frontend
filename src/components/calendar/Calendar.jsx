@@ -17,7 +17,6 @@ const Calendar = ({ setDateSelected, setClassesForDay }) => {
         onChange={(date) => setStartDate(date)}
         inline
       />
-
     </div>
   )
 }

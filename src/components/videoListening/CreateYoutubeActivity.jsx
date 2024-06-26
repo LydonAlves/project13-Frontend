@@ -6,8 +6,6 @@ import formatTime from './videoListeningFunctions/formatTime';
 import AddYoutubeLink from './addYouTubeLink/AddYoutubeLink';
 import { editYouTubeLink } from './videoListeningFunctions/editYouTubeLink';
 
-
-
 const CreateYoutubeActivity = ({ setVideoObj, setVideoData }) => {
   const [stateVideoData, dispatchVideoData] = useReducer(videoReducer, INITIAL_VIDEO_STATE)
   const { opts, chosenTimes } = stateVideoData;
@@ -17,7 +15,6 @@ const CreateYoutubeActivity = ({ setVideoObj, setVideoData }) => {
   const [startTime, setStartTime] = useState("")
   const [endTime, setEndTime] = useState("")
   const [videoLink, setVideoLink] = useState("")
-
 
   useEffect(() => {
     if (setVideoObj) {
@@ -31,8 +28,6 @@ const CreateYoutubeActivity = ({ setVideoObj, setVideoData }) => {
   }, [stateVideoData])
 
 
-
-  //! I need to create an error if the end time is less than the start time
   const submitVideoData = () => {
     const startTimeInSeconds = formatTime(startTime)
     const endTimeinSeconds = formatTime(endTime)

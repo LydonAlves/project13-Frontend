@@ -28,8 +28,8 @@
   margin: var(--margin-xs) 0;
   width: 350px;
   height: 500px;
-  border: solid rgba(0, 0, 0, 0.521) 1px;
-  background-color: white;
+  border: solid var( --color-302) 1px;
+  background-color: var(--color-000);
   padding: var(--padding-xxs) var(--padding-s); 
 }
 
@@ -61,7 +61,7 @@ justify-content: flex;
 }
 
 .deleteButton:hover{
-  background-color: red;
+  background-color: var(--color-400);
 }
 
 .seeClassCodeButton{
@@ -76,7 +76,6 @@ justify-content: flex;
   margin: var(--margin-xs) 0px;
   font-size: small;
 }
-
 
 
 @media (max-width: 1000px){
@@ -101,9 +100,9 @@ justify-content: flex;
   }
   
 
-.assignedActivityTitle{
-  font-size: 10px;
-}
+  .assignedActivityTitle{
+    font-size: 10px;
+  }
 
   .buttonDivCreateSelectedClass{
     flex-direction: column;
@@ -113,5 +112,4 @@ justify-content: flex;
   .classGroupButton{
     font-size: 10px;
   }
-
 }

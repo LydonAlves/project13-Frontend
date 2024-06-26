@@ -11,7 +11,6 @@ const useActivitySetupProcess = () => {
     setActivitySetupStage(value)
   }
 
-
   const chooseStepOfProcess = (value) => {
     setActivitySetupStage(value)
   }
@@ -20,7 +19,6 @@ const useActivitySetupProcess = () => {
     setActivityType("")
     setActivitySetupStage("")
   }
-
 
   return {
     activitySetupStage,

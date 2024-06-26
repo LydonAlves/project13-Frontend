@@ -14,8 +14,6 @@ const useCreateTextSegments = () => {
     .filter((_, index) => index < textSegments.length - 1)
     .map((_, index) => (index + 1).toString()) : []
 
-
-
   return {
     textSegments,
     createSegmentsFromText,

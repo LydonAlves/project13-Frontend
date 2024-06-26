@@ -4,7 +4,6 @@ const QuestionComponent = ({ questions }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
   const [questionAnswer, setQuestionAnswer] = useState("")
 
-
   const nextQuestion = () => {
     setCurrentQuestionIndex(prev => (prev + 1) % questions.length)
   }
@@ -12,7 +11,6 @@ const QuestionComponent = ({ questions }) => {
   const previousQuestion = () => {
     setCurrentQuestionIndex(prev => (prev - 1 + questions.length) % questions.length)
   }
-
 
   return (
     <div>

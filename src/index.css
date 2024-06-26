@@ -3,7 +3,6 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Rubik', sans-serif;
-  /* Above code "font-family" must be changed */
 }
 
 body {
@@ -39,8 +38,6 @@ input{
   /* COLORS */
   --color-000: #ffffff;
 
-  /* blues */
-  /* could this be deactivated? */
   /* --color-100: #e3f2fd; */
   --color-101: #044CB8;
   --color-102: #01377D;
@@ -61,6 +58,16 @@ input{
   /* border grey */
   --color-303: #00000067;
 
+  /* answer highlight colors */
+  --color-400: #ff0000;
+  --color-401: #019c01 ;
+
+  /* link hover */
+  --color-500: #ffa500;
+
+    /* speaking corrections */
+    --color-600:#ff0000b9;
+    --color-601:#00800042;
 
   /* BUTTON COLOR */
   --button-color-000:linear-gradient(90deg, #7dd348bb 0%, #26b17096 100%);
@@ -107,8 +114,7 @@ input{
   --border-radius-round: 25px;
   --border-radius-circle: 50%;
 
-
-
+  /* SCROLL BAR */
   --scrollbar-track-shadow: inset 0 0 5px grey;
   --scrollbar-thumb-bg: #01377D;
   --scrollbar-thumb-bg-background:#E5DCDC
@@ -204,7 +210,6 @@ input{
   color: var(--color-102);
 }
 
-
 .primaryBlueButton{
   padding: var(--padding-xxs) var(--padding-xs);
   background: var(--color-102);
@@ -221,7 +226,6 @@ input{
 
 
 /* ---- HOW TO BUTTON ----------------------------------- */
-
 .howToButton{
   border-radius: var(--border-radius-round);
   padding: var(--padding-xxs) var(--padding-s);
@@ -231,20 +235,3 @@ input{
   font-weight: 600;
 }
 
-
-
-
-
-@media (max-width: 830px) {
-
-}
-
-
-@media (max-width: 600px) {
-
-}
-
-
-@media (max-width: 480px) {
-
-}

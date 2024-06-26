@@ -6,7 +6,6 @@ const ClassGroupDropdown = ({ options, onSelect }) => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [isOpen, setIsOpen] = useToggle()
 
-
   const handleOptionClick = (option) => {
     setSelectedOption(option.name);
     setIsOpen(false);

@@ -38,12 +38,10 @@ const CreateTextAndVideoExercise = () => {
   const [textTitle, setTextTitle] = useState("")
   const [videoData, setVideoData] = useState("")
   const [ruleList, setRuleList] = useState([])
-  //*  This is the Complete exercise
   const [videoObj, setVideoObj] = useState("")
   const { activitySetupStage, updateProcess, activityType, chooseStepOfProcess, resetActivityType } = useActivitySetupProcess()
   const { createSegmentsFromText, initialInputs } = useCreateTextSegments()
   const { inputsToFill, updateInputToFill, createInitialInputObj } = useCreateFillGapTextInputs()
-  //! this puts together the exercise video+exercise or exercise
   const { gapIndex, updateGapIndex, createNewExercise } = useSetGapExerciseInputValues()
   const { grammarTitleRef, grammarExplanationRef, createRule } = useCreateNewRule()
   const { searchQuery, search, filteredItems } = useSearch(ruleList)
@@ -53,7 +51,6 @@ const CreateTextAndVideoExercise = () => {
   const [selectedId, setSelectedId] = useState(null);
 
 
-  // This changes the size of the video opts as screen size changes
   const handleScreenChange = (e) => {
     if (e.matches) {
       setVideoData((prevData) => ({
@@ -75,7 +72,7 @@ const CreateTextAndVideoExercise = () => {
       }));
     }
   };
-  // --- MEDIA QUERY USEEFFECT ------------------------------------------------
+
   useEffect(() => {
     if (videoData === "") {
       return
@@ -92,8 +89,6 @@ const CreateTextAndVideoExercise = () => {
     };
   }, [videoData]);
 
-
-  //! Error settings done
   useEffect(() => {
     const fetchRules = async () => {
       setLoading(true)
@@ -108,7 +103,6 @@ const CreateTextAndVideoExercise = () => {
       } catch (error) {
         console.error('Error loading rules:', error);
         toast.error(`Error: We had some difficulty loading data`)
-
       } finally {
         setLoading(false)
       }
@@ -124,8 +118,6 @@ const CreateTextAndVideoExercise = () => {
     createInitialInputObj(initialInputs)
   }, [finalText])
 
-
-  //! Error settings done
   const submitTextForm = (e) => {
     e.preventDefault()
     if (textTitle !== "" && activityText !== "") {
@@ -152,7 +144,6 @@ const CreateTextAndVideoExercise = () => {
     setNextButton(true)
   }
 
-  //! Error settings done
   const submitRuleForm = async (e) => {
     e.preventDefault()
 
@@ -188,8 +179,6 @@ const CreateTextAndVideoExercise = () => {
     updateGapIndex("")
   }
 
-  //! Error settings done
-  //* This is where we create the final exercise
   const submitExercise = async () => {
     if (finalText.text === "" || finalText.title === "") {
       toast.error(`Error: You have to add a text and title before continuing`);
@@ -201,10 +190,9 @@ const CreateTextAndVideoExercise = () => {
     }
 
     const userId = userObj._id
-
     const exercise = createNewExercise(finalText, inputsToFill, userId, videoObj)
     const endpoint = videoData !== "" ? 'videoExercise' : 'gapfillText';
-    //!--------------------------------------------
+
     setLoading(true)
     try {
       const result = await saveCompleteExercise(exercise, endpoint)
@@ -247,8 +235,7 @@ const CreateTextAndVideoExercise = () => {
       name: "GAP AND RULES",
       value: "gapAndRules",
       isActive: finalText.text !== "" ? true : false
-    },
-
+    }
   ]
 
   const createExerciseInfo = [
@@ -281,7 +268,6 @@ const CreateTextAndVideoExercise = () => {
         loading={loading}
       />
 
-      {/* here we choose which activity */}
       {activityType === "" && (
         <div className="welcomeCreateActivity">
           <h1 className="createExerciseH1">Create an Exercise</h1>
@@ -327,7 +313,6 @@ const CreateTextAndVideoExercise = () => {
         />
       )}
 
-      {/* Here we add the text and title we want for our text */}
       {activityType !== "" && activitySetupStage !== "AIfillGapText" && (
         <div className="mainContentDivCreateExercise">
           {activitySetupStage === "fillGapText" && (
@@ -429,8 +414,6 @@ const CreateTextAndVideoExercise = () => {
 
                 </div>
               )}
-
-
             </div>
           )}
 
@@ -461,7 +444,6 @@ const CreateTextAndVideoExercise = () => {
         </div>
       )}
 
-      {/* Next buttons */}
       {activityType !== "" && activitySetupStage !== "finishedTask" && (
         <div className="nextButtonsDiv">
           <NextButtons
