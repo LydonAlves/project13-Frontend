@@ -1,6 +1,6 @@
 import { useState, useRef, useContext, useEffect } from "react";
 import "./voiceToText.css"
-import { saveSpeakingCorrection } from "./saveSpeakingCorrections";
+import { checkRequestStatus, saveSpeakingCorrection } from "./saveSpeakingCorrections";
 import { DateContext } from "../../../context/DateContext";
 import CarrouselOfItemsButtons from "../../../components/carrouselOfItemsButtons/CarrouselOfItemsButtons";
 import { useAuth } from "../../../context/AuthContext";
@@ -149,23 +149,106 @@ const AudioRecorder = ({ questions }) => {
         });
 
         const result = await response.json()
-
         console.log("speaking corrections", result);
 
-        let speakingResult = {
-          question: question,
-          corrections: result.jsonObject,
-          date: date,
-          createdBy: userObj._id
+
+        //! I have asked chat to help me send this and check it every 2 seconds closing the async each time. Read there and see if it helps
+        const statusData = await checkRequestStatus(result.hash);
+        console.log("status", statusData);
+
+
+        let speakingResult
+
+        waitForDesiredStatus(result.hash)
+          .then(statusData => {
+            console.log('Final status data:', statusData);
+            speakingResult = {
+              question: question,
+              corrections: statusData.jsonObject,
+              date: date,
+              createdBy: userObj._id
+            }
+
+          })
+          .catch(error => {
+            console.error('Error occurred:', error);
+          });
+
+
+
+        // saveSpeakingCorrection(speakingResult, setCorrectedTextArray)
+        if (speakingResult) {
+          const pendingCorrections = await saveSpeakingCorrection(speakingResult)
+          console.log("pending corrections", pendingCorrections);
         }
 
-        saveSpeakingCorrection(speakingResult, setCorrectedTextArray)
+        //? Got to put the below into the above so that Status Data (which is the exercise) can be saved
+
       } catch (error) {
         console.error('Error uploading the file:', error);
       }
       setLoading(false)
     }
   }
+
+
+
+  //*------------------------------------------------------------------------------------------
+  const waitForDesiredStatus = async (hash) => {
+
+    let statusData;
+    let attempts = 0;
+    const maxAttempts = 10;
+    while (attempts < maxAttempts) {
+      attempts++;
+      try {
+        statusData = await checkRequestStatus(hash);
+        console.log("status data", statusData);
+
+        if (statusData.jsonObject) {
+          console.log('Desired status received:', statusData);
+          break;
+        }
+      } catch (error) {
+        console.error('Error checking status:', error);
+        break;
+      }
+
+      // Wait for 2 seconds before checking again
+      await new Promise(resolve => setTimeout(resolve, 2000));
+    }
+
+    if (attempts >= maxAttempts) {
+      console.log(`Maximum attempts reached (${maxAttempts}). Exiting.`);
+    }
+
+    return statusData;
+  };
+  //*------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   const redoRecording = () => {
     setAudio(null)
