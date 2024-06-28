@@ -168,7 +168,7 @@ const AudioRecorder = ({ questions }) => {
               date: date,
               createdBy: userObj._id
             }
-
+            saveSpeakingCorrection(speakingResult, setCorrectedTextArray)
           })
           .catch(error => {
             console.error('Error occurred:', error);
@@ -177,10 +177,10 @@ const AudioRecorder = ({ questions }) => {
 
 
         // saveSpeakingCorrection(speakingResult, setCorrectedTextArray)
-        if (speakingResult) {
-          const pendingCorrections = await saveSpeakingCorrection(speakingResult)
-          console.log("pending corrections", pendingCorrections);
-        }
+
+
+
+
 
         //? Got to put the below into the above so that Status Data (which is the exercise) can be saved
 

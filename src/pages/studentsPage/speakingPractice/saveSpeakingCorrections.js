@@ -1,6 +1,6 @@
 import { backendURL } from './../../../utils/backendURL';
 
-export const saveSpeakingCorrection = async (exercise) => {
+export const saveSpeakingCorrection = async (exercise, setCorrectedTextArray) => {
   console.log("exercise", exercise);
   const headers = {
     "Content-Type": "application/json"
@@ -24,11 +24,11 @@ export const saveSpeakingCorrection = async (exercise) => {
 
     const data = await response.json()
     console.log(data);
-    // if (setCorrectedTextArray) {
-    //   setCorrectedTextArray(prev => {
-    //     return [...prev, data]
-    //   })
-    // }
+    if (setCorrectedTextArray) {
+      setCorrectedTextArray(prev => {
+        return [...prev, data]
+      })
+    }
 
     console.log("Speaking correction saved:", data);
     return data.hash
