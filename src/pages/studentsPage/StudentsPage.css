@@ -17,6 +17,12 @@
   width: 300px;
 }
 
+.dateAndClearAnswersButton{
+  display: flex;
+  align-items: center;
+  gap: var(--gap-s);
+}
+
 .studentsPageYoutubeDiv{
   display: flex;
   height: 100%;

@@ -37,7 +37,6 @@ const StudentsPage = ({ activityCreatedId }) => {
     return savedAnswersGapFill !== "undefined" ? JSON.parse(savedAnswersGapFill) : [];
   });
 
-
   useEffect(() => {
     if (answersVideo === null && activityType === "youTubeFillGap") {
       setAnswersVideo([])
@@ -46,13 +45,7 @@ const StudentsPage = ({ activityCreatedId }) => {
     if (answersGapFill === null && activityType === "fillGapText") {
       setAnswersGapFill([])
     }
-  }, [answersVideo, answersGapFill])
-
-  const clearAllLocalStorage = () => {
-    localStorage.clear();
-    setAnswersVideo([]);
-    setAnswersGapFill([]);
-  };
+  }, [answersVideo, answersGapFill, activityType])
 
   useEffect(() => {
     localStorage.setItem('answersVideo', JSON.stringify(answersVideo));
@@ -85,8 +78,9 @@ const StudentsPage = ({ activityCreatedId }) => {
           }
         } else if (userObj.role === "student") {
           setLoading(true)
+          console.log("user role", userObj.classGroup);
           try {
-            const result = await fetchByUser("classActivity", userObj.user.classGroup);
+            const result = await fetchByUser("classActivity", userObj.classGroup);
             if (result.error) {
               throw new Error(result.error);
             } else {
@@ -225,18 +219,11 @@ const StudentsPage = ({ activityCreatedId }) => {
       {chosenDate && (
         <>
           <div className="buttonsDateStudentsPage">
-            <p>{chosenDate}</p>
             <ActivityButtons
               buttonArray={chooseActivityButtons}
               setActivityType={setActivityType}
               activityType={activityType}
             />
-            {activityType !== "questions" && (
-              <button
-                className="greenButtonColorOnly clearButtonSPage"
-                onClick={() => clearAllLocalStorage()} style={{ marginTop: '12px' }}
-              >Clear All Answers</button>
-            )}
           </div>
 
           {activityType === "youTubeFillGap" && (
@@ -268,7 +255,11 @@ const StudentsPage = ({ activityCreatedId }) => {
             activityType === "fillGapText" && (
               <>
                 {gapFill !== "" ? (
-                  <GapFill chosenText={gapFill} />
+                  <GapFill
+                    chosenText={gapFill}
+                    inputs={answersGapFill}
+                    setInputs={setAnswersGapFill}
+                  />
                 ) : (
                   <p className="noActivityNotificationStudentPage">No Gap Fill task has been assigned, check the other activity types</p>
                 )}

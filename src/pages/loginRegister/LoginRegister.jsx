@@ -19,6 +19,7 @@ const LoginRegister = () => {
   const [repeatPassword, setRepeatPassword] = useState('');
   const [userLoggedIn, setUserLoggedIn] = useState(null)
   const [loading, setLoading] = useState(false)
+  const [showPassword, setShowPassword] = useToggle();
   const { setStartPage } = useContext(StartPageContext)
   const { userObj, login } = useAuth()
   const navigate = useNavigate()
@@ -87,21 +88,20 @@ const LoginRegister = () => {
     }
   };
 
-  const navigateToInitialPage = () => {
-    if (userLoggedIn.role === "admin" || userLoggedIn.role === "teacher") {
-      navigate('/create-exercise')
-      setStartPage(false)
-    } else {
-      navigate('/students-page')
-      setStartPage(false)
-    }
-  }
 
   useEffect(() => {
     if (userObj) {
       setUserLoggedIn(userObj)
+      if (userObj.role === "admin" || userObj.role === "teacher") {
+        navigate('/create-exercise')
+        setStartPage(false)
+      } else {
+        navigate('/students-page')
+        setStartPage(false)
+      }
     }
   }, [userObj])
+
 
   return (
     <section className="loginSection">
@@ -122,33 +122,33 @@ const LoginRegister = () => {
               <p className="signInTitle">{!register ? 'Sign into your account' : 'Register an account'}</p>
             )}
             {!register && (
-              !userLoggedIn ? (
-                <form onSubmit={submitLogin} className="loginForm" >
+
+              <form onSubmit={submitLogin} className="loginForm" >
+                <input
+                  type="email"
+                  placeholder="Email address"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+
+                <div className="passwordDiv">
                   <input
-                    type="email"
-                    placeholder="Email address"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                  <input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    className="passwordInput"
                   />
-                  <button className="loginButton" type="submit">LOGIN</button>
-                </form>
-              ) : (
-                <div className="loginWelcomeDiv">
-                  <p className="welcomeMessageLogin">Welcome to English Learning </p>
-                  <p className="welcomeUserName">{userLoggedIn.userName}</p>
-                  <button
-                    className="letsBeginButton"
-                    onClick={() => navigateToInitialPage()}
-                  >LETS BEGIN</button>
+                  <img
+                    onClick={setShowPassword}
+                    src="./assets/login/eye.png"
+                    alt="eye"
+                    className={`eyeImg ${showPassword == true ? "eyeSelected" : ""}`}
+                  />
                 </div>
-              ))
-            }
+                <button className="loginButton" type="submit">LOGIN</button>
+              </form>
+            )}
 
             {register && (
               <form onSubmit={submitRegister} className="loginForm">
@@ -171,18 +171,30 @@ const LoginRegister = () => {
                     onChange={(val) => setCountry(val)}
                   />
                 </div>
-                <input
-                  type="password"
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <input
-                  type="password"
-                  placeholder="Repeat password"
-                  value={repeatPassword}
-                  onChange={(e) => setRepeatPassword(e.target.value)}
-                />
+                <div className="passwordDiv">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="passwordInput"
+                  />
+                  <img
+                    onClick={setShowPassword}
+                    src="./assets/login/eye.png"
+                    alt="eye"
+                    className={`eyeImg ${showPassword == true ? "eyeSelected" : ""}`}
+                  />
+                </div>
+                <div className="passwordDiv">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Repeat password"
+                    value={repeatPassword}
+                    onChange={(e) => setRepeatPassword(e.target.value)}
+                    className="passwordInput"
+                  />
+                </div>
                 <button className="primaryGreenButton" type="submit">Register</button>
               </form>
             )}
@@ -206,4 +218,4 @@ const LoginRegister = () => {
   );
 };
 
-export default LoginRegister;
+export default LoginRegister; 

@@ -8,6 +8,7 @@ import SpeakingCorrections from "../../../components/speakingCorrections/Speakin
 import Loading from "../../../components/loading/Loading";
 import { fetchByUser } from "../../../utils/fetchByUser";
 import { backendURL } from "../../../utils/backendURL";
+import { toast } from "react-toastify";
 
 const AudioRecorder = ({ questions }) => {
   const date = useContext(DateContext)
@@ -63,8 +64,11 @@ const AudioRecorder = ({ questions }) => {
       const corrections = todaysCorrections.find(item => item.question.id === question.id)
       setAnswersToShow(corrections)
     }
-
   }, [currentItemIndex, todaysCorrections])
+
+  useEffect(() => {
+    setAudio(null)
+  }, [currentItemIndex])
 
 
   const [correctedTextArray, setCorrectedTextArray] = useState(() => {
@@ -119,7 +123,7 @@ const AudioRecorder = ({ questions }) => {
     };
     setAudioChunks(localAudioChunks);
   };
-  console.log("audio chunk", audioChunks);
+
 
   const stopRecording = () => {
     setRecordingStatus("inactive");
@@ -149,13 +153,7 @@ const AudioRecorder = ({ questions }) => {
         });
 
         const result = await response.json()
-        console.log("speaking corrections", result);
-
-
-        //! I have asked chat to help me send this and check it every 2 seconds closing the async each time. Read there and see if it helps
         const statusData = await checkRequestStatus(result.hash);
-        console.log("status", statusData);
-
 
         let speakingResult
 
@@ -169,33 +167,23 @@ const AudioRecorder = ({ questions }) => {
               createdBy: userObj._id
             }
             saveSpeakingCorrection(speakingResult, setCorrectedTextArray)
+            setLoading(false)
           })
           .catch(error => {
             console.error('Error occurred:', error);
+            toast.error(`Error: We had some difficulty with the AI corrections`)
+            setLoading(false)
           });
-
-
-
-        // saveSpeakingCorrection(speakingResult, setCorrectedTextArray)
-
-
-
-
-
-        //? Got to put the below into the above so that Status Data (which is the exercise) can be saved
 
       } catch (error) {
         console.error('Error uploading the file:', error);
+        toast.error(`Error: We had some difficulty with the AI corrections`)
       }
-      setLoading(false)
+
     }
   }
 
-
-
-  //*------------------------------------------------------------------------------------------
   const waitForDesiredStatus = async (hash) => {
-
     let statusData;
     let attempts = 0;
     const maxAttempts = 10;
@@ -211,44 +199,20 @@ const AudioRecorder = ({ questions }) => {
         }
       } catch (error) {
         console.error('Error checking status:', error);
+        toast.error(`Error: We had some difficulty with the AI corrections`)
         break;
       }
 
-      // Wait for 2 seconds before checking again
       await new Promise(resolve => setTimeout(resolve, 2000));
     }
 
     if (attempts >= maxAttempts) {
+      toast.error(`Error: We had some difficulty with the AI corrections`)
       console.log(`Maximum attempts reached (${maxAttempts}). Exiting.`);
     }
 
     return statusData;
   };
-  //*------------------------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   const redoRecording = () => {
     setAudio(null)

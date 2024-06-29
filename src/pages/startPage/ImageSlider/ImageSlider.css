@@ -21,7 +21,7 @@
 }
 
 .sliderTitle{
-  font-size: 35px;
+  font-size: 50px;
   color: var(--color-201);
   font-weight: 600;
   text-align: end;
@@ -32,8 +32,9 @@
   color: var(--color-000);
   text-align: end;
   font-weight: 600;
-  font-size: 33px;
+  font-size: 38px;
   width: 448px;
+  text-shadow: 2px 1px 1px rgba(0, 0, 0, 0.336);
 }
 
 .sliderImg{
@@ -43,6 +44,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  filter: brightness(70%);
 }
 
 .sliderDiv:focus,

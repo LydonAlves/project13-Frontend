@@ -70,7 +70,7 @@ const GapFill = ({ chosenText, inputs, setInputs }) => {
             />
           </div>
         )}
-        {initialAnswersSubmitted === true && (
+        {initialAnswersSubmitted === true && answerList !== null && inputs.length > 0 && (
           <div className='gapFillAnswerList'>
             <AnswerList
               answerList={answerList}

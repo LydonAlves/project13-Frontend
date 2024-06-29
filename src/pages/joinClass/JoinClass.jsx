@@ -5,17 +5,18 @@ import { fetchById } from "../../utils/fetchById";
 import { updateUserClassGroup } from "./joinClassFunctions/updateUserClassGroup";
 import Loading from './../../components/loading/Loading';
 import { toast } from "react-toastify";
+import useToggle from './../../hooks/useToggle';
 
 const JoinClass = () => {
-  const [operationSuccess, setOperationSuccess] = useState(false)
   const [currentClass, setCurrentClass] = useState()
   const [loading, setLoading] = useState(false)
-  const { userObj } = useAuth()
+  const [classgroupUpdated, setClassgroupUpdated] = useToggle()
+  const { userObj, updateUser } = useAuth()
   const idInputRef = useRef()
 
   const submitId = async () => {
     let classId = idInputRef.current.value
-    let userId = userObj.user._id
+    let userId = userObj._id
     setLoading(true)
 
     try {
@@ -24,7 +25,9 @@ const JoinClass = () => {
         throw new Error(result.error);
       } else {
         if (result.classGroup) {
-          setOperationSuccess(true)
+          updateUser("classGroup", classId)
+          setClassgroupUpdated()
+          toast.success(`You have successfully joined a new class group`)
         }
       }
     } catch (error) {
@@ -34,7 +37,6 @@ const JoinClass = () => {
       setLoading(false)
     }
   }
-
 
   useEffect(() => {
     const fetchClass = async () => {
@@ -56,7 +58,9 @@ const JoinClass = () => {
     if (userObj) {
       fetchClass()
     }
-  }, [userObj])
+  }, [userObj, classgroupUpdated])
+
+
 
   return (
     <section className="joinClassSection">
@@ -68,14 +72,14 @@ const JoinClass = () => {
         {currentClass && (
           <div className="joinClassWelcomeDiv">
             <p className="joinClassWelcomeTitle">Hi, {userObj.userName}</p>
-            {currentClass && currentClass.length > 0 ?
+            {currentClass == undefined ?
               <p className="joinClassWelcomeMessage"> You are not currently part any class</p> :
               <p className="joinClassWelcomeMessage">
                 You are currently part of <span className="classGroupNameJoinClass">{currentClass.name}</span></p>
             }
           </div>
         )}
-        {currentClass && currentClass.length > 0 ? (
+        {currentClass == undefined ? (
           <p className="joinClassInputInstructions">Add the Id of the class you'd like to join below</p>
         ) : (
           <p className="joinClassInputInstructions">You can change to a different class by adding the class code below</p>
@@ -83,9 +87,6 @@ const JoinClass = () => {
 
         <input className="joinClassInput" type="text" ref={idInputRef} />
         <button onClick={() => submitId()} className="largeBlueButton submitJoinClassButton">Submit</button>
-        {operationSuccess === true && (
-          <p>You have successfully joined a new Class Group</p>
-        )}
       </div>
     </section>
 

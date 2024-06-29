@@ -23,7 +23,7 @@ export const saveCompleteExercise = async (exercise, endpoint) => {
     console.log(`${endpoint} saved:`, data);
     return data
   } catch (error) {
-    console.error('Error in saving video exercise:', error);
+    console.error('Error in saving exercise:', error);
     return { error: `Failed to save: ${error.message}` };
   }
 }

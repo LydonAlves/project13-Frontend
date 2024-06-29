@@ -364,6 +364,7 @@ margin-top: var(--margin-l);
   align-items: start;
   width: 100%;
   height: 89%;
+  overflow-y: auto;
 }
 
 .youtubeFinishedTask{

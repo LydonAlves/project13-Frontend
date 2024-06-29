@@ -60,6 +60,10 @@ justify-content: flex;
   border: none;
 }
 
+.selectedClass{
+  background-color: var(--button-color-012);
+}
+
 .deleteButton:hover{
   background-color: var(--color-400);
 }

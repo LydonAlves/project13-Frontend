@@ -11,7 +11,6 @@ import { fetchByUser } from './../../utils/fetchByUser';
 import Loading from "../../components/loading/Loading";
 import { toast } from "react-toastify";
 
-
 const UserManager = () => {
   const [update, setUpdate] = useState(true)
   const [users, setUsers] = useState([])
@@ -48,6 +47,7 @@ const UserManager = () => {
     }
 
     if (update === true) {
+      console.log("working");
       fetchUsers()
       setUpdate(false)
     }
@@ -107,6 +107,8 @@ const UserManager = () => {
         throw new Error(result.error);
       } else {
         setUpdate(true)
+        setSelectedUser(null)
+        toast.success('User deleted successfully')
       }
     } catch (error) {
       console.error('Error deleting user:', error);
@@ -127,6 +129,7 @@ const UserManager = () => {
         throw new Error(result.error);
       } else {
         setUpdate(true)
+        setSelectedUser(null)
       }
     } catch (error) {
       console.error('Error updating the user:', error);
@@ -135,6 +138,8 @@ const UserManager = () => {
       setLoading(false)
     }
   }
+
+
 
 
   return (
@@ -184,7 +189,14 @@ const UserManager = () => {
                 </div>
                 <div className="seeUserCardButtons" >
                   <button className="primaryBlueButton" onClick={() => deleteUser(selectedUser)}>Delete user</button>
-                  <button className="primaryBlueButton" onClick={() => changeRole(selectedUser)} >Change role to {selectedUser.role === 'student' ? 'Teacher' : 'Student'}</button>
+
+
+                  <button
+                    className="primaryBlueButton"
+                    onClick={() => changeRole(selectedUser)}
+                  >Change role to {selectedUser.role === 'student' ? 'Teacher' : 'Student'}</button>
+
+
                 </div>
                 <button
                   className="exitButtonUM primaryGreenButton"

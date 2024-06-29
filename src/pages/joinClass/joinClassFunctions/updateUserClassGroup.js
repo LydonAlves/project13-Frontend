@@ -6,7 +6,7 @@ export const updateUserClassGroup = async (userId, classGroup) => {
   }
 
   try {
-    const response = await fetch(`${backendURL}${userId}`, {
+    const response = await fetch(`${backendURL}user/${userId}`, {
       method: "PUT",
       headers: headers,
       body: JSON.stringify({ classGroup })

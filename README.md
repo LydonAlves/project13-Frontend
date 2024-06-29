@@ -18,6 +18,7 @@
 - **Challenges**: 
   - Setting up the backend and connecting all types of data.
   - Creating correct data structures for use across different pages and ensuring OpenAI sends data in a specific format.
+  - Due to this project being deployed in Vercel, the original single function for correcting the speaking task had to be divided up into several functions. First to start the process of calling the API and then to check on the process at intervals of 2 seconds. This is due to the fact that Vercel has a timeout of 10 seconds which makes it unfeesable to use a Async function which would need to work for more than 10 seconds while waiting for a response from openai. 
 - **Future Features**:
   - Implementing more complex grammar activities.
   - Introducing speaking practice where students hold short conversations with the AI assistant, requiring new AI assistants.
@@ -108,13 +109,13 @@ Follow these steps to install and set up the project locally:
 3. **Install dependencies for the frontend:**
     ```sh
     cd frontend
-    npm install annyang form-data react react-country-region-selector react-datepicker react-dom react-router-dom react-toastify react-youtube uuid
+    npm install annyang form-data react react-country-region-selector react-datepicker react-dom react-router-dom react-toastify react-youtube react-slick slick-carousel uuid
     ```
 
 4. **Install dependencies for the backend:**
     ```sh
     cd ../backend
-    npm install axios bcrypt cors dotenv express form-data jsonwebtoken mongoose multer openai
+    npm install axios bcryptjs cors dotenv express form-data jsonwebtoken mongoose multer openai
     npm install --save-dev nodemon
     ```
 
@@ -231,13 +232,15 @@ The following scripts are available in the backend:
 - `react-datepicker`: ^6.9.0
 - `react-dom`: ^18.3.1
 - `react-router-dom`: ^6.22.3
+- `react-slick`: ^0.30.2
 - `react-toastify`: ^10.0.5
 - `react-youtube`: ^10.1.0
+- `slick-carousel`: ^1.8.1
 - `uuid`: ^9.0.1
 
 ### Backend Dependencies
 - `axios`: ^1.7.2
-- `bcrypt`: ^5.1.1
+- `bcryptjs`: ^2.4.3
 - `cors`: ^2.8.5
 - `dotenv`: ^16.4.5
 - `express`: ^4.19.2

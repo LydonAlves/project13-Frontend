@@ -87,7 +87,10 @@ const CreateSelectClass = ({ classList, setClassList, setUpdateClass, setUpdateR
                   <div className={classItem.activityObj?.title && classItem.activityObj.title !== "" ? "buttonRemovePresent" : "buttonDivCreateSelectedClass"}>
                     {classItem.activityObj?.title && classItem.activityObj.title !== "" && (
                       <button className="classGroupButton" onClick={() => removeActivity(classItem)} >Remove activity</button>)}
-                    <button className="classGroupButton" onClick={() => classesToUpdate(classItem)}>{classItem.selected === true ? "Selected" : "Select class"}</button>
+                    <button
+                      className={`classGroupButton ${classItem.selected === true ? "selectedClass" : ""}`}
+                      onClick={() => classesToUpdate(classItem)}
+                    >{classItem.selected === true ? "Selected" : "Select class"}</button>
                     <button className="classGroupButton deleteButton" onClick={() => deleteClass(classItem._id)}>Delete class</button>
                   </div>
                   <button onClick={() => showClassCode(index)} className="seeClassCodeButton primaryGreenButton">See class code</button>

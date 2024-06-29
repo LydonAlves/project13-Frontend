@@ -23,6 +23,7 @@ const Header = () => {
     logout()
     setStartPage(true)
     navigate('/')
+
   };
 
   const [menuVisible, setMenuVisible] = useState(false);

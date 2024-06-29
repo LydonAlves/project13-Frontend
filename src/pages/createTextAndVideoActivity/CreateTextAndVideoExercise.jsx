@@ -49,7 +49,7 @@ const CreateTextAndVideoExercise = () => {
   const [nextButton, setNextButton] = useState(false)
   const [loading, setLoading] = useState(false)
   const [selectedId, setSelectedId] = useState(null);
-
+  console.log(activityType);
 
   const handleScreenChange = (e) => {
     if (e.matches) {
@@ -217,6 +217,7 @@ const CreateTextAndVideoExercise = () => {
     createInitialInputObj("")
     createSegmentsFromText(null)
     setNeedHelp(false)
+    setVideoData("")
   }
 
   const setUpButtons = [
@@ -261,7 +262,6 @@ const CreateTextAndVideoExercise = () => {
 
   const activityButtonArray = setUpButtons.filter(info => !(activityType === "fillGapText" && info.id === 1))
 
-
   return (
     <section className="createTextSection">
       <Loading
@@ -295,17 +295,12 @@ const CreateTextAndVideoExercise = () => {
 
       {activityType !== "AIfillGapText" && activityType !== "" && activitySetupStage !== "finishedTask" && (
         <div className="createActivityButtonsDiv">
-          <>
-            {activitySetupStage !== "finishedTask" && (
-              <ActivityTypeIndicator
-                activityButtonArray={activityButtonArray}
-                selectedId={selectedId}
-              />
-            )}
-          </>
+          <ActivityTypeIndicator
+            activityButtonArray={activityButtonArray}
+            selectedId={selectedId}
+          />
         </div>
       )}
-
 
       {activitySetupStage === "AIfillGapText" && (
         <OpenAiCreateTextActivity
@@ -444,7 +439,7 @@ const CreateTextAndVideoExercise = () => {
         </div>
       )}
 
-      {activityType !== "" && activitySetupStage !== "finishedTask" && (
+      {activityType !== "AIfillGapText" && activityType !== "" && activitySetupStage !== "finishedTask" && (
         <div className="nextButtonsDiv">
           <NextButtons
             activityButtonArray={activityButtonArray}

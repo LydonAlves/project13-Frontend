@@ -105,38 +105,34 @@ height: max-content;
   text-decoration: underline;
 }
 
-.loginWelcomeDiv{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: var(--margin-l);
+.passwordDiv{
+  position: relative;
+  margin-bottom: var(--margin-xxs);
 }
 
-.welcomeMessageLogin{
-  color: var(--color-201);
-  margin-bottom: var(--margin-s);
-  width: 200px;
-  font-size: x-large;
-  font-weight: 600;
+.passwordInput{
+  width: 100%;
+  height: 35px;
+  padding-left: var(--padding-xs);
 }
 
-.welcomeUserName{
-  color: var(--color-201);
-  font-size: larger;
-  font-weight: 200;
+.eyeImg{
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
 }
 
-.letsBeginButton{
-  margin-top: var(--margin-m);
-  padding: 0 var(--padding-s);
-  height: 40px;
-  width: 250px;
-  font-size: large;
-  font-weight: 500;
-  color: var(--color-000);
-  border: none;
-  background: var(--button-color-001);
+.eyeSelected{
+  filter: invert(44%) sepia(84%) saturate(4011%) hue-rotate(356deg) brightness(103%) contrast(105%);
 }
+
+
+
+
 
 
 @media (max-width: 830px) {

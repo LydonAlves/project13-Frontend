@@ -360,13 +360,14 @@ width: 85%;
 .previewVideoActivity{
   display: flex;
   justify-content: space-around;
-  padding: var(--margin-l);
+  padding: var(--padding-l);
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   z-index: 9999;
   width: 90%;
   height: 510px;
+  overflow-y: auto;
   max-width: 1000px;
   background-color: var(--color-000);
   margin: var(--margin-m);
@@ -376,13 +377,16 @@ width: 85%;
 }
 
 .previewWithVideo{
-width: 50%;
+  width: 50%;
+  min-width: 280px;
+  margin-bottom: var(--padding-xs);
 }
                  
 .myClassPreviewGapTextDiv{
   display: flex;
-  padding-right: var(--padding-xxs);
+  margin-right: var(--padding-xxs);
   width: 70%;
+  min-width: 280px;
   height: 100%;
   overflow-y: auto;
 }
@@ -399,6 +403,13 @@ width: 50%;
   padding: var(--padding-xs) var(--padding-s);
 }
 
+@media (max-width: 1200px){
+  .previewVideoActivity{
+    flex-direction: column;
+    align-items: center;
+    gap: var(--gap-s);
+  }
+}
 
 @media (max-width: 600px) {
   .noActivityMyActivities{
