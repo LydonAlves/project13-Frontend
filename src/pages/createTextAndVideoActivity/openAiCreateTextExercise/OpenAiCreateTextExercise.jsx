@@ -76,7 +76,9 @@ const OpenAiCreateTextExercise = ({ resetCreateActivity }) => {
         loading={loading}
       />
       <h1 className={`createExerciseH1 aiH1`}>AI Exercise</h1>
-      <p className="OpenAiCreateTextCreatedFooter">Your exercise has been created, it will now be available  in Class Manager</p>
+      {response !== "" && (
+        <p className="OpenAiCreateTextCreatedFooter">Your exercise has been created, it will now be available  in Class Manager</p>
+      )}
       {response === "" && (
         <div className="divCreateExercise">
           <h1 className="titleCreateExercise">Create Exercise</h1>
