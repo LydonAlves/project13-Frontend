@@ -3,6 +3,7 @@ import "./CreateSelectClass.css"
 import useToggle from "../../../hooks/useToggle"
 import { deleteById, deleteByIdinDB } from "../../../utils/deleteById";
 import { removeClassFromActivitiesById } from "../classManagerFunctions/removeClassFromActivitiesById";
+import { toast } from "react-toastify";
 
 const CreateSelectClass = ({ classList, setClassList, setUpdateClass, setUpdateRequired, dateSelected, }) => {
   const [seeClassCodeToggle, setSeeClassCodeToggle] = useToggle(false)
@@ -58,8 +59,10 @@ const CreateSelectClass = ({ classList, setClassList, setUpdateClass, setUpdateR
       await removeClassFromActivitiesById(classId)
       await deleteByIdinDB("classGroup", classId)
       setUpdateRequired(true)
+      toast.success(`Success: Your class has successfully been deleted`);
     } catch (error) {
       console.error("Failed to delete class group:", error);
+      toast.error(`Error: We had some difficulty deleting this class`)
     }
   }
 
@@ -76,6 +79,7 @@ const CreateSelectClass = ({ classList, setClassList, setUpdateClass, setUpdateR
     <div className="createdClassContainer" >
       <div>
         <h1 className="classTitle">CLASS GROUPS</h1>
+        <p className="classSubtitle">These are class groups created by you</p>
         <div className="classSelectContainer">
           <ul className="classSelectUl">
             {classList.length > 0 && (

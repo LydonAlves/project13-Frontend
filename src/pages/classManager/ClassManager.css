@@ -102,7 +102,7 @@
 /* ------------------------ */
 .showActivitiesClassManager{
   position: absolute;
-  z-index: 999;
+  z-index: 99999;
   background-color: var(--color-000);
   height: 90%;
   width: 90%;
@@ -117,7 +117,7 @@
   position: absolute;
   z-index: 9999;
   bottom: 5%;
-  left: 3%;
+  right: 3%;
 }
 
 /* --------------------------------------------- */

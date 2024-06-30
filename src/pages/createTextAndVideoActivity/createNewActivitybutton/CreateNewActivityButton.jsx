@@ -2,7 +2,7 @@ import "./CreateNewActivityButton.css"
 const CreateNewActivityButton = ({ resetCreateActivity }) => {
   return (
     <>
-      <button onClick={() => resetCreateActivity()} className="createNewActivityButtonx">Back to Create Exercise</button>
+      <button onClick={() => resetCreateActivity()} className="createNewActivityButtonx">Create Exercise</button>
     </>
   )
 }

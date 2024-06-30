@@ -23,7 +23,6 @@ const Header = () => {
     logout()
     setStartPage(true)
     navigate('/')
-
   };
 
   const [menuVisible, setMenuVisible] = useState(false);
@@ -31,7 +30,6 @@ const Header = () => {
   const openMenu = () => {
     setMenuVisible(!menuVisible);
   };
-
 
   return (
     <>
@@ -44,8 +42,6 @@ const Header = () => {
               className={`menuButton ${menuVisible ? 'visibleClass' : ''}`}
             />
           </div>
-
-
           <div className="whiteLogoDiv">
             <img src="./assets/login/logoWhiteHorizontal.png" alt="white logo" className="headingLogo" />
           </div>

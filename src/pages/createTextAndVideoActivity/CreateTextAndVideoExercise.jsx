@@ -467,10 +467,11 @@ const CreateTextAndVideoExercise = () => {
         How do I do this?
       </button>
 
-      < CreateNewActivityButton
-        resetCreateActivity={resetCreateActivity}
-      />
-
+      {activityType !== "AIfillGapText" && (
+        < CreateNewActivityButton
+          resetCreateActivity={resetCreateActivity}
+        />
+      )}
 
     </section >
   )

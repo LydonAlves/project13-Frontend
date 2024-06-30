@@ -10,6 +10,7 @@ const ShowActivities = ({
   return (
     <div className="showActivitiesDiv">
       <h1 className="classTitle">MY ACTIVITIES</h1>
+      <p className="classSubtitle">The ativities you created in My Activities</p>
       <div className="myActivitiesContainer">
         {classActivities && (
           <ul className="showActivitiesUl">

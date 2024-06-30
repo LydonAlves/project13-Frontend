@@ -11,9 +11,9 @@
 
 .classSelectUl{
   width: 100%;
-  height: 450px;
+  height: 430px;
   display: flex;
-  flex-direction: column;
+  flex-direction: column; 
   align-items: center;
   overflow-y: auto;
 }
@@ -27,7 +27,7 @@
   position: relative;
   margin: var(--margin-xs) 0;
   width: 350px;
-  height: 500px;
+  height: 120px;
   border: solid var( --color-302) 1px;
   background-color: var(--color-000);
   padding: var(--padding-xxs) var(--padding-s); 

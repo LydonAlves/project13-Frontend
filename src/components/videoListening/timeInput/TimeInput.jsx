@@ -4,7 +4,6 @@ import "./TimeInput.css"
 const TimeInput = ({ title, time, setTime }) => {
   const [unblockTimeInput, setUnlockTimeInput] = useState(true)
 
-
   const handleTimeChange = (e) => {
     let input = e.target.value.replace(/[^0-9]/g, ' ')
     input = input.replace(/^0*(?=\d)/, '').replace(/^[^1-9]+/, '').replace(/\s+/g, '');

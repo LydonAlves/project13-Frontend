@@ -11,7 +11,6 @@ const FillGapForm = ({ textObj, inputs, submit, initialAnswersSubmitted, handleI
           {initialAnswersSubmitted === true && inputs.length > 0 ? "Check again" : "Submit"}
         </button>
       </form>
-
     </>
   )
 }

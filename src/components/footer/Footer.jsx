@@ -10,7 +10,7 @@ const Footer = () => {
       {startPage === false && (
         <footer>
           <div className="footerDiv">
-            <p>English Online Learning &copy; 2024. All rights reserved</p>
+            <p>English Online Language Learning &copy; 2024. All rights reserved</p>
           </div>
         </footer>
       )}

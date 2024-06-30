@@ -1,3 +1,24 @@
+## Getting Started
+To get view this project, you can use the following users to test different roles and functionalities:
+
+### Users
+
+#### Admin
+- **Email:** dave@example.com
+- **Password:** Dave123
+
+#### Teacher
+- **Email:** tim@example.com
+- **Password:** Tim123
+
+#### Student
+- **Email:** sam@example.com
+- **Password:** Sam123
+
+## Deployment
+You can view the live demo of this project on Vercel:
+
+[Live Demo on Vercel](https://project13-frontend.vercel.app/)
 
 ## Project Description
 
@@ -86,7 +107,6 @@ The structure of **Project13-LearnEnglishWithAI** can be divided into the follow
 - The design of the UI was done on Figma in collaboration with an expert in graphic design and was an ongoing process. In "Acknowledgements" at the end of this page there is a link to the Figma design, and to the designers LinkedIn profile
 
 
-## Getting Started
 
 ### Prerequisites
 Before you begin, ensure you have met the following requirements:

@@ -1,7 +1,6 @@
 import "./SpeakingCorrections.css"
 
 const SpeakingCorrections = ({ answersToShow }) => {
-  console.log("answers to show", answersToShow);
 
   return (
     <div className="voiceToTextCorrectonDiv">

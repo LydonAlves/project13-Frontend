@@ -72,12 +72,13 @@ font-size: 30px;
   width: 60%;
   min-width: 320px;
   overflow-y: auto;
-  height: 380px;
-  margin-top: var(--margin-xxl);
+  height: 100%;
+  margin-top: var(--margin-xl);
+  padding: var(--margin-xxs);
 }
 
 .OpenAiCreateTextCreatedFooter{
-  margin-top: var(--margin-s);
+  margin-bottom: var(--margin-s);
   text-align: center;
 }
 

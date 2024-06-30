@@ -230,6 +230,7 @@ width: 85%;
 
 .gapfillAndVideoChosenDiv{
   display: flex;
+  justify-content: space-evenly;
   flex-direction: row;
   width: 100%;
   align-items: center;

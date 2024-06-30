@@ -2,7 +2,6 @@ import React, { useEffect } from "react"
 import "./GapText.css"
 import useCreateTextSegments from "../../../hooks/useCreateTextSegmensts"
 
-
 const GapText = ({ textObj, handleInputChange, }) => {
   const { textSegments, createSegmentsFromText } = useCreateTextSegments()
   const { text, title } = textObj

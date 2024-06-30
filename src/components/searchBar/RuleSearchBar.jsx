@@ -7,7 +7,6 @@ const RuleSearchBar = ({
   updateRuleInGap
 }) => {
 
-
   return (
     <div className="searchBarRules">
       <div className="searchTitleAndInput">
@@ -19,7 +18,6 @@ const RuleSearchBar = ({
           placeholder="Type here to search rules..."
         />
       </div>
-
       <div className="rulesDropdownList">
         {filteredItems.slice().reverse().slice(0, 2).map((item, index) => (
           <div className="rulesContainer" key={item._id}>

@@ -9,6 +9,7 @@ import Loading from "../../components/loading/Loading"
 import { toast } from "react-toastify"
 import PageExplanation from "../../components/pageExplanation/PageExplanation"
 import { infoForPageExplanation } from "../../components/pageExplanation/infoForexplanations/infoForExplanations"
+import { formatUserFriendlyDate } from "../../utils/formatUserFriendlyDate"
 
 const PreviousSpeakingCorrections = () => {
   const [allSpeakingCorrections, setAllSpeakingCorrections] = useState([])
@@ -19,6 +20,7 @@ const PreviousSpeakingCorrections = () => {
   const [loading, setLoading] = useState(false)
   const answersToShow = lastTenResults[currentItemIndex];
   const { userObj } = useAuth()
+  console.log(dateOfCorrections);
 
   useEffect(() => {
     const fetchCorrections = async () => {
@@ -54,7 +56,8 @@ const PreviousSpeakingCorrections = () => {
   useEffect(() => {
     if (answersToShow) {
       let chosenDate = formatDate(answersToShow.date)
-      setDateOfCorrections(chosenDate)
+      let userFriendlyDate = formatUserFriendlyDate(chosenDate)
+      setDateOfCorrections(userFriendlyDate)
     }
   }, [answersToShow])
 

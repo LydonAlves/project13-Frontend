@@ -19,7 +19,6 @@ export const saveNewClassGroup = async (classGroup) => {
     }
 
     const data = await response.json()
-    console.log(`Class group saved:`, data);
     return data
   } catch (error) {
     console.error('Error in saving class group:', error);

@@ -76,6 +76,7 @@ const OpenAiCreateTextExercise = ({ resetCreateActivity }) => {
         loading={loading}
       />
       <h1 className={`createExerciseH1 aiH1`}>AI Exercise</h1>
+      <p className="OpenAiCreateTextCreatedFooter">Your exercise has been created, it will now be available  in Class Manager</p>
       {response === "" && (
         <div className="divCreateExercise">
           <h1 className="titleCreateExercise">Create Exercise</h1>
@@ -100,15 +101,14 @@ const OpenAiCreateTextExercise = ({ resetCreateActivity }) => {
             <GapText
               textObj={response.textObj}
             />
-
             <div className="OpenAiCreateTextFooterDiv">
-              <p className="OpenAiCreateTextCreatedFooter">Your exercise has been created, it will now be available  in Class Manager</p>
               <button
                 onClick={() => resetCreateActivity()}
                 className="OpenAiCreateTextCreatedFooterButton greenButtonColorOnly"
               >Save and continue</button>
             </div>
           </div>
+
           <MockupAnswerList
             answerList={response.answers}
           />
@@ -118,4 +118,4 @@ const OpenAiCreateTextExercise = ({ resetCreateActivity }) => {
   );
 };
 
-export default OpenAiCreateTextExercise;
+export default OpenAiCreateTextExercise; 

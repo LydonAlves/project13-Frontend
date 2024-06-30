@@ -79,8 +79,6 @@ const ClassManager = () => {
     }
   }, [classList]);
 
-
-
   useEffect(() => {
     if (!oneUse && classByDate && classByDate.length > 0) {
       setOneUse(false)
@@ -289,6 +287,7 @@ const ClassManager = () => {
       <div className="mainContentClassManager">
         <div className="calendarAndCreateClassInputDiv">
           <h1 className="classDetailsTitle">CLASS DETAILS</h1>
+          <p>Choose the date you want to assing activities to</p>
           <div className="calendarAndInputsDiv">
             <Calendar
               setDateSelected={setDateSelected}
@@ -343,9 +342,9 @@ const ClassManager = () => {
         {showActivites && (
           <div className="showActivitiesClassManager">
             <StudentsPage
-              activityCreatedId={showActivites}
+              activityCreatedId={showActivites._id}
             />
-            <button className="backButtonClassManager" onClick={() => setShowActivities(null)}>Back</button>
+            <button className="backButtonClassManager primaryGreenButton" onClick={() => setShowActivities(null)}>Back</button>
           </div>
         )}
 
