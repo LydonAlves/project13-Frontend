@@ -6,14 +6,19 @@ To get view this project, you can use the following users to test different role
 #### Admin
 - **Email:** dave@example.com
 - **Password:** Dave123
+- There isn't date uploaded to this user, the main points you can see is Manage Users where you can see both students and teachers as well as change thier roles
 
 #### Teacher
 - **Email:** tim@example.com
 - **Password:** Tim123
+- Data has been uploaded to this user for you to be able to see the use of: My Activities, Class Manager, and Manage Users where you will see students assigned to the teachers different Class groups
 
 #### Student
 - **Email:** sam@example.com
 - **Password:** Sam123
+- Data has been uploaded for this user so that you can see Speaking Corrections
+- To join a Class Group use the following code: 665c7baf869680ba3df6c46f
+
 
 ## Deployment
 You can view the live demo of this project on Vercel:
@@ -94,6 +99,7 @@ The structure of **Project13-LearnEnglishWithAI** can be divided into the follow
 - **Class Enrollment**:
   - Students can join a class group by entering a class ID provided by their teacher (found in Class Manager).
   - Students can switch to a new class by entering another class ID.
+  - To test this you can add the following class code: 665c7baf869680ba3df6c46f
 
   ### Access Control
 - **Role-based Access**:
