@@ -190,12 +190,12 @@ const UserManager = () => {
                 <div className="seeUserCardButtons" >
                   <button className="primaryBlueButton" onClick={() => deleteUser(selectedUser)}>Delete user</button>
 
-
-                  <button
-                    className="primaryBlueButton"
-                    onClick={() => changeRole(selectedUser)}
-                  >Change role to {selectedUser.role === 'student' ? 'Teacher' : 'Student'}</button>
-
+                  {userObj.role === "admin" && (
+                    <button
+                      className="primaryBlueButton"
+                      onClick={() => changeRole(selectedUser)}
+                    >Change role to {selectedUser.role === 'student' ? 'Teacher' : 'Student'}</button>
+                  )}
 
                 </div>
                 <button
