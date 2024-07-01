@@ -1,6 +1,6 @@
 import { useState, useRef, useContext, useEffect } from "react";
-import "./voiceToText.css"
-import { checkRequestStatus, saveSpeakingCorrection } from "./saveSpeakingCorrections";
+import "./AudioRecorder.css"
+import { saveSpeakingCorrection } from "./saveSpeakingCorrections";
 import { DateContext } from "../../../context/DateContext";
 import CarrouselOfItemsButtons from "../../../components/carrouselOfItemsButtons/CarrouselOfItemsButtons";
 import { useAuth } from "../../../context/AuthContext";
@@ -9,6 +9,9 @@ import Loading from "../../../components/loading/Loading";
 import { fetchByUser } from "../../../utils/fetchByUser";
 import { backendURL } from "../../../utils/backendURL";
 import { toast } from "react-toastify";
+import { waitForDesiredStatus } from "../../../components/AIFunctions/waitForDesiredStatus";
+import { checkRequestStatus } from "../../../components/AIFunctions/checkRequestStatus";
+
 
 const AudioRecorder = ({ questions }) => {
   const date = useContext(DateContext)
@@ -58,7 +61,6 @@ const AudioRecorder = ({ questions }) => {
     }
   }, [userObj])
 
-
   useEffect(() => {
     if (todaysCorrections.length > 0) {
       const corrections = todaysCorrections.find(item => item.question.id === question.id)
@@ -70,7 +72,6 @@ const AudioRecorder = ({ questions }) => {
     setAudio(null)
   }, [currentItemIndex])
 
-
   const [correctedTextArray, setCorrectedTextArray] = useState(() => {
     const savedAnswersToShow = localStorage.getItem('answersToShow');
     return savedAnswersToShow ? JSON.parse(savedAnswersToShow) : [];
@@ -79,7 +80,6 @@ const AudioRecorder = ({ questions }) => {
   useEffect(() => {
     localStorage.setItem('answersVideo', JSON.stringify(answersToShow));
   }, [answersToShow]);
-
 
   useEffect(() => {
     if (correctedTextArray.length > 0) {
@@ -153,13 +153,12 @@ const AudioRecorder = ({ questions }) => {
         });
 
         const result = await response.json()
-        const statusData = await checkRequestStatus(result.hash);
+        const statusData = await checkRequestStatus(result.hash, "request");
 
         let speakingResult
 
-        waitForDesiredStatus(result.hash)
+        waitForDesiredStatus(result.hash, "request")
           .then(statusData => {
-            console.log('Final status data:', statusData);
             speakingResult = {
               question: question,
               corrections: statusData.jsonObject,
@@ -182,37 +181,6 @@ const AudioRecorder = ({ questions }) => {
 
     }
   }
-
-  const waitForDesiredStatus = async (hash) => {
-    let statusData;
-    let attempts = 0;
-    const maxAttempts = 10;
-    while (attempts < maxAttempts) {
-      attempts++;
-      try {
-        statusData = await checkRequestStatus(hash);
-        console.log("status data", statusData);
-
-        if (statusData.jsonObject) {
-          console.log('Desired status received:', statusData);
-          break;
-        }
-      } catch (error) {
-        console.error('Error checking status:', error);
-        toast.error(`Error: We had some difficulty with the AI corrections`)
-        break;
-      }
-
-      await new Promise(resolve => setTimeout(resolve, 2000));
-    }
-
-    if (attempts >= maxAttempts) {
-      toast.error(`Error: We had some difficulty with the AI corrections`)
-      console.log(`Maximum attempts reached (${maxAttempts}). Exiting.`);
-    }
-
-    return statusData;
-  };
 
   const redoRecording = () => {
     setAudio(null)

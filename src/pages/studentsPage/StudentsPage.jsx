@@ -6,13 +6,16 @@ import { fetchById } from "../../utils/fetchById";
 import { fetchByUser } from './../../utils/fetchByUser';
 import { useAuth } from './../../context/AuthContext';
 import { fetchByRole } from "../../utils/fetchByRole";
-import AudioRecorder from "./speakingPractice/voiceToText";
 import Loading from "../../components/loading/Loading";
 import { toast } from "react-toastify";
 import PageExplanation from "../../components/pageExplanation/PageExplanation";
 import { infoForGapfillText, infoForQuestionActivity, infoForYoutubeActivity } from "../../components/pageExplanation/infoForexplanations/infoForExplanations";
 import GapFill from "../../components/gapFill/GapFill";
 import ActivityButtons from "../../components/activityButtons/ActivityButtons";
+import { fetchByClassId } from "../../utils/fetchByClassID";
+import { findActivityObjById } from "./studentsPageFunctions.js/findActivityObjById";
+import { findMostRecentActivity } from "./studentsPageFunctions.js/findMostRecentActivity";
+import AudioRecorder from "./speakingPractice/AudioRecorder";
 
 const StudentsPage = ({ activityCreatedId }) => {
   const [allActivities, setAllActivities] = useState([])
@@ -55,6 +58,7 @@ const StudentsPage = ({ activityCreatedId }) => {
     localStorage.setItem('answersGapFill', JSON.stringify(answersGapFill));
   }, [answersGapFill]);
 
+
   useEffect(() => {
     const fetchActivities = async () => {
       if (userObj) {
@@ -78,13 +82,26 @@ const StudentsPage = ({ activityCreatedId }) => {
           }
         } else if (userObj.role === "student") {
           setLoading(true)
-          console.log("user role", userObj.classGroup);
           try {
-            const result = await fetchByUser("classActivity", userObj.classGroup);
+            const result = await fetchByClassId("classActivityByDate", userObj.classGroup);
             if (result.error) {
               throw new Error(result.error);
             } else {
-              setAllActivities(result)
+              const activityObj = findMostRecentActivity(result)
+              let classActivitiesFound = findActivityObjById(activityObj, userObj.classGroup)
+              try {
+                const result = await fetchById("classActivity", classActivitiesFound[0].activityId);
+                if (result.error) {
+                  throw new Error(result.error);
+                } else {
+                  setAllActivities(prevActivities => [...prevActivities, result])
+                }
+              } catch (error) {
+                console.error('Error fetching the class activity:', error);
+                toast.error(`Error: We had some difficulty loading data`)
+              } finally {
+                setLoading(false)
+              }
             }
           } catch (error) {
             console.error('Error fetching the class activity:', error);
@@ -154,6 +171,7 @@ const StudentsPage = ({ activityCreatedId }) => {
       })
     }
 
+
     if (mostRecentActivity.activitiesID.video) {
       let currentVideo = mostRecentActivity.activitiesID.video
 
@@ -209,7 +227,6 @@ const StudentsPage = ({ activityCreatedId }) => {
       value: "questions",
     },
   ]
-
 
   return (
     <section className="studentsPageSection" >

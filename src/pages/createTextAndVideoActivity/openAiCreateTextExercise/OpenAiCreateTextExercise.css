@@ -118,6 +118,13 @@ font-size: 30px;
     height: max-content;
     margin-bottom: var(--margin-l);
   }
+
+  .OpenAiCreateTextCreatedFooter{
+    margin-top: var(--margin-m);
+    margin-bottom: 0;
+    text-align: center;
+    width: 80%;
+  }
 }
 
 

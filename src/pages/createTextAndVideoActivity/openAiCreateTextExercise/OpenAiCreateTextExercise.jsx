@@ -8,7 +8,8 @@ import { useAuth } from "../../../context/AuthContext";
 import { toast } from "react-toastify";
 import Loading from "../../../components/loading/Loading";
 import { backendURL } from "../../../utils/backendURL";
-
+import { waitForDesiredStatus } from "../../../components/AIFunctions/waitForDesiredStatus";
+import { checkRequestStatus } from "../../../components/AIFunctions/checkRequestStatus";
 
 const OpenAiCreateTextExercise = ({ resetCreateActivity }) => {
   const [content, setContent] = useState('');
@@ -36,8 +37,17 @@ const OpenAiCreateTextExercise = ({ resetCreateActivity }) => {
         throw new Error('Network response was not ok');
       }
 
-      const data = await res.json();
-      saveActivity(data)
+      const result = await res.json();
+      const statusData = await checkRequestStatus(result.hash, "exam");
+
+
+      waitForDesiredStatus(result.hash, "exam")
+        .then(statusData => {
+          console.log(statusData);
+          saveActivity(statusData)
+        })
+
+
     } catch (error) {
       console.error('Error sending the message:', error);
       toast.error(`Error: We had some difficulty loading data`)

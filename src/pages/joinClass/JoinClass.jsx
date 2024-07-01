@@ -43,6 +43,11 @@ const JoinClass = () => {
       setLoading(true)
       try {
         const result = await fetchById("classGroup", userObj.classGroup)
+        if (result === null) {
+          toast.info("You are not yet part of any class")
+          return
+        }
+
         if (result.error) {
           throw new Error(result.error);
         } else {
