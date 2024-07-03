@@ -211,6 +211,10 @@ By following these steps, you should have the project up and running on your loc
 
 ## Folder Structure
 
+Components and functions are organised in the following way whenever possible for the front-end.
+If they are only used for a specific page they are stored in their own folders inside the page's folder. 
+If they are reused in more than one page or if a function has to be used in different components, then they are stored in either a components folder or other folders at a higher level for functions such as those that call APIs
+
 The project's folder structure is organized as follows:
 
 ```plaintext
