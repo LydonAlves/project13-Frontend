@@ -16,6 +16,7 @@ export const AuthProvider = ({ children }) => {
   }, [])
 
   const login = (userData) => {
+    console.log("working", userData);
     localStorage.setItem("startPage", JSON.stringify(false))
     localStorage.setItem("user", JSON.stringify(userData))
     let user = userData.user

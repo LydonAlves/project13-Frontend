@@ -5,6 +5,7 @@ import { createSegmentsFromText } from '../../utils/createSegmentsFromText'
 import AnswerList from '../../components/fillGapForm/answerList/AnswerList'
 import { checkIfInputsFull } from '../../components/fillGapForm/fillGapFormFunctions/checkIfInputsFull'
 import { updateAnswers } from '../../components/fillGapForm/fillGapFormFunctions/updateAnswers'
+import { toast } from 'react-toastify'
 
 const GapFill = ({ chosenText, inputs, setInputs }) => {
   const [answers, setAnswers] = useState([])
@@ -46,9 +47,13 @@ const GapFill = ({ chosenText, inputs, setInputs }) => {
   const submitGapFillExercise = (e) => {
     e.preventDefault()
     if (initialAnswersSubmitted === false) {
+      console.log(initialAnswersSubmitted);
+      toast.error('You have to fill all the gaps before you can check the answer')
       checkIfInputsFull(inputs, initialInputs, setInitialAnswersSubmitted)
+
+    } else {
+      setAnswerList(updateAnswers(inputs, answerList))
     }
-    setAnswerList(updateAnswers(inputs, answerList))
   }
 
   const handleExplanationToggle = (index) => {

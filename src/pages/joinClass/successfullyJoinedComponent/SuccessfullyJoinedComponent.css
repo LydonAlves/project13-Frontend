@@ -1,0 +1,29 @@
+.joinedDiv{
+    position: absolute;
+    width: 500px;
+    background-color: var(--color-000);
+    height: 400px;
+    z-index: 99999;
+    border: 15px solid var(--color-101);
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: var(--padding-s);
+}
+
+.joinedTitle{
+  width: 80%;
+  color: var(--color-202);
+  margin-bottom: var(--margin-m);
+  margin-top: var(--margin-xs);
+}
+
+.joinedButton{
+  background: var(--button-color-001);
+  padding: var(--padding-xs) var(--padding-xs);
+  color: var(--color-000);
+  font-size: 12px;
+  border: none;
+}

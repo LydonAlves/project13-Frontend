@@ -9,6 +9,7 @@ import Loading from "../../components/loading/Loading";
 import { useNavigate } from "react-router-dom";
 import { StartPageContext } from './../../context/StartPageContext';
 import { backendURL } from "../../utils/backendURL";
+import { SuccessfullRegistration } from "./loginComponents/successfullRegistration/SuccessfullRegistration";
 
 const LoginRegister = () => {
   const [register, toggleRegister] = useToggle();
@@ -18,9 +19,11 @@ const LoginRegister = () => {
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
   const [userLoggedIn, setUserLoggedIn] = useState(null)
+  const [registrationData, setRegistrationData] = useState()
   const [loading, setLoading] = useState(false)
   const [showPassword, setShowPassword] = useToggle();
   const { setStartPage } = useContext(StartPageContext)
+
   const { userObj, login } = useAuth()
   const navigate = useNavigate()
 
@@ -42,8 +45,10 @@ const LoginRegister = () => {
 
       if (!response.ok) {
         if (response.status === 400) {
+          toast.error(`Error: ${error.message}`);
           throw new Error("The password or username you have entered is not correct");
         } else {
+          toast.error(`Error: ${error.message}`);
           throw new Error(result.error || "An unknown error occurred");
         }
       } else {
@@ -60,7 +65,7 @@ const LoginRegister = () => {
   const submitRegister = async (e) => {
     e.preventDefault();
     if (password !== repeatPassword) {
-      setErrorMessage('Passwords do not match');
+      toast.error(`Error: the passwords don't match`);
       return;
     }
 
@@ -68,6 +73,7 @@ const LoginRegister = () => {
       "Content-Type": "application/json"
     };
 
+    setLoading(true)
     try {
       const response = await fetch(`${backendURL}user/register`, {
         method: "POST",
@@ -76,24 +82,35 @@ const LoginRegister = () => {
       });
 
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        if (response.status === 410) {
+          const errorData = await response.json();
+          toast.error(`Error: ${errorData.message}`);
+        } else {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return;
       }
 
       const data = await response.json();
-      login(data)
+      setRegistrationData(data)
       console.log('Registration successful');
+
     } catch (error) {
       console.error('Registration failed', error);
-      setErrorMessage('Registration failed. Please try again.');
+      toast.error(`Error: ${error.message}`);
+    } finally {
+      setLoading(false);
     }
   };
-
 
   useEffect(() => {
     if (userObj) {
       setUserLoggedIn(userObj)
       if (userObj.role === "admin" || userObj.role === "teacher") {
         navigate('/create-exercise')
+        setStartPage(false)
+      } else if (userObj && !userObj.classGroup) {
+        navigate('/join-class')
         setStartPage(false)
       } else {
         navigate('/students-page')
@@ -108,6 +125,15 @@ const LoginRegister = () => {
       <Loading
         loading={loading}
       />
+
+      {registrationData && (
+        <SuccessfullRegistration
+          userData={registrationData}
+          login={login}
+          setRegistrationData={setRegistrationData}
+          toggleRegister={toggleRegister}
+        />
+      )}
       <div className="loginContainer">
         <div className="loginImgDiv">
           <img className="loginImg" src="/assets/login/loginImg.jpg" alt="loginImg" />

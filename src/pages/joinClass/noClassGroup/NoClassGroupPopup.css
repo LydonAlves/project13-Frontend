@@ -1,0 +1,60 @@
+.noClassPopupDiv{
+  position: absolute;
+  width: 500px;
+  background-color: var(--color-000);
+  height: 300px;
+  z-index: 99999;
+  border: 15px solid var(--color-101);
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  padding: var(--padding-s);
+}
+
+.noClassPopupH1{
+  color: var(--color-202);
+  margin-bottom: var(--margin-m);
+  margin-top: var(--margin-xs);
+}
+
+
+.noClassPopupButtonDiv{
+  position: absolute;
+  bottom: 15px;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.noClassPopupButton{
+  background: var(--button-color-001);
+  padding: var(--padding-xs) var(--padding-xs);
+  color: var(--color-000);
+  font-size: 12px;
+  border: none;
+}
+
+
+@media (max-width: 600px) {
+  .noClassPopupDiv{
+    width: 320px;
+    height: 400px;
+  }
+
+  .noClassPopupH1{
+    font-size: 26px;
+    margin-bottom: var(--margin-s);
+  }
+  
+  .noClassPopuptext{
+    font-size: 16px;
+    margin-bottom: var(--margin-s);
+  }
+
+  .noClassPopupButtonDiv{
+  flex-direction: column;
+  width: max-content;
+  gap: var(--gap-s);
+  }
+}
