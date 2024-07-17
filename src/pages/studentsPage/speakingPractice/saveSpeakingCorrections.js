@@ -1,4 +1,5 @@
 import { backendURL } from './../../../utils/backendURL';
+import Loading from './../../../components/loading/Loading';
 
 export const saveSpeakingCorrection = async (exercise, setCorrectedTextArray) => {
 
@@ -9,6 +10,7 @@ export const saveSpeakingCorrection = async (exercise, setCorrectedTextArray) =>
     return
   }
 
+  Loading(true)
   try {
     const response = await fetch(`${backendURL}speakingCorrection`,
       {
@@ -35,6 +37,8 @@ export const saveSpeakingCorrection = async (exercise, setCorrectedTextArray) =>
   } catch (error) {
     console.error('Error in saving speaking correction:', error);
     return { error: `Failed to save: ${error.message}` };
+  } finally {
+    Loading(false)
   }
 }
 

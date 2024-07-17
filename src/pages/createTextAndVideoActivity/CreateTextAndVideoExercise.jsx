@@ -197,9 +197,11 @@ const CreateTextAndVideoExercise = () => {
     try {
       const result = await saveCompleteExercise(exercise, endpoint)
       if (result.error) {
+        toast.error(`Error: Could not save the activity`)
         throw new Error(result.error);
       } else {
         setSavedFinalExercise(result)
+        chooseStepOfProcess("finishedTask")
       }
     } catch (error) {
       console.error('Error saving saving the activity:', error);
@@ -207,7 +209,7 @@ const CreateTextAndVideoExercise = () => {
     } finally {
       setLoading(false)
     }
-    chooseStepOfProcess("finishedTask")
+
   }
 
   const resetCreateActivity = () => {
@@ -399,7 +401,7 @@ const CreateTextAndVideoExercise = () => {
                 />
               </div>
 
-              {activitySetupStage === "youTubeFillGap" && videoObj !== "" && isNaN(videoObj.chosenTimes.endTimeSaved) && (
+              {activitySetupStage === "youTubeFillGap" && videoObj !== "" && (
                 <div className="createYouTubeActivityDiv">
                   <p>If you are happy with the settings click next</p>
                   <button

@@ -33,6 +33,14 @@
   width: 100%;
 }
 
+.myActivitiesInfo{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: var(--gap-s);
+  height: 60px;
+}
+
 
 /* ----Side bar and content---------------------------------- */
 .activitiesSidebarAndChosenActivities{

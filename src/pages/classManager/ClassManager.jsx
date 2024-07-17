@@ -274,6 +274,7 @@ const ClassManager = () => {
         toast.error(`Error: Failed to save new class group`)
       } finally {
         setLoading(false)
+        classNameRef.current.value = ""
       }
     }
   }
@@ -304,6 +305,7 @@ const ClassManager = () => {
                   >Submit</button>
                 </div>
               </div>
+
               {updateNeeded === true && (
                 <div className="saveChangesButtonDivMyClass">
                   <p className="saveChangesTextMyClass">Save changes made to the classes</p>

@@ -4,6 +4,7 @@ import useToggle from "../../../hooks/useToggle"
 import { deleteById, deleteByIdinDB } from "../../../utils/deleteById";
 import { removeClassFromActivitiesById } from "../classManagerFunctions/removeClassFromActivitiesById";
 import { toast } from "react-toastify";
+import Loading from './../../../components/loading/Loading';
 
 const CreateSelectClass = ({ classList, setClassList, setUpdateClass, setUpdateRequired, dateSelected, }) => {
   const [seeClassCodeToggle, setSeeClassCodeToggle] = useToggle(false)
@@ -55,6 +56,7 @@ const CreateSelectClass = ({ classList, setClassList, setUpdateClass, setUpdateR
   }
 
   const deleteClass = async (classId) => {
+    Loading(true)
     try {
       await removeClassFromActivitiesById(classId)
       await deleteByIdinDB("classGroup", classId)
@@ -64,6 +66,7 @@ const CreateSelectClass = ({ classList, setClassList, setUpdateClass, setUpdateR
       console.error("Failed to delete class group:", error);
       toast.error(`Error: We had some difficulty deleting this class`)
     }
+    Loading(false)
   }
 
   const showClassCode = (index) => {

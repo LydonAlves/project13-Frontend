@@ -39,7 +39,7 @@ const OpenAiCreateTextExercise = ({ resetCreateActivity }) => {
 
       const result = await res.json();
       const statusData = await checkRequestStatus(result.hash, "exam");
-
+      console.log(statusData);
 
       waitForDesiredStatus(result.hash, "exam")
         .then(statusData => {
@@ -59,6 +59,10 @@ const OpenAiCreateTextExercise = ({ resetCreateActivity }) => {
 
   const saveActivity = async (data) => {
     const userId = userObj._id
+    console.log(data);
+
+
+
     let finalText = data.gapFill.textObj
     let answers = data.gapFill.answers
     let finalExercise = createNewExercise(finalText, answers, userId)

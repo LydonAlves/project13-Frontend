@@ -13,18 +13,22 @@ const ActivitySearchBar = ({
       <h3 className="activitySearchBarTitle">SEARCH</h3>
       <input value={searchQuery} type="search" onChange={e => search(e.target.value)} />
       <div className="activityContainer">
-        {filteredItems && filteredItems.slice().reverse().slice(0, 5).map((item, index) => (
-          <div className="activityDiv" key={item._id}>
-            <p className="activityTitleActivitySearchBar" >{item.textObj.title}</p>
-            <div className='classActivityButtonDiv'>
-              <button className="activitySearchButton"
-                onClick={() => setShowSelectedTask(item)}
-              > See Activity</button>
-              <button className="activitySearchButton"
-                onClick={() => addActivityToClasses(item, index)}>Choose</button>
+        {filteredItems && filteredItems.length > 0 ? (
+          filteredItems && filteredItems.slice().reverse().slice(0, 5).map((item, index) => (
+            <div className="activityDiv" key={item._id}>
+              <p className="activityTitleActivitySearchBar" >{item.textObj.title}</p>
+              <div className='classActivityButtonDiv'>
+                <button className="activitySearchButton"
+                  onClick={() => setShowSelectedTask(item)}
+                > See Activity</button>
+                <button className="activitySearchButton"
+                  onClick={() => addActivityToClasses(item, index)}>Choose</button>
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        ) : (
+          <p>No exercises of this type have been created yet. Go to <strong>Create Exercises</strong> to make one</p>
+        )}
       </div>
     </div >
   )

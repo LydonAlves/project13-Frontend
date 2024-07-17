@@ -5,6 +5,7 @@ import { INITIAL_VIDEO_STATE, videoReducer } from '../../hooks/VideoFormatReduce
 import formatTime from './videoListeningFunctions/formatTime';
 import AddYoutubeLink from './addYouTubeLink/AddYoutubeLink';
 import { editYouTubeLink } from './videoListeningFunctions/editYouTubeLink';
+import { toast } from 'react-toastify';
 
 const CreateYoutubeActivity = ({ setVideoObj, setVideoData }) => {
   const [stateVideoData, dispatchVideoData] = useReducer(videoReducer, INITIAL_VIDEO_STATE)
@@ -14,7 +15,8 @@ const CreateYoutubeActivity = ({ setVideoObj, setVideoData }) => {
 
   const [startTime, setStartTime] = useState("")
   const [endTime, setEndTime] = useState("")
-  const [videoLink, setVideoLink] = useState("")
+  const [videoLink, setVideoLink] = useState()
+
 
   useEffect(() => {
     if (setVideoObj) {
@@ -29,6 +31,11 @@ const CreateYoutubeActivity = ({ setVideoObj, setVideoData }) => {
 
 
   const submitVideoData = () => {
+    if (!videoLink) {
+      toast.warning('Please add a video URL to continue');
+      return
+    }
+
     const startTimeInSeconds = formatTime(startTime)
     const endTimeinSeconds = formatTime(endTime)
     const editedURl = editYouTubeLink(videoLink)
@@ -40,8 +47,8 @@ const CreateYoutubeActivity = ({ setVideoObj, setVideoData }) => {
       videoId: editedURl,
       playerVars: {
         autoplay: 0,
-        start: startTimeInSeconds === 0 ? undefined : startTimeInSeconds,
-        end: endTimeinSeconds === 0 ? undefined : endTimeinSeconds,
+        start: isNaN(startTimeInSeconds) ? 0 : startTimeInSeconds,
+        end: isNaN(endTimeinSeconds) ? null : endTimeinSeconds,
       },
     }
 

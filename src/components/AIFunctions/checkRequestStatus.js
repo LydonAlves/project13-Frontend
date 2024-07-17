@@ -1,7 +1,8 @@
 import { backendURL } from "../../utils/backendURL";
 
 export const checkRequestStatus = async (hash, url) => {
-  console.log("url", url);
+  // console.log("url", url);
+
   try {
     const response = await fetch(`${backendURL}openai/${url}/status/${hash}`, {
       method: "GET",

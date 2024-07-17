@@ -186,6 +186,16 @@ const MyActivities = () => {
     }
   }
 
+  const addTitle = () => {
+    if (titleRef.current.value === "") {
+      toast.error(`You need to add a title to continue`)
+      return
+    } else {
+      setTitle(titleRef.current.value)
+    }
+
+  }
+
   const resetPageValues = () => {
     setShowSubmittedActivities(false)
     setActivityTypeSelected("title")
@@ -268,7 +278,7 @@ const MyActivities = () => {
                         <p className='changeTitle'>Change the title below</p>
                       )}
                       <input type="text" ref={titleRef} className='inputSideBarMyClasses' />
-                      <button onClick={() => setTitle(titleRef.current.value)}
+                      <button onClick={() => addTitle()}
                         className='sidebarTitleButton'>{title === null ? "ADD TITLE" : "CHANGE TITLE"}</button>
                     </div>
                   )}
@@ -318,7 +328,10 @@ const MyActivities = () => {
                 </div>
 
                 {title === null && (
-                  <h1 className='noActivityMyActivities'>Start by adding a title for your activity</h1>
+                  <div className='myActivitiesInfo'>
+                    <p className='noActivityMyActivities'>Start by adding a title for your activity</p>
+                    <p>Then click next and continue by adding the different types of activities</p>
+                  </div>
                 )}
 
                 {/* Activities selected and shown in the container */}
@@ -363,9 +376,6 @@ const MyActivities = () => {
                         )}
 
                       </div>
-
-
-
                     </div>
                   </div>
                 )}
