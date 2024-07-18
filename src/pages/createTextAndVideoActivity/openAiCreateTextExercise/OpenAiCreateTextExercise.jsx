@@ -41,11 +41,18 @@ const OpenAiCreateTextExercise = ({ resetCreateActivity }) => {
       const statusData = await checkRequestStatus(result.hash, "exam");
       console.log(statusData);
 
-      waitForDesiredStatus(result.hash, "exam")
-        .then(statusData => {
-          console.log(statusData);
-          saveActivity(statusData)
-        })
+      // waitForDesiredStatus(result.hash, "exam")
+      //   .then(statusData => {
+      //     console.log(statusData);
+      //     saveActivity(statusData)
+      //   })
+      try {
+        const desiredStatusData = await waitForDesiredStatus(result.hash, "exam");
+        console.log(desiredStatusData);
+        saveActivity(desiredStatusData);
+      } catch (error) {
+        console.error('Error waiting for desired status:', error);
+      }
 
 
     } catch (error) {

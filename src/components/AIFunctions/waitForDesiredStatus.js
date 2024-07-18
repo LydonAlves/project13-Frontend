@@ -1,6 +1,5 @@
 import { toast } from "react-toastify";
 import { checkRequestStatus } from './checkRequestStatus';
-import Loading from "../loading/Loading";
 
 
 export const waitForDesiredStatus = async (hash, url) => {
@@ -8,7 +7,6 @@ export const waitForDesiredStatus = async (hash, url) => {
   let attempts = 0;
   const maxAttempts = 15;
 
-  Loading(true)
   try {
     while (attempts < maxAttempts) {
       attempts++;
@@ -35,8 +33,8 @@ export const waitForDesiredStatus = async (hash, url) => {
       console.log(`Maximum attempts reached (${maxAttempts}). Exiting.`);
     }
 
-  } finally {
-    Loading(false);
+  } catch (error) {
+    console.log(error);
   }
 
   return statusData;
