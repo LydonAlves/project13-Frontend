@@ -27,7 +27,7 @@
   width: 40%;
   min-width: 310px;
 }
-
+ 
 .searchButtonDivUM{
 display: flex;
 justify-content: center;
@@ -66,20 +66,7 @@ margin-bottom: var(--margin-xxs);
   background-color: var(--color-000);
 }
 
-.userCardTitle{
-  color: var(--color-202);
-  font-weight: 600;
-  margin-top: var(--margin-s);
-  text-align: center;
-}
 
-.userCardInfo{
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  width: 70%;
-  height: 40%;
-}
 
 .seeUserCardButtons{
   display: flex;

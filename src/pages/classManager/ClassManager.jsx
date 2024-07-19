@@ -17,6 +17,7 @@ import Loading from "../../components/loading/Loading"
 import PageExplanation from "../../components/pageExplanation/PageExplanation"
 import { infoForClassManager } from "../../components/pageExplanation/infoForexplanations/infoForExplanations"
 import { v4 as uuidv4 } from 'uuid';
+import ClassManagerSideBar from './classManagerSidebar/ClassManagerSideBar';
 
 
 const ClassManager = () => {
@@ -188,6 +189,7 @@ const ClassManager = () => {
 
   const saveClassesUpdated = async () => {
     setUpdateNeeded(false)
+    console.log("working");
 
     if (toUpdate) {
       let classesUpdate = {
@@ -245,7 +247,6 @@ const ClassManager = () => {
     return formattedDate
   }
 
-
   const createNewClass = async () => {
     if (classNameRef.current.value !== "") {
       let classGroup = {
@@ -279,6 +280,8 @@ const ClassManager = () => {
     }
   }
 
+  const sideBarObj = { setDateSelected, setClassesForDay, classNameRef, createNewClass, updateNeeded, saveClassesUpdated }
+
   return (
     <section className="classManagerSection">
       <Loading
@@ -286,7 +289,8 @@ const ClassManager = () => {
       />
       <h1 className="H1ClassManager">Class Manager</h1>
       <div className="mainContentClassManager">
-        <div className="calendarAndCreateClassInputDiv">
+
+        {/* <div className="calendarAndCreateClassInputDiv">
           <h1 className="classDetailsTitle">CLASS DETAILS</h1>
           <p>Choose the date you want to assing activities to</p>
           <div className="calendarAndInputsDiv">
@@ -295,6 +299,7 @@ const ClassManager = () => {
               setClassesForDay={setClassesForDay}
             />
             <div className="inputsContainerClassManager">
+
               <div className="createClassInputDiv">
                 <p className="createClassInputTitle">Create a new class group</p>
                 <div className="createClassDiv">
@@ -304,6 +309,7 @@ const ClassManager = () => {
                     onClick={() => createNewClass()}
                   >Submit</button>
                 </div>
+
               </div>
 
               {updateNeeded === true && (
@@ -318,7 +324,10 @@ const ClassManager = () => {
               )}
             </div>
           </div>
-        </div>
+        </div> */}
+        <ClassManagerSideBar
+          sideBarObj={sideBarObj}
+        />
 
         {classList && (
           <div className="createSelectClassDiv">

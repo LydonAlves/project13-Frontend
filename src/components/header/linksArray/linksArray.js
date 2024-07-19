@@ -5,5 +5,5 @@ export const links = [
   { path: '/students-page', label: "Student's page", roles: ["student", "noClassAssigned"] },
   { path: '/speaking-corrections', label: 'Speaking corrections', roles: ["student", "noClassAssigned"] },
   { path: '/user-manager', label: 'Manage Users', roles: ['admin', "teacher"] },
-  { path: '/join-class', label: 'Join Class', roles: ['admin', "student"] },
+  { path: '/join-class', label: 'Join Class', roles: ["student", "noClassAssigned"] },
 ];

@@ -8,8 +8,9 @@ import { useAuth } from "../../../context/AuthContext";
 import { toast } from "react-toastify";
 import Loading from "../../../components/loading/Loading";
 import { backendURL } from "../../../utils/backendURL";
-import { waitForDesiredStatus } from "../../../components/AIFunctions/waitForDesiredStatus";
-import { checkRequestStatus } from "../../../components/AIFunctions/checkRequestStatus";
+import { waitForDesiredStatus } from "../../../utils/AIApiFunctions/waitForDesiredStatus";
+import { checkRequestStatus } from "../../../utils/AIApiFunctions/checkRequestStatus";
+import { openAiCreateTextFunction } from './../../../utils/AIApiFunctions/openAiCreateTextFunction';
 
 const OpenAiCreateTextExercise = ({ resetCreateActivity }) => {
   const [content, setContent] = useState('');
@@ -24,51 +25,55 @@ const OpenAiCreateTextExercise = ({ resetCreateActivity }) => {
 
   const handleSubmit = async () => {
     setLoading(true)
-    try {
-      const res = await fetch(`${backendURL}openai/createExamAi`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ content }),
-      });
+    // const openAiCreateTextFunction= (content,saveActivity )=>{
+    //   try {
+    //     const res = await fetch(`${backendURL}openai/createExamAi`, {
+    //       method: 'POST',
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //       },
+    //       body: JSON.stringify({ content }),
+    //     });
 
-      if (!res.ok) {
-        throw new Error('Network response was not ok');
-      }
+    //     if (!res.ok) {
+    //       throw new Error('Network response was not ok');
+    //     }
 
-      const result = await res.json();
-      const statusData = await checkRequestStatus(result.hash, "exam");
-      console.log(statusData);
+    //     const result = await res.json();
+    //     const statusData = await checkRequestStatus(result.hash, "exam");
+    //     console.log(statusData);
 
-      // waitForDesiredStatus(result.hash, "exam")
-      //   .then(statusData => {
-      //     console.log(statusData);
-      //     saveActivity(statusData)
-      //   })
-      try {
-        const desiredStatusData = await waitForDesiredStatus(result.hash, "exam");
-        console.log(desiredStatusData);
-        saveActivity(desiredStatusData);
-      } catch (error) {
-        console.error('Error waiting for desired status:', error);
-      }
+    //     // waitForDesiredStatus(result.hash, "exam")
+    //     //   .then(statusData => {
+    //     //     console.log(statusData);
+    //     //     saveActivity(statusData)
+    //     //   })
+    //     try {
+    //       const desiredStatusData = await waitForDesiredStatus(result.hash, "exam");
+    //       console.log(desiredStatusData);
+    //       saveActivity(desiredStatusData);
+    //     } catch (error) {
+    //       console.error('Error waiting for desired status:', error);
+    //     }
 
 
-    } catch (error) {
-      console.error('Error sending the message:', error);
-      toast.error(`Error: We had some difficulty loading data`)
-    } finally {
-      setLoading(false)
+    //   } catch (error) {
+    //     console.error('Error sending the message:', error);
+    //     toast.error(`Error: We had some difficulty loading data`)
+    //   }
+    // }
+    const activityCreated = await openAiCreateTextFunction()
+
+    if (activityCreated) {
+      saveActivity(activityCreated)
     }
+    setLoading(false)
   };
 
 
   const saveActivity = async (data) => {
     const userId = userObj._id
-    console.log(data);
-
-
+    // console.log(data); 
 
     let finalText = data.gapFill.textObj
     let answers = data.gapFill.answers

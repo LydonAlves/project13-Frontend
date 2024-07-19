@@ -1,0 +1,45 @@
+.sideBarTitleMyClasses{
+  font-size: larger;
+  font-weight: 600;
+  color: var(--color-202);
+}
+
+.addQuestionText{
+  margin-top: var(--margin-xs);
+  margin-bottom: var(--margin-s);
+  font-size: 15px;
+}
+
+.activitiesSidebarTitleButton{
+  font-size: 13px;
+  padding: var(--padding-xs) var(--padding-s);
+  border: none;
+  background-color: var(--color-102);
+  color: var(--color-000);
+}
+
+@media (max-width: 740px) {
+  .addQuestionsMyActivities{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .addQuestionText{
+    margin-top: var(--margin-xxs);
+    margin-bottom: var(--margin-xs);
+    width: 60%;
+    min-width: 220px;
+  }
+
+  .textAreaSideBarMyClasses{
+    height: 40px;
+    text-align: center;
+    margin-bottom: var(--margin-xxs);
+  }
+
+  .activitiesSidebarTitleButton{
+    font-size: 10px;
+    padding: var(--padding-xxs) var(--padding-xs);
+  }
+}

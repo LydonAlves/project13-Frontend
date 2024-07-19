@@ -19,7 +19,7 @@
 
 .activityTypeDiv{
   display: flex;
-  margin: var(--margin-s) 0px;
+  margin: var(--margin-s) 0px; 
 }
 
 .buttonsDiv > button{
@@ -70,38 +70,6 @@
   margin-bottom: var(--margin-s);
 }
 
-.addtitleDiv{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.sideBarTitleMyClasses{
-  font-size: larger;
-  font-weight: 600;
-  color: var(--color-202);
-}
-
-.changeTitle{
-  margin-top: var(--margin-s);
-width: 85%;
-}
-
-.sidebarTitleButton{
-  font-size: 15px;
-  margin-bottom: var(--margin-s);
-  padding: var(--padding-xs) var(--padding-s);
-  background-color: var(--color-102);
-  border: none;
-  color: var(--color-000);
-}
-
-.inputSideBarMyClasses{
-  padding-left: var(--padding-xs);
-  margin: var(--margin-s);
-  width: 80%;
-  height: 30px;
-}
 
 .textAreaSideBarMyClasses{
   width: 250px;
@@ -115,20 +83,6 @@ width: 85%;
   padding: var(--padding-xs) var(--padding-xs);
   margin: 0px var(--margin-xs);
   margin-bottom: var(--margin-xs);
-}
-
-.addQuestionText{
-  margin-top: var(--margin-xs);
-  margin-bottom: var(--margin-s);
-  font-size: 15px;
-}
-
-.activitiesSidebarTitleButton{
-  font-size: 13px;
-  padding: var(--padding-xs) var(--padding-s);
-  border: none;
-  background-color: var(--color-102);
-  color: var(--color-000);
 }
 
 .submitActivityButton{
@@ -153,30 +107,6 @@ width: 85%;
     position: relative;
     width: 100%;
     padding: var(--padding-s);
-  }
-
-  .addQuestionsMyActivities{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .addQuestionText{
-    margin-top: var(--margin-xxs);
-    margin-bottom: var(--margin-xs);
-    width: 60%;
-    min-width: 220px;
-  }
-
-  .textAreaSideBarMyClasses{
-    height: 40px;
-    text-align: center;
-    margin-bottom: var(--margin-xxs);
-  }
-
-  .activitiesSidebarTitleButton{
-    font-size: 10px;
-    padding: var(--padding-xxs) var(--padding-xs);
   }
 
   .submitActivityButton{
@@ -309,51 +239,6 @@ width: 85%;
   }
 }
 
-/* --- QUESTIONS CREATED ----------------------------- */
-.questionsDiv{
-  height: 90%;
-  margin-top: 20px;
-  width: max-content;
-  max-width: 300px;
-  overflow-y: auto;
-}
-
-.questionDivTitle{
-  margin-bottom: var(--margin-xs);
-  text-align: center  ;
-  color: var(--color-202);
-  font-size: 20px;
-  font-weight: 600;
-}
-
-.individualQuestionDiv{
-  position: relative;
-  display: flex;
-  text-align: center;
-  flex-direction: column;
-  margin-bottom: var(--margin-xs);
-  border: 1px solid rgba(0, 0, 0, 0.329);
-  padding: var(--padding-s) var(--padding-s);
-  height: 105px;
-}
-
-.questionDivText{
-  margin-bottom: var(--margin-xxs);
-}
-
-.questionDivDeleteButton{
-  position: absolute;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  margin-top: var(--margin-xxs);
-  align-self: flex-end;
-  width: max-content;
-  background-color: var(--color-102);
-  color: var(--color-000);
-  padding: var(--padding-xxs) var(--padding-xs);
-  border: none;
-}
 /* -------------------------------- */
 .resetMyClassButton{
   position: absolute;

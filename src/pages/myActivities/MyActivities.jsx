@@ -3,7 +3,6 @@ import "./MyActivities.css"
 import ActivitySearchBar from './activitySearchBar/ActivitySearchBar'
 import YouTube from 'react-youtube'
 import { v4 as uuidv4 } from 'uuid';
-import { deleteById } from '../../utils/deleteById'
 import { DateContext } from '../../context/DateContext'
 import ActivityCardClassManager from './activityCardClassManager/ActivityCardClassManager'
 import GapText from '../../components/fillGapForm/gapText/GapText'
@@ -17,7 +16,11 @@ import Loading from '../../components/loading/Loading';
 import { toast } from 'react-toastify';
 import ActivityTypeIndicator from '../../components/activityTypeIndicator/ActivityTypeIndicator';
 import NextButtons from '../createTextAndVideoActivity/nextButtons/NextButtons';
-
+import { addActtivityToClassesFunction } from './myActivitiesFunctions/addActivityToClasses';
+import { chooseExerciseTypeButtons } from './myActivitiesFunctions/chooseExerciseTypeButtons';
+import QuestionList from './questionList/QuestionList';
+import CreateQuestionSidebar from './createQuestionSidebar/CreateQuestionSidebar';
+import AddTitleSideBar from './addTitleSideBar/AddTitleSideBar';
 
 const MyActivities = () => {
   const [assignedActivities, dispatachActivities] = useReducer(assignActivityToClass, UPDATE_ACTIVITIES_CHOSEN)
@@ -40,6 +43,7 @@ const MyActivities = () => {
   const { activities } = assignedActivities
   const currentDate = useContext(DateContext)
   const { userObj } = useAuth()
+  const exerciseButtons = chooseExerciseTypeButtons(title)
 
   useEffect(() => {
     setSelectedId(0)
@@ -99,21 +103,7 @@ const MyActivities = () => {
 
 
   const addActivityToClasses = (activity) => {
-    if (activityTypeSelected === "video") {
-      dispatachActivities({
-        type: "UPDATE_ACTIVITIES_CHOSEN",
-        payload: {
-          video: activity
-        }
-      })
-    } else if (activityTypeSelected === "gapFill") {
-      dispatachActivities({
-        type: "UPDATE_ACTIVITIES_CHOSEN",
-        payload: {
-          gapFill: activity
-        }
-      })
-    }
+    addActtivityToClassesFunction(activityTypeSelected, dispatachActivities, activity)
   }
 
   const removeActivity = (value) => {
@@ -193,7 +183,6 @@ const MyActivities = () => {
     } else {
       setTitle(titleRef.current.value)
     }
-
   }
 
   const resetPageValues = () => {
@@ -214,34 +203,6 @@ const MyActivities = () => {
     setTitle(null)
   }
 
-  const chooseExerciseTypeButtons = [
-    {
-      id: 0,
-      name: "Title",
-      value: "title",
-      isActive: true
-    },
-    {
-      id: 1,
-      name: "Fill gap text",
-      value: "gapFill",
-      isActive: title ? true : false
-    },
-    {
-      id: 2,
-      name: "Video",
-      value: "video",
-      isActive: title ? true : false
-    },
-    {
-      id: 3,
-      name: "Questions",
-      value: "questions",
-      isActive: title ? true : false
-    },
-  ]
-
-
   return (
     <>
       <Loading
@@ -256,13 +217,16 @@ const MyActivities = () => {
 
             <div className='activityTypeDiv'>
               <ActivityTypeIndicator
-                activityButtonArray={chooseExerciseTypeButtons}
+                activityButtonArray={exerciseButtons}
                 selectedId={selectedId}
               />
             </div>
             {toggleSubmit === true && (
-              <button className='submitActivityButton'
-                onClick={() => saveActivity()}>Save activity</button>
+              <button
+                onClick={() => saveActivity()}
+                className='submitActivityButton'
+              >Save activity</button>
+
             )}
 
             <div className='activitiesSidebarAndChosenActivities'>
@@ -272,15 +236,11 @@ const MyActivities = () => {
                 <div className='activitiesShownSidebar'>
 
                   {activityTypeSelected === "title" && (
-                    <div className='addtitleDiv'>
-                      <p className='sideBarTitleMyClasses'>CREATE A TITLE</p>
-                      {title !== null && (
-                        <p className='changeTitle'>Change the title below</p>
-                      )}
-                      <input type="text" ref={titleRef} className='inputSideBarMyClasses' />
-                      <button onClick={() => addTitle()}
-                        className='sidebarTitleButton'>{title === null ? "ADD TITLE" : "CHANGE TITLE"}</button>
-                    </div>
+                    <AddTitleSideBar
+                      title={title}
+                      titleRef={titleRef}
+                      addTitle={addTitle}
+                    />
                   )}
 
                   {/* Activity search bar */}
@@ -298,25 +258,17 @@ const MyActivities = () => {
 
                   {/* question*/}
                   {activityTypeSelected === "questions" && (
-                    <div className='addQuestionsMyActivities'>
-                      <p className='sideBarTitleMyClasses'>ADD QUESTION HERE</p>
-                      <p className='addQuestionText'>Add up to three questions that students will answer orally</p>
-                      <textarea
-                        value={question}
-                        type="text"
-                        onChange={(e) => setquestion(e.target.value)}
-                        className='textAreaSideBarMyClasses' />
-                      <button
-                        onClick={() => saveQuestion()}
-                        className='activitiesSidebarTitleButton'
-                        type='button'
-                      >SAVE</button>
+                    <CreateQuestionSidebar
+                      setquestion={setquestion}
+                      question={question}
+                      saveQuestion={saveQuestion}
+                    />
+                  )}
 
-                    </div>)}
                   {title && (
                     <div className='nextButtonsMyActivities'>
                       <NextButtons
-                        activityButtonArray={chooseExerciseTypeButtons}
+                        activityButtonArray={exerciseButtons}
                         chooseStepOfProcess={setActivityTypeSelected}
                         nextButton={nextButton}
                         setNextButton={setNextButton}
@@ -363,16 +315,10 @@ const MyActivities = () => {
                           />
                         )}
                         {questionList.length > 0 && (
-                          <div className='questionsDiv'>
-                            <p className='questionDivTitle'>Questions</p>
-                            {questionList.map((questionObj, index) => (
-                              <div key={index} className='individualQuestionDiv'>
-                                <p className='questionDivText'>{questionObj.text} </p>
-                                <button onClick={() => deleteById(questionObj.id, setQuestionList)}
-                                  className='questionDivDeleteButton'>Delete</button>
-                              </div>
-                            ))}
-                          </div>
+                          <QuestionList
+                            questionList={questionList}
+                            setQuestionList={setQuestionList}
+                          />
                         )}
 
                       </div>
@@ -381,7 +327,6 @@ const MyActivities = () => {
                 )}
 
               </div>
-
             </div>
 
             {/* shows the preview of the activity */}
@@ -403,8 +348,6 @@ const MyActivities = () => {
                 </div>
               </div>
             )}
-
-
           </section>
         )
       }
@@ -415,8 +358,8 @@ const MyActivities = () => {
             activityCreatedId={savedActivity._id}
           />
           <button
-            className='resetMyClassButton greenButtonColorOnly'
             onClick={() => resetPageValues()}
+            className='resetMyClassButton greenButtonColorOnly'
           >Back</button>
         </>
       )}

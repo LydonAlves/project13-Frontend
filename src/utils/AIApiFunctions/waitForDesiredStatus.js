@@ -1,6 +1,6 @@
-import { toast } from "react-toastify";
-import { checkRequestStatus } from './checkRequestStatus';
 
+import { toast } from 'react-toastify';
+import { checkRequestStatus } from './checkRequestStatus';
 
 export const waitForDesiredStatus = async (hash, url) => {
   let statusData;

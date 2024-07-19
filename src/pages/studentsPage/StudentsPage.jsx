@@ -318,7 +318,6 @@ const StudentsPage = ({ activityCreatedId }) => {
         className="howToButtonStudentsPage howToButton"
       >How do I do this?</button>
 
-
     </section >
   )
 }

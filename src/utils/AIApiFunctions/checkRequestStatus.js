@@ -1,4 +1,5 @@
-import { backendURL } from "../../utils/backendURL";
+
+import { backendURL } from './../backendURL';
 
 export const checkRequestStatus = async (hash, url) => {
   // console.log("url", url);
@@ -24,3 +25,4 @@ export const checkRequestStatus = async (hash, url) => {
   }
 };
 
+ 

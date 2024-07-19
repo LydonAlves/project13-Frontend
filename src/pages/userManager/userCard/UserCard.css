@@ -1,0 +1,14 @@
+.userCardTitle{
+  color: var(--color-202);
+  font-weight: 600;
+  margin-top: var(--margin-s);
+  text-align: center;
+}
+
+.userCardInfo{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 70%;
+  height: 40%;
+}

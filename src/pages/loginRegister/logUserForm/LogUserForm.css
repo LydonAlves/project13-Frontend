@@ -1,0 +1,68 @@
+.loginForm{
+  display: flex;
+  flex-direction: column;
+  padding: var(--padding-m);
+  padding: var(--padding-xs)  ;
+}
+
+.loginForm > input {
+  margin-bottom: var(--margin-xxs);
+  width: 100%;
+  height: 35px;
+  padding-left: var(--padding-xs);
+  border: solid 1px var(--color-301);
+}
+
+.countryDiv{
+  display: flex;
+  justify-content: space-between;
+  padding: 0 var(--padding-xs);
+  border: var(--color-302) solid 1px;
+  height: 30px;
+  align-items: center;
+  margin-bottom: var(--margin-xs);
+  font-size: var(--fontSize-m);
+  color: var(--color-301);
+}
+
+.country{
+  border: none;
+  width: 260px;
+  width: 100%;
+  color: var(--color-301);
+}
+
+.country:focus{
+  outline: none;
+}
+
+.passwordDiv{
+  position: relative;
+  margin-bottom: var(--margin-xxs);
+}
+
+.passwordInput{
+  width: 100%;
+  height: 35px;
+  padding-left: var(--padding-xs);
+}
+
+.eyeImg{
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+}
+
+.eyeSelected{
+  filter: invert(44%) sepia(84%) saturate(4011%) hue-rotate(356deg) brightness(103%) contrast(105%);
+}
+
+@media (max-width: 830px) {
+  .loginForm > input {
+    height: 30px;
+  }
+}

@@ -1,15 +1,15 @@
 import { useContext, useEffect, useState } from "react";
 import "./LoginRegister.css"
-import { CountryDropdown } from "react-country-region-selector";
 import useToggle from "../../hooks/useToggle";
 import { useAuth } from "../../context/AuthContext";
-import ToggleButton from "./loginComponents/ToggleButton";
 import { toast } from "react-toastify";
 import Loading from "../../components/loading/Loading";
 import { useNavigate } from "react-router-dom";
 import { StartPageContext } from './../../context/StartPageContext';
-import { backendURL } from "../../utils/backendURL";
 import { SuccessfullRegistration } from "./loginComponents/successfullRegistration/SuccessfullRegistration";
+import { registerFunction } from './../../utils/register';
+import { loginFunction } from "../../utils/login";
+import LogUserForm from "./logUserForm/LogUserForm";
 
 const LoginRegister = () => {
   const [register, toggleRegister] = useToggle();
@@ -23,37 +23,16 @@ const LoginRegister = () => {
   const [loading, setLoading] = useState(false)
   const [showPassword, setShowPassword] = useToggle();
   const { setStartPage } = useContext(StartPageContext)
-
   const { userObj, login } = useAuth()
   const navigate = useNavigate()
+  const registerObj = { userName, email, password, country }
 
   const submitLogin = async (e) => {
     e.preventDefault();
-    const headers = {
-      "Content-Type": "application/json"
-    };
-
     setLoading(true)
     try {
-      const response = await fetch(`${backendURL}user/login`, {
-        method: "POST",
-        headers: headers,
-        body: JSON.stringify({ email, password })
-      });
-
-      const result = await response.json();
-
-      if (!response.ok) {
-        if (response.status === 400) {
-          toast.error(`Error: ${error.message}`);
-          throw new Error("The password or username you have entered is not correct");
-        } else {
-          toast.error(`Error: ${error.message}`);
-          throw new Error(result.error || "An unknown error occurred");
-        }
-      } else {
-        login(result);
-      }
+      const result = await loginFunction(registerObj)
+      login(result);
     } catch (error) {
       console.error('Login failed', error);
       toast.error(`Error: ${error.message}`);
@@ -68,36 +47,14 @@ const LoginRegister = () => {
       toast.error(`Error: the passwords don't match`);
       return;
     }
-
-    const headers = {
-      "Content-Type": "application/json"
-    };
-
     setLoading(true)
     try {
-      const response = await fetch(`${backendURL}user/register`, {
-        method: "POST",
-        headers: headers,
-        body: JSON.stringify({ userName, email, password, country })
-      });
-
-      if (!response.ok) {
-        if (response.status === 410) {
-          const errorData = await response.json();
-          toast.error(`Error: ${errorData.message}`);
-        } else {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return;
-      }
-
-      const data = await response.json();
-      setRegistrationData(data)
-      console.log('Registration successful');
-
+      const result = await registerFunction(registerObj);
+      setRegistrationData(result);
+      toast.success("Registration successful");
     } catch (error) {
-      console.error('Registration failed', error);
-      toast.error(`Error: ${error.message}`);
+      console.error("Error during registration:", error);
+      toast.error("Error: registration failed");
     } finally {
       setLoading(false);
     }
@@ -119,13 +76,15 @@ const LoginRegister = () => {
     }
   }, [userObj])
 
+  const registerFormObj = { setUserName, userName, setCountry, country, setRepeatPassword, repeatPassword }
+  const loginRegisterFormObj = { setEmail, email, setPassword, password, setShowPassword, showPassword }
+
 
   return (
     <section className="loginSection">
       <Loading
         loading={loading}
       />
-
       {registrationData && (
         <SuccessfullRegistration
           userData={registrationData}
@@ -144,96 +103,34 @@ const LoginRegister = () => {
             <div className="logoDiv">
               <img className="loginLogo" src="./assets/login/logo.png" alt="Logo" />
             </div>
+
             {!userLoggedIn && (
               <p className="signInTitle">{!register ? 'Sign into your account' : 'Register an account'}</p>
             )}
             {!register && (
-
-              <form onSubmit={submitLogin} className="loginForm" >
-                <input
-                  type="email"
-                  placeholder="Email address"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-
-                <div className="passwordDiv">
-                  <input
-                    type={showPassword ? "text" : "password"}
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="passwordInput"
-                  />
-                  <img
-                    onClick={setShowPassword}
-                    src="./assets/login/eye.png"
-                    alt="eye"
-                    className={`eyeImg ${showPassword == true ? "eyeSelected" : ""}`}
-                  />
-                </div>
-                <button className="loginButton" type="submit">LOGIN</button>
-              </form>
+              <LogUserForm
+                submitForm={submitLogin}
+                isRegister={register}
+                loginRegisterFormObj={loginRegisterFormObj}
+              />
             )}
-
             {register && (
-              <form onSubmit={submitRegister} className="loginForm">
-                <input
-                  type="text"
-                  placeholder="Your name"
-                  value={userName}
-                  onChange={(e) => setUserName(e.target.value)}
-                />
-                <input
-                  type="email"
-                  placeholder="Email address"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-                <div className="countryDiv">
-                  <CountryDropdown
-                    className="country"
-                    value={country}
-                    onChange={(val) => setCountry(val)}
-                  />
-                </div>
-                <div className="passwordDiv">
-                  <input
-                    type={showPassword ? "text" : "password"}
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="passwordInput"
-                  />
-                  <img
-                    onClick={setShowPassword}
-                    src="./assets/login/eye.png"
-                    alt="eye"
-                    className={`eyeImg ${showPassword == true ? "eyeSelected" : ""}`}
-                  />
-                </div>
-                <div className="passwordDiv">
-                  <input
-                    type={showPassword ? "text" : "password"}
-                    placeholder="Repeat password"
-                    value={repeatPassword}
-                    onChange={(e) => setRepeatPassword(e.target.value)}
-                    className="passwordInput"
-                  />
-                </div>
-                <button className="primaryGreenButton" type="submit">Register</button>
-              </form>
+              <LogUserForm
+                submitForm={submitRegister}
+                isRegister={register}
+                loginRegisterFormObj={loginRegisterFormObj}
+                registerFormObj={registerFormObj}
+              />
             )}
-
             <div>
               {register && (
                 <p className="loginRegisterQuestion">
-                  Have an account? Login <ToggleButton toggleRegister={toggleRegister} />
+                  Have an account? Login <button onClick={() => toggleRegister()} className="switchLogRegButton">here</button>
                 </p>
               )}
               {!register && !userLoggedIn && (
                 <p className="loginRegisterQuestion">
-                  Don't have an account? Register <ToggleButton toggleRegister={toggleRegister} />
+                  Don't have an account? Register <button onClick={() => toggleRegister()} className="switchLogRegButton">here</button>
                 </p>
               )}
             </div>

@@ -14,7 +14,6 @@ import useActivitySetupProcess from "../../hooks/useActivitySetupProcess";
 import YouTube from "react-youtube";
 import { fetchAll } from "../../utils/fetchAll";
 import OpenAiCreateTextActivity from './openAiCreateTextExercise/OpenAiCreateTextExercise';
-import CreateNewActivityButton from "./createNewActivitybutton/CreateNewActivityButton";
 import CreateGapFillExplanation from "./createGapFillExplanation/CreateGapFillExplanation";
 import GapText from "../../components/fillGapForm/gapText/GapText";
 import { useAuth } from '../../context/AuthContext';
@@ -27,6 +26,8 @@ import CreateYoutubeActivity from "../../components/videoListening/CreateYoutube
 import SavedFinalExAnswers from "./savedFinalExAnswers/SavedFinalExAnswers";
 import ActivityTypeIndicator from "../../components/activityTypeIndicator/ActivityTypeIndicator";
 import { toast } from 'react-toastify';
+import { videoScreenSize } from "../../utils/videoUtils/adjustScreenSize";
+import ChooseExercise from "./chooseExercise/ChooseExercise";
 
 const CreateTextAndVideoExercise = () => {
   const [savedFinalExercise, setSavedFinalExercise] = useState("")
@@ -52,25 +53,7 @@ const CreateTextAndVideoExercise = () => {
   console.log(activityType);
 
   const handleScreenChange = (e) => {
-    if (e.matches) {
-      setVideoData((prevData) => ({
-        ...prevData,
-        opts: {
-          ...prevData.opts,
-          width: "250px",
-          height: "150px",
-        },
-      }));
-    } else {
-      setVideoData((prevData) => ({
-        ...prevData,
-        opts: {
-          ...prevData.opts,
-          width: "500px",
-          height: "300px",
-        },
-      }));
-    }
+    videoScreenSize(setVideoData, e)
   };
 
   useEffect(() => {
@@ -273,18 +256,10 @@ const CreateTextAndVideoExercise = () => {
       {activityType === "" && (
         <div className="welcomeCreateActivity">
           <h1 className="createExerciseH1">Create an Exercise</h1>
-
-          <div className="chooseExercisecontainer" >
-            {createExerciseInfo.map((info, index) => (
-              <div className="chooseExerciseDiv" key={index}>
-                <div className="exerciseTitleDiv">
-                  <p className="exerciseTitleCreateEPage">{info.title}</p>
-                </div>
-                <img src={info.img} alt={info.imgAlt} className="chooseExerciseImg" />
-                <button className="selectButtonCreateE" onClick={() => updateProcess(info.exerciseType)}>SELECT</button>
-              </div>
-            ))}
-          </div>
+          <ChooseExercise
+            createExerciseInfo={createExerciseInfo}
+            updateProcess={updateProcess}
+          />
         </div>
       )}
 
@@ -401,16 +376,18 @@ const CreateTextAndVideoExercise = () => {
                 />
               </div>
 
-              {activitySetupStage === "youTubeFillGap" && videoObj !== "" && (
+              {/* {activitySetupStage === "youTubeFillGap" && videoObj !== "" && (
                 <div className="createYouTubeActivityDiv">
                   <p>If you are happy with the settings click next</p>
-                  <button
-                    className="primaryGreenButton"
-                    onClick={() => videoNextButton("fillGapText")}
-                  >Next</button>
+                  <ButtonComponent
+                    onClickFunction={videoNextButton}
+                    className={"primaryGreenButton"}
+                    valueToSet={"fillGapText"}
+                    buttonText={'Next'}
+                  />
 
                 </div>
-              )}
+              )} */}
             </div>
           )}
 
@@ -451,6 +428,7 @@ const CreateTextAndVideoExercise = () => {
             setSelectedId={setSelectedId}
             selectedId={selectedId}
           />
+
           {activitySetupStage === "gapAndRules" && (
             <button className="navButtonsCreateExercise" onClick={() => submitExercise()}>Submit Exercise</button>
           )}
@@ -469,10 +447,12 @@ const CreateTextAndVideoExercise = () => {
         How do I do this?
       </button>
 
+
       {activityType !== "AIfillGapText" && (
-        < CreateNewActivityButton
-          resetCreateActivity={resetCreateActivity}
-        />
+        <button
+          onClick={() => resetCreateActivity()}
+          className="createNewActivityButtonx"
+        >Create Exercise</button>
       )}
 
     </section >

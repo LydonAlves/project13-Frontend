@@ -44,7 +44,7 @@ height: max-content;
   height: 145px; 
 }
 
-.loginForm{
+/* .loginForm{
   display: flex;
   flex-direction: column;
   padding: var(--padding-m);
@@ -80,7 +80,7 @@ height: max-content;
 
 .country:focus{
   outline: none;
-}
+} */
 
 .loginButton {
   margin-top: var(--margin-xs);
@@ -105,7 +105,7 @@ height: max-content;
   text-decoration: underline;
 }
 
-.passwordDiv{
+/* .passwordDiv{
   position: relative;
   margin-bottom: var(--margin-xxs);
 }
@@ -128,7 +128,7 @@ height: max-content;
 
 .eyeSelected{
   filter: invert(44%) sepia(84%) saturate(4011%) hue-rotate(356deg) brightness(103%) contrast(105%);
-}
+} */
 
 
 
@@ -137,18 +137,18 @@ height: max-content;
     display: none;
   }
 
-  .loginDiv{
+  /* .loginDiv{
     width: 300px;
     height: 430px;
-  }
+  } */
 
   .loginLogo{
     height: 100px; 
   }
 
-  .loginForm > input {
+  /* .loginForm > input {
     height: 30px;
-  }
+  } */
 
   .loginButton {
     margin-top: var(--margin-xxs);

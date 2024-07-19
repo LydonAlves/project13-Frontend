@@ -1,5 +1,5 @@
-import { backendURL } from './../../../utils/backendURL';
-import Loading from './../../../components/loading/Loading';
+import { backendURL } from './backendURL';
+import Loading from '../components/loading/Loading';
 
 export const saveSpeakingCorrection = async (exercise, setCorrectedTextArray) => {
 

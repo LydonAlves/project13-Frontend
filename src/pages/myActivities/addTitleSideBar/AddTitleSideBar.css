@@ -1,0 +1,26 @@
+.addtitleDiv{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.changeTitle{
+  margin-top: var(--margin-s);
+width: 85%;
+}
+
+.inputSideBarMyClasses{
+  padding-left: var(--padding-xs);
+  margin: var(--margin-s);
+  width: 80%;
+  height: 30px;
+}
+
+.sidebarTitleButton{
+  font-size: 15px;
+  margin-bottom: var(--margin-s);
+  padding: var(--padding-xs) var(--padding-s);
+  background-color: var(--color-102);
+  border: none;
+  color: var(--color-000);
+}

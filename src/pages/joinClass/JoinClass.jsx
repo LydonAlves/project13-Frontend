@@ -17,7 +17,7 @@ const JoinClass = () => {
   const [successfullyJoined, setSuccessfullyJoined] = useToggle()
   const { userObj, updateUser } = useAuth()
   const idInputRef = useRef()
-  console.log('userObj', userObj);
+  // console.log('userObj', userObj);
 
   const submitId = async (submittedID) => {
     let classId = submittedID ? submittedID : idInputRef.current.value
@@ -32,7 +32,6 @@ const JoinClass = () => {
         if (result.classGroup) {
           updateUser("classGroup", classId)
           setClassgroupUpdated()
-          //!--------------------------------------------
           setSuccessfullyJoined()
         }
       }
@@ -75,8 +74,6 @@ const JoinClass = () => {
     }
 
   }, [userObj, classgroupUpdated])
-
-
 
 
 

@@ -1,6 +1,5 @@
 import { useState, useRef, useContext, useEffect } from "react";
 import "./AudioRecorder.css"
-import { saveSpeakingCorrection } from "./saveSpeakingCorrections";
 import { DateContext } from "../../../context/DateContext";
 import CarrouselOfItemsButtons from "../../../components/carrouselOfItemsButtons/CarrouselOfItemsButtons";
 import { useAuth } from "../../../context/AuthContext";
@@ -9,9 +8,9 @@ import Loading from "../../../components/loading/Loading";
 import { fetchByUser } from "../../../utils/fetchByUser";
 import { backendURL } from "../../../utils/backendURL";
 import { toast } from "react-toastify";
-import { waitForDesiredStatus } from "../../../components/AIFunctions/waitForDesiredStatus";
-import { checkRequestStatus } from "../../../components/AIFunctions/checkRequestStatus";
-
+import { waitForDesiredStatus } from "../../../utils/AIApiFunctions/waitForDesiredStatus";
+import { checkRequestStatus } from '../../../utils/AIApiFunctions/checkRequestStatus';
+import { saveSpeakingCorrection } from "../../../utils/saveSpeakingCorrections";
 
 const AudioRecorder = ({ questions }) => {
   const date = useContext(DateContext)

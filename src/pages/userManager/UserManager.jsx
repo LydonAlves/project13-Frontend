@@ -3,13 +3,14 @@ import "./UserManager.css"
 import { fetchAll } from "../../utils/fetchAll"
 import UserSearchBar from './searchUser/UserSearchBar';
 import { updateById } from "../../utils/updateById";
-import { deleteByIdinDB } from "../../utils/deleteById";
 import useSearch from "../../components/searchBar/useSearch";
 import { useAuth } from './../../context/AuthContext';
 import ClassGroupDropdown from "./classGroupDropdown/ClassGroupDropdown";
-import { fetchByUser } from './../../utils/fetchByUser';
 import Loading from "../../components/loading/Loading";
 import { toast } from "react-toastify";
+import { fetchClassGroup } from "./userManagerFunctions/fetchClassGroup";
+import { deleteUserFunction } from "./userManagerFunctions/deleteUserFunction";
+import UserCardInfo from "./userCard/UserCard";
 
 const UserManager = () => {
   const [update, setUpdate] = useState(true)
@@ -47,7 +48,6 @@ const UserManager = () => {
     }
 
     if (update === true) {
-      console.log("working");
       fetchUsers()
       setUpdate(false)
     }
@@ -68,25 +68,8 @@ const UserManager = () => {
       return
     }
 
-    const fetchClassGroup = async () => {
-      setLoading(true)
-      try {
-        const result = await fetchByUser("classGroup", userObj._id)
-        if (result.error) {
-          throw new Error(result.error);
-        } else {
-          setClassGroups(result)
-        }
-      } catch (error) {
-        console.error('Error fetching class groups:', error);
-        toast.error(`Error: We had some difficulty loading data`)
-
-      } finally {
-        setLoading(false)
-      }
-    }
     if (userObj.role === "teacher") {
-      fetchClassGroup()
+      fetchClassGroup(userObj, setLoading, setClassGroups)
     }
   }, [userObj])
 
@@ -101,21 +84,11 @@ const UserManager = () => {
   const deleteUser = async (user) => {
     setLoading(true)
     try {
-      const result = await deleteByIdinDB("user", user._id)
-
-      if (result.error) {
-        throw new Error(result.error);
-      } else {
-        setUpdate(true)
-        setSelectedUser(null)
-        toast.success('User deleted successfully')
-      }
+      await deleteUserFunction(user, setUpdate, setSelectedUser)
     } catch (error) {
       console.error('Error deleting user:', error);
-      toast.error(`Error: Could not delete the user correctly`)
-    } finally {
-      setLoading(false)
     }
+    setLoading(false)
   }
 
   const changeRole = async (user) => {
@@ -138,8 +111,6 @@ const UserManager = () => {
       setLoading(false)
     }
   }
-
-
 
 
   return (
@@ -181,12 +152,11 @@ const UserManager = () => {
           <div className="seeUserCardDiv">
             {selectedUser ? (
               <div className="seeUserCard">
-                <p className="userCardTitle">USER DETAILS</p>
-                <div className="userCardInfo">
-                  <p><strong>User name:</strong> {selectedUser.userName}</p>
-                  <p><strong>Email:</strong> {selectedUser.email}</p>
-                  <p><strong>User role:</strong> {selectedUser.role}</p>
-                </div>
+
+                <UserCardInfo
+                  selectedUser={selectedUser}
+                />
+
                 <div className="seeUserCardButtons" >
                   <button className="primaryBlueButton" onClick={() => deleteUser(selectedUser)}>Delete user</button>
 
