@@ -316,7 +316,7 @@ const StudentsPage = ({ activityCreatedId }) => {
       <button
         onClick={() => setNeedHelp(true)}
         className="howToButtonStudentsPage howToButton"
-      >How do I do this?</button>
+      ></button>
 
     </section >
   )

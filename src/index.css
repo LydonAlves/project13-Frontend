@@ -232,6 +232,19 @@ input{
   border: none;
   background-color: var(--color-301);
   color: var(--color-000);
-  font-weight: 600;
+  font-weight: 600; 
 }
 
+.howToButton::after {
+  content: 'How do I do this?';
+} 
+
+@media (max-width: 800px) {
+  .howToButton{
+    padding: var(--padding-xxs) var(--padding-xxs);
+  }
+
+  .howToButton::after {
+    content: '?';
+  } 
+}

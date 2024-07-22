@@ -31,6 +31,10 @@
     border: solid 1px rgba(0, 0, 255, 0.692);
 }
 
+.recordingInProgress{
+ background-color: rgba(238, 10, 10, 0.658);   
+}
+
 .audio-container{
     position: absolute;
     top: 50%;

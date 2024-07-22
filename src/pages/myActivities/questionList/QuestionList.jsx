@@ -16,4 +16,4 @@ const QuestionList = ({ questionList, setQuestionList }) => {
   )
 }
 
-export default QuestionList
+export default QuestionList 

@@ -1,10 +1,11 @@
 .activityTypeTaskDiv{
-  padding: var(--padding-xs) var(--padding-s);
+  padding: var(--padding-xs) var(--padding-xxs);
   border: none;
   color: var(--color-101);
-  border: 3px solid var(--color-101);
+  border: 2px solid var(--color-101);
   border-right: 0px;
   font-weight: 600;
+  font-size: 12px;
 }
 
 .activityTypeTaskDiv:hover{
@@ -16,7 +17,7 @@
 }
 
 .selectedTask{
-  background-color: var( --color-101);
+  background-color: var( --color-102);
   color: var(--color-000);
 }
 

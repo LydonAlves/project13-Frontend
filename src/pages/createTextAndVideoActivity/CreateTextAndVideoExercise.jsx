@@ -444,7 +444,6 @@ const CreateTextAndVideoExercise = () => {
       <button
         onClick={() => setNeedHelp(true)}
         className="howToButton howToButtonCreateEx">
-        How do I do this?
       </button>
 
 

@@ -5,7 +5,6 @@
   padding: var(--padding-s);
   margin: 20px;
   width: 340px;
-  border: solid 1px var(--color-303);
   align-items: center;
   height: 170px;
 }
@@ -14,6 +13,11 @@
   margin-bottom: var(--margin-s);
   margin-top: var(--margin-s);
   font-weight: 600;
+  color: var(--color-102);
+}
+
+.activityCardActTitle{
+  color: var(--color-102);
 }
 
 .activityCardButtonsDiv{

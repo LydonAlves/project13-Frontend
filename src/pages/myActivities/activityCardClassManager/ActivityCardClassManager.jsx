@@ -21,4 +21,4 @@ const ActivityCardClassManager = ({
   )
 }
 
-export default ActivityCardClassManager
+export default ActivityCardClassManager 

@@ -11,7 +11,7 @@ const ActivitySearchBar = ({
   return (
     <div className="activitySearchBarContainer">
       <h3 className="activitySearchBarTitle">SEARCH</h3>
-      <input value={searchQuery} type="search" onChange={e => search(e.target.value)} />
+      <input value={searchQuery} type="search" onChange={e => search(e.target.value)} className="activitySearchInput" />
       <div className="activityContainer">
         {filteredItems && filteredItems.length > 0 ? (
           filteredItems && filteredItems.slice().reverse().slice(0, 5).map((item, index) => (
@@ -27,7 +27,7 @@ const ActivitySearchBar = ({
             </div>
           ))
         ) : (
-          <p>No exercises of this type have been created yet. Go to <strong>Create Exercises</strong> to make one</p>
+          <p className="noExercisesCreated">No exercises of this type have been created yet. Go to <strong>Create Exercises</strong> to make one</p>
         )}
       </div>
     </div >

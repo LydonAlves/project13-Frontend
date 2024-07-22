@@ -207,7 +207,7 @@ const AudioRecorder = ({ questions }) => {
               </div>
             ) : null}
             {recordingStatus === "recording" ? (
-              <button className="speakingPracticeButton" onClick={stopRecording} type="button">
+              <button className="speakingPracticeButton recordingInProgress" onClick={stopRecording} type="button">
                 Stop Recording
               </button>
             ) : null}

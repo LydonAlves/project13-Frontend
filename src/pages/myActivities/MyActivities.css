@@ -1,16 +1,26 @@
 .myClassesSection{
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  align-items: left;
   height: 89svh;
   width: 100%;
 }
 
+.sideBarMyActivities{
+  min-width: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  height: max-content;
+  justify-content: space-around;
+}
+
 .H1myActivities{
-  text-align: center;
   margin-top: var(--margin-m);
+
   font-size: 40px;
   color: var(--color-202);
+  text-align: center;
 }
 
 .myClassesInstruction{
@@ -19,7 +29,11 @@
 
 .activityTypeDiv{
   display: flex;
-  margin: var(--margin-s) 0px; 
+
+  margin: var(--margin-m) 0px; 
+  margin-top: var(--margin-xl);
+  flex-direction: column;
+  align-items: center;
 }
 
 .buttonsDiv > button{
@@ -41,6 +55,14 @@
   height: 60px;
 }
 
+@media (max-width: 800px) {
+  .myClassesSection{
+    flex-direction: column;
+    align-items: center;
+    overflow-y: scroll;
+  }
+}
+
 
 /* ----Side bar and content---------------------------------- */
 .activitiesSidebarAndChosenActivities{
@@ -50,9 +72,7 @@
 }
 
 .activitiesShownSidebar{
-  position: absolute;
-  left: 0;
-  height: 100%;
+  height: 70%;
   width: 350px;
   padding: var(--padding-s);
   align-self: flex-start;
@@ -68,6 +88,8 @@
   height: 90%;
   width: 80%;
   margin-bottom: var(--margin-s);
+  height: 350px;
+  overflow: hidden;
 }
 
 
@@ -86,20 +108,20 @@
 }
 
 .submitActivityButton{
-  width: 180px;
-  background: var(--button-color-001);
+  width: 120px;
+  background-color: var(--color-102);
   border: none;
   color: var(--color-000);
-  font-size: 18px;
-  padding: var(--padding-xs) 0;
+  font-size: 14px;
+  padding: var(--padding-xxs) 0;
+  margin-top: var(--margin-s);
 }
 
 
 @media (max-width: 1450px) {
   .activitiesSidebarAndChosenActivities{
-    height: 70%;
+    height: 100%;
   }
-
 }
 
 @media (max-width: 740px) {
@@ -115,7 +137,7 @@
     padding: var(--padding-xxs) 0;
   }
 
-  }
+}
 
 
 /* ---- CONTENT ------------------------------------------------ */
@@ -132,7 +154,8 @@
 .selectedActivitiesDiv{
   width: 100%;
   height: 100%;
-  margin-left: 350px;
+  /* background-color: rebeccapurple; */
+  padding: var(--padding-s);
 }
 
 .activitiesChosenDiv{
@@ -141,7 +164,7 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  z-index: 1;
+
 }
 
 .activityTitle{
@@ -153,6 +176,7 @@
   width: max-content;
   left: 50%;
   transform: translateX(-50%);
+  color: var(--color-102);
 }
 
 .tiltedTitle{
@@ -171,7 +195,10 @@
   justify-content: space-evenly;
   flex-direction: row;
   width: 100%;
+  height: 100%;
   align-items: center;
+  background-color: var(--color-300);
+  margin-top: var(--margin-xxl);
 }
 
 
@@ -193,27 +220,37 @@
   .allChosenActivitiesContainer{
     display: flex;
     flex-direction: column;
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
     height: 380px;
+    height: 88%;
     margin-top: var(--margin-xxl);
   }
 
   .gapfillAndVideoChosenDiv{
     display: flex;
-    flex-direction: column;
     width: 100%;
+    min-width: 340px;
     align-items: center;
+    margin-top: 0;
+    overflow-y: auto;
   }
 
 }
 
-@media (max-width: 1000px) {
-  .activityTitle{
-    top: 0px;
-    left: 70%;
-    transform: translateX(-70%);
+@media (max-width: 1100px) {
+  .gapfillAndVideoChosenDiv{
+    flex-direction: column;
+    height: max-content;
   }
 }
+
+@media (max-width: 740px){
+  .gapfillAndVideoChosenDiv{
+    overflow-y: visible;
+  }
+}
+
+
 
 @media (max-width: 740px) {
   .selectedActivitiesDiv{
@@ -230,13 +267,16 @@
     width: 100%;
     left: 0;
     transform: translateX(0%);
+    margin-bottom: var(--margin-m);
   }
 
   .allChosenActivitiesContainer{
     margin-top: var(--margin-xxs);
-    overflow-y: scroll;
+    overflow-y: visible;
     height: 200px;
   }
+
+
 }
 
 /* -------------------------------- */
@@ -247,7 +287,6 @@
   z-index: 9999;
   padding: var(--padding-xxs) var(--padding-xs);
 }
-
 
 /* --Preview activity------------------------------ */
 
@@ -296,6 +335,11 @@
   font-size: 10px;
   padding: var(--padding-xs) var(--padding-s);
 }
+
+.noActivityMyActivities{
+  color: var(--color-102);
+}
+
 
 @media (max-width: 1200px){
   .previewVideoActivity{

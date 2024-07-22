@@ -1,6 +1,7 @@
 
 .questionsDiv{
   height: 90%;
+  height: max-content;
   margin-top: 20px;
   width: max-content;
   min-width: 150px;
@@ -11,7 +12,7 @@
 .questionDivTitle{
   margin-bottom: var(--margin-xs);
   text-align: center  ;
-  color: var(--color-202);
+  color: var(--color-102);
   font-size: 20px;
   font-weight: 600;
 }
@@ -22,13 +23,14 @@
   text-align: center;
   flex-direction: column;
   margin-bottom: var(--margin-xs);
-  border: 1px solid rgba(0, 0, 0, 0.329);
   padding: var(--padding-s) var(--padding-s);
   height: 105px;
+  background-color: white;
 }
 
 .questionDivText{
   margin-bottom: var(--margin-xxs);
+  color: var(--color-102);
 }
 
 .questionDivDeleteButton{
@@ -43,4 +45,10 @@
   color: var(--color-000);
   padding: var(--padding-xxs) var(--padding-xs);
   border: none;
+}
+
+@media (max-width: 1100px) {
+.questionsDiv{
+  overflow: visible;
+}
 }

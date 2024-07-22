@@ -1,13 +1,21 @@
+.addQuestionsMyActivities{
+  height: 500px;
+  height: 350px;
+}
+
+
+
 .sideBarTitleMyClasses{
   font-size: larger;
   font-weight: 600;
-  color: var(--color-202);
+  color: var(--color-102);
 }
 
 .addQuestionText{
   margin-top: var(--margin-xs);
   margin-bottom: var(--margin-s);
   font-size: 15px;
+  color: var(--color-102);
 }
 
 .activitiesSidebarTitleButton{

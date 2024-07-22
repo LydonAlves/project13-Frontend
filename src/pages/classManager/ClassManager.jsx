@@ -369,7 +369,7 @@ const ClassManager = () => {
         <button
           onClick={() => setNeedHelp(true)}
           className="howToButtonClassManager howToButton"
-        >How do I do this?</button>
+        ></button>
       </div>
     </section >
 

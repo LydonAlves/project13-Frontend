@@ -60,7 +60,7 @@ justify-content: space-between;
 }
 
 .active {
-  color: var(--color-201);
+  text-decoration: underline;
 }
 
 .menuButton{
@@ -100,6 +100,7 @@ justify-content: space-between;
     top: 0px;
     padding-bottom: var(--padding-s);
     transition: left 0.3s ease; 
+    height: 100%;
   }
 
   .menuDiv.visible {
@@ -129,7 +130,7 @@ justify-content: space-between;
 
   .logUserButton{
     display: flex;
-    padding-left: var(--padding-l);
+
   }
 
   .logoutImg{
@@ -145,6 +146,7 @@ justify-content: space-between;
   color: var(--color-000);
   padding: 0;
   padding-bottom: var(--padding-s);
+  margin-right: var(--margin-xxl);
 }
 
 .logoutButton:hover{

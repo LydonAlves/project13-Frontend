@@ -213,27 +213,84 @@ const MyActivities = () => {
       {
         !showSubmittedActivities && (
           <section className='myClassesSection'>
-            <h1 className="H1myActivities">My Activities</h1>
+            <div className='sideBarMyActivities'>
+              {/* <h1 className="H1myActivities">My Activities</h1> */}
 
-            <div className='activityTypeDiv'>
-              <ActivityTypeIndicator
-                activityButtonArray={exerciseButtons}
-                selectedId={selectedId}
-              />
+              <div className='activityTypeDiv'>
+                <ActivityTypeIndicator
+                  activityButtonArray={exerciseButtons}
+                  selectedId={selectedId}
+                />
+                {toggleSubmit === true && (
+                  <button
+                    onClick={() => saveActivity()}
+                    className='submitActivityButton'
+                  >Save activity</button>
+
+                )}
+              </div>
+
+
+
+              <div className='activitiesShownSidebar'>
+
+                {activityTypeSelected === "title" && (
+                  <AddTitleSideBar
+                    title={title}
+                    titleRef={titleRef}
+                    addTitle={addTitle}
+                  />
+                )}
+
+                {/* Activity search bar */}
+                {(activityTypeSelected === "video" || activityTypeSelected === "gapFill") && (
+                  <div className='activitySearchBarMyAct'>
+                    <ActivitySearchBar
+                      searchQuery={searchQuery}
+                      search={search}
+                      filteredItems={filteredItems}
+                      addActivityToClasses={addActivityToClasses}
+                      setShowSelectedTask={setShowSelectedTask}
+                    />
+                  </div>
+                )}
+
+                {/* question*/}
+                {activityTypeSelected === "questions" && (
+                  <CreateQuestionSidebar
+                    setquestion={setquestion}
+                    question={question}
+                    saveQuestion={saveQuestion}
+                  />
+                )}
+
+                {title && (
+                  <div className='nextButtonsMyActivities'>
+                    <NextButtons
+                      activityButtonArray={exerciseButtons}
+                      chooseStepOfProcess={setActivityTypeSelected}
+                      nextButton={nextButton}
+                      setNextButton={setNextButton}
+                      setSelectedId={setSelectedId}
+                      selectedId={selectedId}
+                    />
+                  </div>
+                )}
+                {/* {toggleSubmit === true && (
+                  <button
+                    onClick={() => saveActivity()}
+                    className='submitActivityButton'
+                  >Save activity</button>
+
+                )} */}
+              </div>
             </div>
-            {toggleSubmit === true && (
-              <button
-                onClick={() => saveActivity()}
-                className='submitActivityButton'
-              >Save activity</button>
-
-            )}
 
             <div className='activitiesSidebarAndChosenActivities'>
 
               {/* Add exercises */}
               <div className='activitiesChosenDiv'>
-                <div className='activitiesShownSidebar'>
+                {/* <div className='activitiesShownSidebar'>
 
                   {activityTypeSelected === "title" && (
                     <AddTitleSideBar
@@ -243,7 +300,7 @@ const MyActivities = () => {
                     />
                   )}
 
-                  {/* Activity search bar */}
+                  Activity search bar
                   {(activityTypeSelected === "video" || activityTypeSelected === "gapFill") && (
                     <div className='activitySearchBarMyAct'>
                       <ActivitySearchBar
@@ -256,7 +313,7 @@ const MyActivities = () => {
                     </div>
                   )}
 
-                  {/* question*/}
+                  question
                   {activityTypeSelected === "questions" && (
                     <CreateQuestionSidebar
                       setquestion={setquestion}
@@ -277,12 +334,12 @@ const MyActivities = () => {
                       />
                     </div>
                   )}
-                </div>
+                </div> */}
 
                 {title === null && (
                   <div className='myActivitiesInfo'>
                     <p className='noActivityMyActivities'>Start by adding a title for your activity</p>
-                    <p>Then click next and continue by adding the different types of activities</p>
+                    <p className='noActivityMyActivities'>Then click next and continue by adding the different types of activities</p>
                   </div>
                 )}
 
@@ -293,27 +350,31 @@ const MyActivities = () => {
 
                     <div className='allChosenActivitiesContainer'>
                       <div className='gapfillAndVideoChosenDiv'>
-                        {assignedActivities.activities.video !== "" && (
-                          <ActivityCardClassManager
-                            removeActivity={removeActivity}
-                            activityName={"video"}
-                            activityTypeTitle={"GAP FILL WITH VIDEO EXERCISE"}
-                            activityTitle={assignedActivities.activities.video.textObj.title}
-                            setShowSelectedTask={setShowSelectedTask}
-                            activitySelected={assignedActivities.activities.video}
-                          />
-                        )}
 
-                        {assignedActivities.activities.gapFill !== "" && (
-                          <ActivityCardClassManager
-                            removeActivity={removeActivity}
-                            activityName={"gapFill"}
-                            activityTypeTitle={"GAP FILL WITH TEXT EXERCISE"}
-                            activityTitle={assignedActivities.activities.gapFill.textObj.title}
-                            setShowSelectedTask={setShowSelectedTask}
-                            activitySelected={assignedActivities.activities.gapFill}
-                          />
-                        )}
+                        <div className='activitiesExampleDiv'>
+                          {assignedActivities.activities.video !== "" && (
+                            <ActivityCardClassManager
+                              removeActivity={removeActivity}
+                              activityName={"video"}
+                              activityTypeTitle={"GAP FILL WITH VIDEO EXERCISE"}
+                              activityTitle={assignedActivities.activities.video.textObj.title}
+                              setShowSelectedTask={setShowSelectedTask}
+                              activitySelected={assignedActivities.activities.video}
+                            />
+                          )}
+
+                          {assignedActivities.activities.gapFill !== "" && (
+                            <ActivityCardClassManager
+                              removeActivity={removeActivity}
+                              activityName={"gapFill"}
+                              activityTypeTitle={"GAP FILL WITH TEXT EXERCISE"}
+                              activityTitle={assignedActivities.activities.gapFill.textObj.title}
+                              setShowSelectedTask={setShowSelectedTask}
+                              activitySelected={assignedActivities.activities.gapFill}
+                            />
+                          )}
+                        </div>
+
                         {questionList.length > 0 && (
                           <QuestionList
                             questionList={questionList}

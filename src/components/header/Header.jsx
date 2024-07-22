@@ -4,7 +4,6 @@ import React, { useContext, useEffect, useState } from "react"
 import { links } from './linksArray/linksArray';
 import { useAuth } from "../../context/AuthContext";
 import { StartPageContext } from "../../context/StartPageContext";
-import { toast } from "react-toastify";
 import Loading from "../loading/Loading";
 import { fetchById } from "../../utils/fetchById";
 

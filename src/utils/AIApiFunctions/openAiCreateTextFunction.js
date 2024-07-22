@@ -18,17 +18,9 @@ export const openAiCreateTextFunction = async (content) => {
 
     const result = await res.json();
 
-    // const statusData = await checkRequestStatus(result.hash, "exam");
-    // console.log(statusData);
-    // waitForDesiredStatus(result.hash, "exam")
-    //   .then(statusData => {
-    //     console.log(statusData);
-    //     saveActivity(statusData)
-    //   })
-
     const desiredStatusData = await waitForDesiredStatus(result.hash, "exam");
     console.log(desiredStatusData);
-    // saveActivity(desiredStatusData);
+
     return desiredStatusData
 
   } catch (error) {
