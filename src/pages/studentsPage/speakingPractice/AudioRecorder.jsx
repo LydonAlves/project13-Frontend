@@ -42,7 +42,7 @@ const AudioRecorder = ({ questions }) => {
       setLoading(true)
       try {
         // const result = await await fetchByUser("speakingCorrection", userObj._id);
-        const result = await await fetchFunction("speakingCorrection/by-userId", userObj._id);
+        const result = await fetchFunction("speakingCorrection/by-userId", userObj._id);
 
         if (result.error) {
           throw new Error(result.error);
