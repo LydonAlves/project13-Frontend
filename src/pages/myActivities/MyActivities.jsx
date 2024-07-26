@@ -8,7 +8,7 @@ import ActivityCardClassManager from './activityCardClassManager/ActivityCardCla
 import GapText from '../../components/fillGapForm/gapText/GapText'
 import StudentsPage from '../studentsPage/StudentsPage'
 import { useAuth } from '../../context/AuthContext';
-import { fetchByUser } from '../../utils/fetchByUser'
+//import { fetchByUser } from '../../utils/fetchByUser'
 import useSearch from '../../components/searchBar/useSearch'
 import { UPDATE_ACTIVITIES_CHOSEN, assignActivityToClass } from './myActivitiesFunctions/useReducerMyClasses';
 import { saveClassActivity } from './myActivitiesFunctions/saveClassActivity';
@@ -21,6 +21,7 @@ import { chooseExerciseTypeButtons } from './myActivitiesFunctions/chooseExercis
 import QuestionList from './questionList/QuestionList';
 import CreateQuestionSidebar from './createQuestionSidebar/CreateQuestionSidebar';
 import AddTitleSideBar from './addTitleSideBar/AddTitleSideBar';
+import { fetchFunction } from '../../utils/fetchAll';
 
 const MyActivities = () => {
   const [assignedActivities, dispatachActivities] = useReducer(assignActivityToClass, UPDATE_ACTIVITIES_CHOSEN)
@@ -51,14 +52,18 @@ const MyActivities = () => {
       let userId = userObj._id
       setLoading(true)
       try {
-        const gapFillResult = await fetchByUser("gapfillText", userId,);
+        // const gapFillResult = await fetchByUser("gapfillText", userId,);
+        const gapFillResult = await fetchFunction("gapfillText/by-userId", userId,);
         if (gapFillResult.error) {
           throw new Error(gapFillResult.error);
         } else {
           setGapFillExercises(gapFillResult)
         }
 
-        const videoExerciseResult = await fetchByUser("videoExercise", userId);
+        // const videoExerciseResult = await fetchByUser("videoExercise", userId);
+        const videoExerciseResult = await fetchFunction("videoExercise/by-userId", userId);
+
+
         if (videoExerciseResult.error) {
           throw new Error(videoExerciseResult.error);
         } else {

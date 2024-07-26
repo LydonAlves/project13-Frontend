@@ -12,7 +12,7 @@ import TextInputsToBeSet from "../../components/textInputsToBeSet/TextInputsToBe
 import AddTextForm from "../../components/addTextForm/AddTextForm";
 import useActivitySetupProcess from "../../hooks/useActivitySetupProcess";
 import YouTube from "react-youtube";
-import { fetchAll } from "../../utils/fetchAll";
+//import { fetchAll } from "../../utils/fetchAll";
 import OpenAiCreateTextActivity from './openAiCreateTextExercise/OpenAiCreateTextExercise';
 import CreateGapFillExplanation from "./createGapFillExplanation/CreateGapFillExplanation";
 import GapText from "../../components/fillGapForm/gapText/GapText";
@@ -28,6 +28,7 @@ import ActivityTypeIndicator from "../../components/activityTypeIndicator/Activi
 import { toast } from 'react-toastify';
 import { videoScreenSize } from "../../utils/videoUtils/adjustScreenSize";
 import ChooseExercise from "./chooseExercise/ChooseExercise";
+import { fetchFunction } from "../../utils/fetchAll";
 
 const CreateTextAndVideoExercise = () => {
   const [savedFinalExercise, setSavedFinalExercise] = useState("")
@@ -76,7 +77,8 @@ const CreateTextAndVideoExercise = () => {
     const fetchRules = async () => {
       setLoading(true)
       try {
-        const result = await fetchAll("rules")
+        // const result = await fetchAll("rules")
+        const result = await fetchFunction("rules")
 
         if (result.error) {
           throw new Error(result.error);

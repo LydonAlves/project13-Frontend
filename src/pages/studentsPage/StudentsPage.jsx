@@ -2,20 +2,21 @@ import { useEffect, useState } from "react"
 import "./StudentsPage.css"
 import YouTube from "react-youtube";
 import { formatDate } from "../../context/DateContext";
-import { fetchById } from "../../utils/fetchById";
-import { fetchByUser } from './../../utils/fetchByUser';
+//import { fetchById } from "../../utils/fetchById";
+//import { fetchByUser } from './../../utils/fetchByUser';
 import { useAuth } from './../../context/AuthContext';
-import { fetchByRole } from "../../utils/fetchByRole";
 import Loading from "../../components/loading/Loading";
 import { toast } from "react-toastify";
 import PageExplanation from "../../components/pageExplanation/PageExplanation";
 import { infoForGapfillText, infoForQuestionActivity, infoForYoutubeActivity } from "../../components/pageExplanation/infoForexplanations/infoForExplanations";
 import GapFill from "../../components/gapFill/GapFill";
 import ActivityButtons from "../../components/activityButtons/ActivityButtons";
-import { fetchByClassId } from "../../utils/fetchByClassID";
+//import { fetchByRole } from "../../utils/fetchByRole";
+//  import { fetchByClassId } from "../../utils/fetchByClassID";
 import { findActivityObjById } from "./studentsPageFunctions.js/findActivityObjById";
 import { findMostRecentActivity } from "./studentsPageFunctions.js/findMostRecentActivity";
 import AudioRecorder from "./speakingPractice/AudioRecorder";
+import { fetchFunction } from "../../utils/fetchAll";
 
 const StudentsPage = ({ activityCreatedId }) => {
   const [allActivities, setAllActivities] = useState([])
@@ -67,7 +68,8 @@ const StudentsPage = ({ activityCreatedId }) => {
         } else if (activityCreatedId) {
           setLoading(true)
           try {
-            const result = await fetchById("classActivity", activityCreatedId);
+            // const result = await fetchById("classActivity", activityCreatedId);
+            const result = await fetchFunction("classActivity", activityCreatedId);
             if (result.error) {
               throw new Error(result.error);
             } else {
@@ -83,14 +85,16 @@ const StudentsPage = ({ activityCreatedId }) => {
         } else if (userObj.role === "student") {
           setLoading(true)
           try {
-            const result = await fetchByClassId("classActivityByDate", userObj.classGroup);
+            // const result = await fetchByClassId("classActivityByDate", userObj.classGroup);
+            const result = await fetchFunction("classActivityByDate/by-classId", userObj.classGroup);
             if (result.error) {
               throw new Error(result.error);
             } else {
               const activityObj = findMostRecentActivity(result)
               let classActivitiesFound = findActivityObjById(activityObj, userObj.classGroup)
               try {
-                const result = await fetchById("classActivity", classActivitiesFound[0].activityId);
+                // const result = await fetchById("classActivity", classActivitiesFound[0].activityId);
+                const result = await fetchFunction("classActivity", classActivitiesFound[0].activityId);
                 if (result.error) {
                   throw new Error(result.error);
                 } else {
@@ -112,7 +116,8 @@ const StudentsPage = ({ activityCreatedId }) => {
         } else {
           setLoading(true)
           try {
-            const result = await fetchByUser("classActivity", userObj._id);
+            // const result = await fetchByUser("classActivity", userObj._id);
+            const result = await fetchFunction("classActivity", userObj._id);
             if (result.error) {
               throw new Error(result.error);
             } else {
@@ -128,7 +133,8 @@ const StudentsPage = ({ activityCreatedId }) => {
       } else {
         setLoading(true)
         try {
-          const result = await fetchByRole("classActivity", "admin")
+          // const result = await fetchByRole("classActivity", "admin")
+          const result = await fetchFunction("classActivity/by-userRole", "admin")
 
           if (result.error) {
             throw new Error(result.error);

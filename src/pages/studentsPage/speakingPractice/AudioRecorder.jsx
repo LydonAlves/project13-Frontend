@@ -5,12 +5,14 @@ import CarrouselOfItemsButtons from "../../../components/carrouselOfItemsButtons
 import { useAuth } from "../../../context/AuthContext";
 import SpeakingCorrections from "../../../components/speakingCorrections/SpeakingCorrections";
 import Loading from "../../../components/loading/Loading";
-import { fetchByUser } from "../../../utils/fetchByUser";
+// import { fetchByUser } from "../../../utils/fetchByUser";
+
 import { backendURL } from "../../../utils/backendURL";
 import { toast } from "react-toastify";
 import { waitForDesiredStatus } from "../../../utils/AIApiFunctions/waitForDesiredStatus";
 import { checkRequestStatus } from '../../../utils/AIApiFunctions/checkRequestStatus';
 import { saveSpeakingCorrection } from "../../../utils/saveSpeakingCorrections";
+import { fetchFunction } from "../../../utils/fetchAll";
 
 const AudioRecorder = ({ questions }) => {
   const date = useContext(DateContext)
@@ -39,7 +41,9 @@ const AudioRecorder = ({ questions }) => {
     const fetchCorrections = async () => {
       setLoading(true)
       try {
-        const result = await await fetchByUser("speakingCorrection", userObj._id);
+        // const result = await await fetchByUser("speakingCorrection", userObj._id);
+        const result = await await fetchFunction("speakingCorrection/by-userId", userObj._id);
+
         if (result.error) {
           throw new Error(result.error);
         } else {
@@ -73,6 +77,7 @@ const AudioRecorder = ({ questions }) => {
 
   const [correctedTextArray, setCorrectedTextArray] = useState(() => {
     const savedAnswersToShow = localStorage.getItem('answersToShow');
+    console.log(savedAnswersToShow);
     return savedAnswersToShow ? JSON.parse(savedAnswersToShow) : [];
   });
 
@@ -133,6 +138,7 @@ const AudioRecorder = ({ questions }) => {
       setAudio(audioUrl);
 
       const file = new File([audioBlob], 'recording.webm', { type: 'audio/webm' });
+
       setAudioFile(file)
       setAudioChunks([]);
 
@@ -145,6 +151,7 @@ const AudioRecorder = ({ questions }) => {
       formData.append('file', audioFile);
       setLoading(true)
 
+
       try {
         const response = await fetch(`${backendURL}openai/uploadTranscribe`, {
           method: "POST",
@@ -152,6 +159,8 @@ const AudioRecorder = ({ questions }) => {
         });
 
         const result = await response.json()
+
+
         const statusData = await checkRequestStatus(result.hash, "request");
 
         let speakingResult

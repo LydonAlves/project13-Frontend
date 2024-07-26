@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import "./UserManager.css"
-import { fetchAll } from "../../utils/fetchAll"
+//import { fetchAll } from "../../utils/fetchAll"
 import UserSearchBar from './searchUser/UserSearchBar';
 import { updateById } from "../../utils/updateById";
 import useSearch from "../../components/searchBar/useSearch";
@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import { fetchClassGroup } from "./userManagerFunctions/fetchClassGroup";
 import { deleteUserFunction } from "./userManagerFunctions/deleteUserFunction";
 import UserCardInfo from "./userCard/UserCard";
+import { fetchFunction } from "../../utils/fetchAll";
 
 const UserManager = () => {
   const [update, setUpdate] = useState(true)
@@ -33,7 +34,8 @@ const UserManager = () => {
     const fetchUsers = async () => {
       setLoading(true)
       try {
-        const result = await fetchAll("user")
+        // const result = await fetchAll("user")
+        const result = await fetchFunction("user")
         if (result.error) {
           throw new Error(result.error);
         } else {

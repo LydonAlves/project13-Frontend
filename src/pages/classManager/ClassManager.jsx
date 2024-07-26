@@ -2,14 +2,14 @@ import { useEffect, useRef, useState } from "react"
 import "./ClassManager.css"
 import CreateSelectClass from "./createSelectClass/CreateSelectClass"
 import Calendar from "../../components/calendar/Calendar"
-import { fetchAll } from "../../utils/fetchAll"
+//import { fetchAll } from "../../utils/fetchAll"
+//import { fetchByUser } from "../../utils/fetchByUser"
 import { updateById } from '../../utils/updateById';
 import { deleteByIdinDB } from "../../utils/deleteById"
 import { formatDate } from './../../context/DateContext';
 import StudentsPage from "../studentsPage/StudentsPage"
 import { saveActivityToClassGroup } from "./classManagerFunctions/saveActivityToClassGroup"
 import { useAuth } from "../../context/AuthContext"
-import { fetchByUser } from "../../utils/fetchByUser"
 import ShowActivities from "./showActivities/ShowActivities"
 import { saveNewClassGroup } from "./classManagerFunctions/saveNewClassGroup"
 import { toast } from "react-toastify"
@@ -18,6 +18,7 @@ import PageExplanation from "../../components/pageExplanation/PageExplanation"
 import { infoForClassManager } from "../../components/pageExplanation/infoForexplanations/infoForExplanations"
 import { v4 as uuidv4 } from 'uuid';
 import ClassManagerSideBar from './classManagerSidebar/ClassManagerSideBar';
+import { fetchFunction } from "../../utils/fetchAll";
 
 
 const ClassManager = () => {
@@ -50,9 +51,9 @@ const ClassManager = () => {
       setLoading(true)
       try {
         const [classGroups, classActivitiesResult, classActivitiesByDateResult] = await Promise.all([
-          fetchByUser("classGroup", userObj._id),
-          fetchByUser("classActivity", userObj._id),
-          fetchByUser("classActivityByDate", userObj._id),
+          fetchFunction("classGroup/by-userId", userObj._id),
+          fetchFunction("classActivity/by-userId", userObj._id),
+          fetchFunction("classActivityByDate/by-userId", userObj._id),
         ]);
         setClassList(classGroups)
         setClassActivities(classActivitiesResult)
@@ -137,7 +138,8 @@ const ClassManager = () => {
       if (classesForDay) {
         setLoading(true)
         try {
-          const result = await fetchAll("classActivityByDate");
+          // const result = await fetchAll("classActivityByDate");
+          const result = await fetchFunction("classActivityByDate");
 
           if (result.error) {
             throw new Error(result.error);

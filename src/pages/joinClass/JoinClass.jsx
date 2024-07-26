@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from "react"
 import "./JoinClass.css"
 import { useAuth } from './../../context/AuthContext';
-import { fetchById } from "../../utils/fetchById";
+//import { fetchById } from "../../utils/fetchById";
 import { updateUserClassGroup } from "./joinClassFunctions/updateUserClassGroup";
 import Loading from './../../components/loading/Loading';
 import { toast } from "react-toastify";
 import useToggle from './../../hooks/useToggle';
 import NoClassGroupPopup from "./noClassGroup/NoClassGroupPopup";
 import SuccessfullyJoinedComponent from "./successfullyJoinedComponent/SuccessfullyJoinedComponent";
+import { fetchFunction } from "../../utils/fetchAll";
 
 const JoinClass = () => {
   const [currentClass, setCurrentClass] = useState()
@@ -47,7 +48,9 @@ const JoinClass = () => {
     const fetchClass = async () => {
       setLoading(true)
       try {
-        const result = await fetchById("classGroup", userObj.classGroup)
+        // const result = await fetchById("classGroup", userObj.classGroup)
+        const result = await fetchFunction("classGroup", userObj.classGroup)
+
         console.log('result', result);
         if (result === null) {
           console.log("working");

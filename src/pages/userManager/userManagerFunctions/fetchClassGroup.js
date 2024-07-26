@@ -1,9 +1,11 @@
-import { fetchByUser } from "../../../utils/fetchByUser";
+// import { fetchByUser } from "../../../utils/fetchByUser";
+
+import { fetchFunction } from "../../../utils/fetchAll";
 
 export const fetchClassGroup = async (userObj, setLoading, setClassGroups) => {
   setLoading(true)
   try {
-    const result = await fetchByUser("classGroup", userObj._id)
+    const result = await fetchFunction("classGroup/by-userId/", userObj._id)
     if (result.error) {
       throw new Error(result.error);
     } else {

@@ -5,7 +5,8 @@ import { links } from './linksArray/linksArray';
 import { useAuth } from "../../context/AuthContext";
 import { StartPageContext } from "../../context/StartPageContext";
 import Loading from "../loading/Loading";
-import { fetchById } from "../../utils/fetchById";
+import { fetchFunction } from "../../utils/fetchAll";
+//import { fetchById } from "../../utils/fetchById";
 
 const Header = () => {
   const { startPage } = useContext(StartPageContext)
@@ -22,7 +23,8 @@ const Header = () => {
 
       setLoading(true)
       try {
-        const result = await fetchById("classGroup", userObj.classGroup)
+        // const result = await fetchById("classGroup", userObj.classGroup)
+        const result = await fetchFunction("classGroup", userObj.classGroup)
 
         if (result === null) {
           setUserRole('noClassAssigned')
