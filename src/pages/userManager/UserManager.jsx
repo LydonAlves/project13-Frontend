@@ -1,119 +1,62 @@
-import { useEffect, useState } from "react"
+import { useEffect, useReducer, useState } from "react"
 import "./UserManager.css"
-//import { fetchAll } from "../../utils/fetchAll"
-import UserSearchBar from './searchUser/UserSearchBar';
-import { updateById } from "../../utils/updateById";
-import useSearch from "../../components/searchBar/useSearch";
 import { useAuth } from './../../context/AuthContext';
-import ClassGroupDropdown from "./classGroupDropdown/ClassGroupDropdown";
 import Loading from "../../components/loading/Loading";
-import { toast } from "react-toastify";
-import { fetchClassGroup } from "./userManagerFunctions/fetchClassGroup";
-import { deleteUserFunction } from "./userManagerFunctions/deleteUserFunction";
-import UserCardInfo from "./userCard/UserCard";
-import { fetchFunction } from "../../utils/fetchAll";
+import { INITIAL_USER_MANAGER, userManagerReducer } from "../../reducers/userManagerReducer";
+import UserSearchBar from './../../components/searchUser/UserSearchBar';
+import ClassGroupDropdown from './../../components/classGroupDropdown/ClassGroupDropdown';
+import { fetchClassGroup } from './../../functions/userManagerFunctions/fetchClassGroup';
+import { deleteUserFunction } from './../../functions/userManagerFunctions/deleteUserFunction';
+import UserCardInfo from "../../components/userCard/UserCard";
+import { changeRole } from './../../functions/userManagerFunctions/changeRole';
+import { fetchUsers } from './../../functions/userManagerFunctions/fetchUsers';
 
 const UserManager = () => {
-  const [update, setUpdate] = useState(true)
-  const [users, setUsers] = useState([])
-  const [userRoleSelected, setUserRoleSelected] = useState("teacher")
-  const [teachers, setTeachers] = useState([])
-  const [students, setStudents] = useState([])
-  const [selectedUser, setSelectedUser] = useState()
-  const [classGroups, setClassGroups] = useState([])
-  const [selectedGroup, setSelectedGroup] = useState()
-  const [studentsInGroup, setStudentsInGroup] = useState([])
-  const [loading, setLoading] = useState(false)
   const { userObj } = useAuth()
-
-  let userType = userRoleSelected === "teacher" ? teachers : students
-  let arrayForSearch = userObj && userObj.role === "teacher" ? studentsInGroup : userType
-  const { searchQuery, search, filteredItems } = useSearch(arrayForSearch)
+  const [stateUserManager, dispatchUserManager] = useReducer(userManagerReducer, INITIAL_USER_MANAGER)
+  const { users, students, selectedUser, userRoleSelected, selectedGroup } = stateUserManager
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    const fetchUsers = async () => {
+    if (selectedUser === null) {
       setLoading(true)
-      try {
-        // const result = await fetchAll("user")
-        const result = await fetchFunction("user")
-        if (result.error) {
-          throw new Error(result.error);
-        } else {
-          setUsers(result)
-        }
-      } catch (error) {
-        console.error('Error fetching users:', error);
-        toast.error(`Error: We had some difficulty loading data`)
-      } finally {
-        setLoading(false)
-      }
+      fetchUsers(dispatchUserManager)
+      setLoading(false)
     }
-
-    if (update === true) {
-      fetchUsers()
-      setUpdate(false)
-    }
-  }, [update])
-
+  }, [selectedUser])
 
   useEffect(() => {
     const teacherList = users.filter(user => user.role === "teacher");
     const studentList = users.filter(user => user.role === "student")
-
-    setTeachers(teacherList);
-    setStudents(studentList)
+    dispatchUserManager({ type: 'SET_TEACHERS', payload: teacherList })
+    dispatchUserManager({ type: 'SET_STUDENTS', payload: studentList })
   }, [users]);
 
-
   useEffect(() => {
-    if (!userObj) {
-      return
-    }
-
-    if (userObj.role === "teacher") {
-      fetchClassGroup(userObj, setLoading, setClassGroups)
+    if (userObj && userObj.role === "teacher") {
+      setLoading(true)
+      fetchClassGroup(userObj, dispatchUserManager)
+      setLoading(false)
     }
   }, [userObj])
 
   useEffect(() => {
-    if (!selectedGroup) {
-      return
+    if (selectedGroup) {
+      const studentsByclass = students.filter(student => student.classGroup === selectedGroup._id)
+      dispatchUserManager({ type: 'SET_STUDENTS_IN_GROUP', payload: studentsByclass })
     }
-    const studentsByclass = students.filter(student => student.classGroup === selectedGroup._id)
-    setStudentsInGroup(studentsByclass)
   }, [selectedGroup])
 
-  const deleteUser = async (user) => {
+
+  const handleDeleteUser = (user) => {
     setLoading(true)
-    try {
-      await deleteUserFunction(user, setUpdate, setSelectedUser)
-    } catch (error) {
-      console.error('Error deleting user:', error);
-    }
+    deleteUserFunction(dispatchUserManager, user)
     setLoading(false)
   }
 
-  const changeRole = async (user) => {
-    const newRole = selectedUser.role === 'student' ? 'teacher' : 'student';
-    const updatedData = { role: newRole }
-    setLoading(true)
-    try {
-      const result = await updateById("user", user._id, updatedData)
-
-      if (result.error) {
-        throw new Error(result.error);
-      } else {
-        setUpdate(true)
-        setSelectedUser(null)
-      }
-    } catch (error) {
-      console.error('Error updating the user:', error);
-      toast.error(`Error: Could not the user`)
-    } finally {
-      setLoading(false)
-    }
+  const handleChangeRole = (user) => {
+    changeRole(user, selectedUser, dispatchUserManager, setLoading)
   }
-
 
   return (
     <section className="userManagerSection">
@@ -128,51 +71,47 @@ const UserManager = () => {
               <>
                 <button
                   className={`userSearchButton ${userRoleSelected === "teacher" ? "largeBlueButton" : "largeBlueButtonUnselected"}`}
-                  onClick={() => setUserRoleSelected("teacher")}
+                  onClick={() => dispatchUserManager({ type: 'SET_USER_ROLE_SELECTED', payload: "teacher" })}
                 >Teachers</button>
-
                 <button
                   className={`userSearchButton ${userRoleSelected === "student" ? "largeBlueButton" : "largeBlueButtonUnselected"}`}
-                  onClick={() => setUserRoleSelected("student")}
+                  onClick={() => dispatchUserManager({ type: 'SET_USER_ROLE_SELECTED', payload: "student" })}
                 >Students</button>
               </>
             ) : (
               <ClassGroupDropdown
-                options={classGroups}
-                onSelect={setSelectedGroup}
+                options={stateUserManager.classGroups}
+                dispatch={dispatchUserManager}
               />
             )}
           </div>
           <UserSearchBar
-            searchQuery={searchQuery}
-            search={search}
-            filteredItems={filteredItems}
-            setSelectedUser={setSelectedUser}
+            state={stateUserManager}
+            dispatch={dispatchUserManager}
+            userObj={userObj}
           />
         </div>
         <div className="seeUserCardContainer">
           <div className="seeUserCardDiv">
             {selectedUser ? (
               <div className="seeUserCard">
-
                 <UserCardInfo
                   selectedUser={selectedUser}
                 />
-
                 <div className="seeUserCardButtons" >
-                  <button className="primaryBlueButton" onClick={() => deleteUser(selectedUser)}>Delete user</button>
+                  <button className="primaryBlueButton" onClick={() => handleDeleteUser(selectedUser)}>Delete user</button>
 
                   {userObj.role === "admin" && (
                     <button
                       className="primaryBlueButton"
-                      onClick={() => changeRole(selectedUser)}
+                      onClick={() => handleChangeRole(selectedUser)}
                     >Change role to {selectedUser.role === 'student' ? 'Teacher' : 'Student'}</button>
                   )}
 
                 </div>
                 <button
                   className="exitButtonUM primaryGreenButton"
-                  onClick={() => setSelectedUser("")}>Close</button>
+                  onClick={() => dispatchUserManager({ type: 'SET_SELECTED_USER', payload: "" })}>Close</button>
               </div>
             ) : (
               <p className="noUserSelectedText">When you click on "see user" their information will appear here</p>

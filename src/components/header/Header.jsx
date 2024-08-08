@@ -6,24 +6,21 @@ import { useAuth } from "../../context/AuthContext";
 import { StartPageContext } from "../../context/StartPageContext";
 import Loading from "../loading/Loading";
 import { fetchFunction } from "../../utils/fetchAll";
-//import { fetchById } from "../../utils/fetchById";
 
 const Header = () => {
   const { startPage } = useContext(StartPageContext)
   const [userRole, setUserRole] = useState("")
   const [loading, setLoading] = useState(false)
+  const [menuVisible, setMenuVisible] = useState(false);
   const { userObj, logout } = useAuth()
   const { setStartPage } = useContext(StartPageContext)
   const navigate = useNavigate()
 
   useEffect(() => {
-
     const checkForClassGroup = async () => {
       const role = userObj.role;
-
       setLoading(true)
       try {
-        // const result = await fetchById("classGroup", userObj.classGroup)
         const result = await fetchFunction("classGroup", userObj.classGroup)
 
         if (result === null) {
@@ -49,13 +46,11 @@ const Header = () => {
     logout()
     setStartPage(true)
     navigate('/')
-  };
-
-  const [menuVisible, setMenuVisible] = useState(false);
+  }
 
   const openMenu = () => {
     setMenuVisible(!menuVisible);
-  };
+  }
 
   return (
     <>

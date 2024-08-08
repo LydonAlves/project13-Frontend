@@ -1,68 +1,25 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useReducer, useState } from "react";
 import "./LoginRegister.css"
+import { INITIAL_LOGIN_REGISTER, loginRegisterReducer } from "../../reducers/loginRegisterReducer";
 import useToggle from "../../hooks/useToggle";
 import { useAuth } from "../../context/AuthContext";
-import { toast } from "react-toastify";
 import Loading from "../../components/loading/Loading";
 import { useNavigate } from "react-router-dom";
 import { StartPageContext } from './../../context/StartPageContext';
-import { SuccessfullRegistration } from "./loginComponents/successfullRegistration/SuccessfullRegistration";
-import { registerFunction } from './../../utils/register';
-import { loginFunction } from "../../utils/login";
-import LogUserForm from "./logUserForm/LogUserForm";
+import { SuccessfullRegistration } from "../../components/successfullRegistration/SuccessfullRegistration";
+import LogUserForm from "../../components/logUserForm/LogUserForm";
 
 const LoginRegister = () => {
-  const [register, toggleRegister] = useToggle();
-  const [country, setCountry] = useState('');
-  const [userName, setUserName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [repeatPassword, setRepeatPassword] = useState('');
-  const [userLoggedIn, setUserLoggedIn] = useState(null)
-  const [registrationData, setRegistrationData] = useState()
-  const [loading, setLoading] = useState(false)
-  const [showPassword, setShowPassword] = useToggle();
   const { setStartPage } = useContext(StartPageContext)
   const { userObj, login } = useAuth()
   const navigate = useNavigate()
-  const registerObj = { userName, email, password, country }
-
-  const submitLogin = async (e) => {
-    e.preventDefault();
-    setLoading(true)
-    try {
-      const result = await loginFunction(registerObj)
-      login(result);
-    } catch (error) {
-      console.error('Login failed', error);
-      toast.error(`Error: ${error.message}`);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const submitRegister = async (e) => {
-    e.preventDefault();
-    if (password !== repeatPassword) {
-      toast.error(`Error: the passwords don't match`);
-      return;
-    }
-    setLoading(true)
-    try {
-      const result = await registerFunction(registerObj);
-      setRegistrationData(result);
-      toast.success("Registration successful");
-    } catch (error) {
-      console.error("Error during registration:", error);
-      toast.error("Error: registration failed");
-    } finally {
-      setLoading(false);
-    }
-  };
+  const [stateLoginRegister, dispatchLoginRegister] = useReducer(loginRegisterReducer, INITIAL_LOGIN_REGISTER)
+  const [register, toggleRegister] = useToggle();
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     if (userObj) {
-      setUserLoggedIn(userObj)
+      dispatchLoginRegister({ type: 'SET_USER_LOGGED_IN', payload: userObj })
       if (userObj.role === "admin" || userObj.role === "teacher") {
         navigate('/create-exercise')
         setStartPage(false)
@@ -76,20 +33,17 @@ const LoginRegister = () => {
     }
   }, [userObj])
 
-  const registerFormObj = { setUserName, userName, setCountry, country, setRepeatPassword, repeatPassword }
-  const loginRegisterFormObj = { setEmail, email, setPassword, password, setShowPassword, showPassword }
-
 
   return (
     <section className="loginSection">
       <Loading
         loading={loading}
       />
-      {registrationData && (
+      {stateLoginRegister.registrationData && (
         <SuccessfullRegistration
-          userData={registrationData}
+          userData={stateLoginRegister.registrationData}
           login={login}
-          setRegistrationData={setRegistrationData}
+          dispatch={dispatchLoginRegister}
           toggleRegister={toggleRegister}
         />
       )}
@@ -104,22 +58,26 @@ const LoginRegister = () => {
               <img className="loginLogo" src="./assets/login/logo.png" alt="Logo" />
             </div>
 
-            {!userLoggedIn && (
+            {!stateLoginRegister.userLoggedIn && (
               <p className="signInTitle">{!register ? 'Sign into your account' : 'Register an account'}</p>
             )}
             {!register && (
               <LogUserForm
-                submitForm={submitLogin}
                 isRegister={register}
-                loginRegisterFormObj={loginRegisterFormObj}
+                stateLoginRegister={stateLoginRegister}
+                dispatch={dispatchLoginRegister}
+                setLoading={setLoading}
+                login={login}
+
               />
             )}
             {register && (
               <LogUserForm
-                submitForm={submitRegister}
                 isRegister={register}
-                loginRegisterFormObj={loginRegisterFormObj}
-                registerFormObj={registerFormObj}
+                stateLoginRegister={stateLoginRegister}
+                dispatch={dispatchLoginRegister}
+                setLoading={setLoading}
+                login={login}
               />
             )}
             <div>
@@ -128,7 +86,7 @@ const LoginRegister = () => {
                   Have an account? Login <button onClick={() => toggleRegister()} className="switchLogRegButton">here</button>
                 </p>
               )}
-              {!register && !userLoggedIn && (
+              {!register && !stateLoginRegister.userLoggedIn && (
                 <p className="loginRegisterQuestion">
                   Don't have an account? Register <button onClick={() => toggleRegister()} className="switchLogRegButton">here</button>
                 </p>
@@ -141,4 +99,4 @@ const LoginRegister = () => {
   );
 };
 
-export default LoginRegister; 
+export default LoginRegister;

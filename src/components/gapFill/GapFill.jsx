@@ -1,63 +1,60 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useReducer, useState } from 'react'
 import "./GapFill.css"
 import FillGapForm from '../../components/fillGapForm/FillGapForm'
-import { createSegmentsFromText } from '../../utils/createSegmentsFromText'
-import AnswerList from '../../components/fillGapForm/answerList/AnswerList'
-import { checkIfInputsFull } from '../../components/fillGapForm/fillGapFormFunctions/checkIfInputsFull'
-import { updateAnswers } from '../../components/fillGapForm/fillGapFormFunctions/updateAnswers'
+import { createSegmentsFromText } from '../../functions/fillGapFormFunctions/createSegmentsFromText'
+import AnswerList from '../answerList/AnswerList'
+import { updateAnswers } from '../../functions/fillGapFormFunctions/updateAnswers'
 import { toast } from 'react-toastify'
+import { gapFillReducer, INITIAL_GAPFILL } from '../../reducers/gapFillReducer'
 
-const GapFill = ({ chosenText, inputs, setInputs }) => {
-  const [answers, setAnswers] = useState([])
-  const [textAndTitle, setTextAndTitle] = useState("")
-  const [text, setText] = useState("")
+const GapFill = ({ chosenText, inputs, }) => {
+
+  const [stateGapfill, dispatchGapfill] = useReducer(gapFillReducer, INITIAL_GAPFILL)
+  const { answerList, textAndTitle } = stateGapfill
+  const { initialInputs } = createSegmentsFromText(textAndTitle.text)
+  const [manageInputs, setManageInputs] = useState(inputs)
   const [initialAnswersSubmitted, setInitialAnswersSubmitted] = useState(false)
 
   useEffect(() => {
-    setAnswers(chosenText.answers)
-    setText(chosenText.textObj.text)
-    setTextAndTitle(chosenText.textObj)
+    dispatchGapfill({ type: "SET_UP_GAPFILL", payload: { answers: chosenText.answers, textAndTitle: chosenText.textObj } })
   }, [chosenText])
 
   useState(() => {
+    console.log("inputs", inputs);
     if (inputs && inputs.length > 0) {
       setInitialAnswersSubmitted(true)
+      dispatchGapfill({ type: 'SET_MANAGE_INPUTS', payload: inputs })
     }
-  }, [])
+  }, [inputs])
 
-
-  const [answerList, setAnswerList] = useState(answers || [])
-  useEffect(() => {
-    setAnswerList(answers)
-  }, [answers])
-
-
-  const [showExplanationIndex, setShowExplanationIndex] = useState(null)
-  const { initialInputs } = createSegmentsFromText(text)
 
   const handleInputChange = (index, e) => {
-    const updateInputs = [...inputs]
+    const updateInputs = [...manageInputs]
+
     updateInputs[index] = {
       number: index,
       answer: e.target.value,
     }
-    setInputs(updateInputs)
+    setManageInputs(updateInputs)
   }
 
   const submitGapFillExercise = (e) => {
     e.preventDefault()
-    if (initialAnswersSubmitted === false) {
-      console.log(initialAnswersSubmitted);
-      toast.error('You have to fill all the gaps before you can check the answer')
-      checkIfInputsFull(inputs, initialInputs, setInitialAnswersSubmitted)
+    if (!initialAnswersSubmitted) {
+      const updatedList = updateAnswers(answerList, manageInputs);
 
-    } else {
-      setAnswerList(updateAnswers(inputs, answerList))
+      const allInputsFilled = manageInputs.length === initialInputs.length;
+      if (!allInputsFilled) {
+        toast.error('You have to fill all the gaps before you can check the answer');
+      } else {
+        setInitialAnswersSubmitted(true);
+        setManageInputs(updatedList);
+      }
+    } else if (initialAnswersSubmitted) {
+      const updatedList = updateAnswers(answerList, manageInputs)
+      setInitialAnswersSubmitted(true);
+      setManageInputs(updatedList);
     }
-  }
-
-  const handleExplanationToggle = (index) => {
-    setShowExplanationIndex(showExplanationIndex === index ? null : index)
   }
 
 
@@ -68,20 +65,18 @@ const GapFill = ({ chosenText, inputs, setInputs }) => {
           <div className='fillGapFormGapFill'>
             <FillGapForm
               textObj={textAndTitle}
-              inputs={inputs}
+              inputs={manageInputs}
               submit={submitGapFillExercise}
               initialAnswersSubmitted={initialAnswersSubmitted}
               handleInputChange={handleInputChange}
             />
           </div>
         )}
-        {initialAnswersSubmitted === true && answerList !== null && inputs.length > 0 && (
+        {initialAnswersSubmitted === true && answerList !== null && manageInputs.length > 0 && (
           <div className='gapFillAnswerList'>
             <AnswerList
               answerList={answerList}
-              handleExplanationToggle={handleExplanationToggle}
-              inputs={inputs}
-              showExplanationIndex={showExplanationIndex}
+              inputs={manageInputs}
             />
           </div>
         )}

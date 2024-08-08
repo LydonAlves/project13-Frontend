@@ -1,22 +1,45 @@
+import { useEffect } from "react"
 import "./TextInputsToBeSet.css"
+import { createInitialInputObj } from "../../functions/createActivityFunctions/createInitialInputObj"
 
 const TextInputsToBeSet = ({
-  inputsToFill,
-  handleInputsSubmitted,
-  addRuleToGap,
-  updateInputToFill,
-  gapIndex
+  stateExercise,
+  dispatchExercise
 }) => {
+  const { initialInputs, inputsToFill, gapIndex } = stateExercise
+
+  useEffect(() => {
+    if (initialInputs.length > 0) {
+      const initialInputObj = createInitialInputObj(initialInputs)
+      dispatchExercise({
+        type: 'CREATE_EXERCISE_PAGE_VALUES',
+        payload: {
+          inputsToFill: initialInputObj
+        }
+      })
+    }
+  }, [initialInputs])
+
+
+  const addRuleToGap = (id) => {
+    dispatchExercise({ type: 'SET_GAP_INDEX', payload: id ? id : "" })
+  }
 
   const removeRuleFromGap = (id) => {
     let updatedRule = inputsToFill.map((item) => {
-      if (item.id === id) {
-        return { ...item, rule: "" }
-      } else {
-        return item
+      return item.id === id ? { ...item, rule: "" } : item
+    })
+
+    dispatchExercise({
+      type: 'CREATE_EXERCISE_PAGE_VALUES',
+      payload: {
+        inputsToFill: updatedRule
       }
     })
-    updateInputToFill(updatedRule)
+  }
+
+  const handleInputsSubmitted = (index, text) => {
+    dispatchExercise({ type: 'UPDATE_INPUT_TEXT', payload: { index, text } });
   }
 
 

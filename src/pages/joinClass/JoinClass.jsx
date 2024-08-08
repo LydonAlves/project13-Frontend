@@ -1,84 +1,29 @@
 import { useEffect, useRef, useState } from "react"
 import "./JoinClass.css"
 import { useAuth } from './../../context/AuthContext';
-//import { fetchById } from "../../utils/fetchById";
-import { updateUserClassGroup } from "./joinClassFunctions/updateUserClassGroup";
 import Loading from './../../components/loading/Loading';
-import { toast } from "react-toastify";
 import useToggle from './../../hooks/useToggle';
-import NoClassGroupPopup from "./noClassGroup/NoClassGroupPopup";
-import SuccessfullyJoinedComponent from "./successfullyJoinedComponent/SuccessfullyJoinedComponent";
-import { fetchFunction } from "../../utils/fetchAll";
+import NoClassGroupPopup from "../../components/noClassGroup/NoClassGroupPopup";
+import SuccessfullyJoinedComponent from "../../components/successfullyJoinedComponent/SuccessfullyJoinedComponent";
+import { setupClasses } from './../../functions/joinClassFunctions/setupClassJoinClass';
+import { submitId } from './../../functions/joinClassFunctions/submitIdJoinClass';
 
 const JoinClass = () => {
+  const { userObj, updateUser } = useAuth()
   const [currentClass, setCurrentClass] = useState()
   const [loading, setLoading] = useState(false)
-  const [classgroupUpdated, setClassgroupUpdated] = useToggle()
-  const [noClassPopup, setNoClassPopup] = useToggle()
   const [successfullyJoined, setSuccessfullyJoined] = useToggle()
-  const { userObj, updateUser } = useAuth()
   const idInputRef = useRef()
-  // console.log('userObj', userObj);
-
-  const submitId = async (submittedID) => {
-    let classId = submittedID ? submittedID : idInputRef.current.value
-    let userId = userObj._id
-    setLoading(true)
-
-    try {
-      const result = await updateUserClassGroup(userId, classId)
-      if (result.error) {
-        throw new Error(result.error);
-      } else {
-        if (result.classGroup) {
-          updateUser("classGroup", classId)
-          setClassgroupUpdated()
-          setSuccessfullyJoined()
-        }
-      }
-    } catch (error) {
-      console.error('Error updating the class group:', error);
-      toast.error(`Error: We had some difficulty loading data`)
-    } finally {
-      setLoading(false)
-    }
-  }
 
   useEffect(() => {
-    const fetchClass = async () => {
-      setLoading(true)
-      try {
-        // const result = await fetchById("classGroup", userObj.classGroup)
-        const result = await fetchFunction("classGroup", userObj.classGroup)
-
-        console.log('result', result);
-        if (result === null) {
-          console.log("working");
-          setNoClassPopup()
-          return
-        }
-
-        if (result.error) {
-          throw new Error(result.error);
-        } else {
-          setCurrentClass(result)
-          return
-        }
-
-      } catch (error) {
-        console.error('Error fetching the class group:', error);
-      } finally {
-        setLoading(false)
-      }
-    }
-
     if (userObj) {
-      fetchClass()
+      setupClasses(userObj, setCurrentClass, setLoading)
     }
+  }, [userObj])
 
-  }, [userObj, classgroupUpdated])
-
-
+  const handleSubmitId = (submittedID) => {
+    submitId(userObj, updateUser, setLoading, submittedID, setSuccessfullyJoined)
+  }
 
   return (
     <section className="joinClassSection">
@@ -86,10 +31,11 @@ const JoinClass = () => {
         loading={loading}
       />
 
-      {noClassPopup === false && (
+      {userObj && !userObj.classGroup && (
         <NoClassGroupPopup
-          setNoClassPopup={setNoClassPopup}
-          submitId={submitId}
+          setSuccessfullyJoined={setSuccessfullyJoined}
+          updateUser={updateUser}
+          handleSubmitId={handleSubmitId}
         />
       )}
 
@@ -98,7 +44,6 @@ const JoinClass = () => {
           setSuccessfullyJoined={setSuccessfullyJoined}
         />
       )}
-
 
       <h1 className="joinClassH1">Join Class</h1>
       <div className="joinClassDiv">
@@ -119,7 +64,7 @@ const JoinClass = () => {
         )}
 
         <input className="joinClassInput" type="text" ref={idInputRef} />
-        <button onClick={() => submitId()} className="largeBlueButton submitJoinClassButton">Submit</button>
+        <button onClick={() => handleSubmitId(idInputRef.current.value)} className="largeBlueButton submitJoinClassButton">Submit</button>
       </div>
     </section>
 

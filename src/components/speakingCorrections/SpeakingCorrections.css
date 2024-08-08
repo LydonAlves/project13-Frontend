@@ -1,7 +1,7 @@
 .voiceToTextCorrectonDiv{
   display: flex;
   justify-content: space-between;
-  width: 80%;
+  width: 85%;
   height: 60%;
   margin-right: var(--margin-xxl);
 }
@@ -28,6 +28,11 @@
 .studentInputDiv{
   overflow-y: auto;
   text-align: center;
+}
+
+
+.questionAndAnswer{
+  margin-right: var(--margin-m);
 }
 
 .errorsAndCorrections{

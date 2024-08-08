@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom"
-import ImageSlider from "./ImageSlider/ImageSlider"
+
 import "./StartPage.css"
+import ImageSlider from "../../components/ImageSlider/ImageSlider"
 
 const StartPage = () => {
   const navigate = useNavigate()

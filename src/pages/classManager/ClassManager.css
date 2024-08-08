@@ -57,6 +57,16 @@
   z-index: 9999;
 }
 
+@media (max-width: 1250px) {
+  .howToButtonClassManager{
+    position: absolute;
+    left: 20px;
+    top: 65px;
+    height: 25px;
+    z-index: 9999;
+  }
+}
+
 
 @media (max-width: 1000px) {
   .mainContentClassManager{

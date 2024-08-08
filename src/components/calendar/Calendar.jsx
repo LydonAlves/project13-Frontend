@@ -3,11 +3,12 @@ import ReactDatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css';
 import "./Calendar.css"
 
-const Calendar = ({ setDateSelected, setClassesForDay }) => {
+const Calendar = ({ dispatch }) => {
   const [startDate, setStartDate] = useState(new Date())
+
   useEffect(() => {
-    setClassesForDay(null)
-    setDateSelected(startDate)
+    dispatch({ type: 'SET_CLASSES_FOR_DAY', payload: [] })
+    dispatch({ type: 'SET_DATE_SELECTED', payload: startDate })
   }, [startDate])
 
   return (

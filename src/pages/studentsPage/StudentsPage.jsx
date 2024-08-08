@@ -1,270 +1,101 @@
-import { useEffect, useState } from "react"
+import { useEffect, useReducer, useState } from "react"
 import "./StudentsPage.css"
 import YouTube from "react-youtube";
-import { formatDate } from "../../context/DateContext";
-//import { fetchById } from "../../utils/fetchById";
-//import { fetchByUser } from './../../utils/fetchByUser';
 import { useAuth } from './../../context/AuthContext';
 import Loading from "../../components/loading/Loading";
-import { toast } from "react-toastify";
 import PageExplanation from "../../components/pageExplanation/PageExplanation";
 import { infoForGapfillText, infoForQuestionActivity, infoForYoutubeActivity } from "../../components/pageExplanation/infoForexplanations/infoForExplanations";
 import GapFill from "../../components/gapFill/GapFill";
 import ActivityButtons from "../../components/activityButtons/ActivityButtons";
-//import { fetchByRole } from "../../utils/fetchByRole";
-//  import { fetchByClassId } from "../../utils/fetchByClassID";
-import { findActivityObjById } from "./studentsPageFunctions.js/findActivityObjById";
-import { findMostRecentActivity } from "./studentsPageFunctions.js/findMostRecentActivity";
-import AudioRecorder from "./speakingPractice/AudioRecorder";
-import { fetchFunction } from "../../utils/fetchAll";
+import AudioRecorder from "../../components/audioRecorder/AudioRecorder";
+import { INITIAL_STUDENT_PAGE, studentPageReducer } from "../../reducers/studentPageReducer";
+import { getSavedAnswers } from "../../functions/studentsPageFunctions.js/getSavedAnswers";
+import { saveToLocalStorageIfChanged } from "../../functions/studentsPageFunctions.js/saveToLocalStorageIfChanged";
+import { setupActivities } from "../../functions/studentsPageFunctions.js/setupActivities";
+import { fetchActivities } from "../../functions/studentsPageFunctions.js/manageFetchActivities";
 
 const StudentsPage = ({ activityCreatedId }) => {
-  const [allActivities, setAllActivities] = useState([])
-  const [videoObj, setVideoObj] = useState("")
-  const [videoOpts, setVideoOpts] = useState("")
-  const [gapFill, setGapFill] = useState("")
-  const [questions, setQuestions] = useState("")
-  const [chosenDate, setChosenDate] = useState("")
+  const { userObj } = useAuth()
+  const [stateStudentsPage, dispatchStudentsPage] = useReducer(studentPageReducer, INITIAL_STUDENT_PAGE)
+  const { allActivities, answersGapFill, answersVideo, activityType } = stateStudentsPage
   const [loading, setLoading] = useState(false)
   const [needHelp, setNeedHelp] = useState(false)
-  const [infoForExplanation, setInfoForExplanation] = useState([])
-  const [activityType, setActivityType] = useState("youTubeFillGap")
-  const { userObj } = useAuth()
 
-  const [answersVideo, setAnswersVideo] = useState(() => {
-    const savedAnswersVideo = localStorage.getItem('answersVideo');
-    return savedAnswersVideo === null || savedAnswersVideo === "undefined" ? [] : JSON.parse(savedAnswersVideo);
-  });
-
-  const [answersGapFill, setAnswersGapFill] = useState(() => {
-    const savedAnswersGapFill = localStorage.getItem('answersGapFill');
-    return savedAnswersGapFill !== "undefined" ? JSON.parse(savedAnswersGapFill) : [];
-  });
+  useEffect(() => {
+    getSavedAnswers('answersVideo', [], dispatchStudentsPage, 'SET_ANSWERS_VIDEO');
+    getSavedAnswers('answersGapFill', [], dispatchStudentsPage, 'SET_ANSWERS_GAPFILL');
+  }, [])
 
   useEffect(() => {
     if (answersVideo === null && activityType === "youTubeFillGap") {
-      setAnswersVideo([])
+      dispatchStudentsPage({ type: 'SET_ANSWERS_VIDEO', payload: [] })
     }
-
     if (answersGapFill === null && activityType === "fillGapText") {
-      setAnswersGapFill([])
+      dispatchStudentsPage({ type: 'SET_ANSWERS_GAPFILL', payload: [] })
     }
   }, [answersVideo, answersGapFill, activityType])
 
   useEffect(() => {
-    localStorage.setItem('answersVideo', JSON.stringify(answersVideo));
-  }, [answersVideo]);
+    saveToLocalStorageIfChanged('answersVideo', answersVideo);
+    saveToLocalStorageIfChanged('answersGapFill', answersGapFill);
+  }, [answersVideo, answersGapFill]);
 
   useEffect(() => {
-    localStorage.setItem('answersGapFill', JSON.stringify(answersGapFill));
-  }, [answersGapFill]);
-
-
-  useEffect(() => {
-    const fetchActivities = async () => {
-      if (userObj) {
-        if (activityCreatedId && typeof activityCreatedId === 'object' && activityCreatedId !== null) {
-          setAllActivities([activityCreatedId]);
-        } else if (activityCreatedId) {
-          setLoading(true)
-          try {
-            // const result = await fetchById("classActivity", activityCreatedId);
-            const result = await fetchFunction("classActivity", activityCreatedId);
-            if (result.error) {
-              throw new Error(result.error);
-            } else {
-              console.log("fetched activity", result);
-              setAllActivities(result)
-            }
-          } catch (error) {
-            console.error('Error fetching the class activity:', error);
-            toast.error(`Error: We had some difficulty loading data`)
-          } finally {
-            setLoading(false)
-          }
-        } else if (userObj.role === "student") {
-          setLoading(true)
-          try {
-            // const result = await fetchByClassId("classActivityByDate", userObj.classGroup);
-            const result = await fetchFunction("classActivityByDate/by-classId", userObj.classGroup);
-            if (result.error) {
-              throw new Error(result.error);
-            } else {
-              const activityObj = findMostRecentActivity(result)
-              let classActivitiesFound = findActivityObjById(activityObj, userObj.classGroup)
-              try {
-                // const result = await fetchById("classActivity", classActivitiesFound[0].activityId);
-                const result = await fetchFunction("classActivity", classActivitiesFound[0].activityId);
-                if (result.error) {
-                  throw new Error(result.error);
-                } else {
-                  setAllActivities(prevActivities => [...prevActivities, result])
-                }
-              } catch (error) {
-                console.error('Error fetching the class activity:', error);
-                toast.error(`Error: We had some difficulty loading data`)
-              } finally {
-                setLoading(false)
-              }
-            }
-          } catch (error) {
-            console.error('Error fetching the class activity:', error);
-            toast.error(`Error: We had some difficulty loading data`)
-          } finally {
-            setLoading(false)
-          }
-        } else {
-          setLoading(true)
-          try {
-            // const result = await fetchByUser("classActivity", userObj._id);
-            const result = await fetchFunction("classActivity", userObj._id);
-            if (result.error) {
-              throw new Error(result.error);
-            } else {
-              setAllActivities(result)
-            }
-          } catch (error) {
-            console.error('Error  fetching the class activity:', error);
-            toast.error(`Error: We had some difficulty loading data`)
-          } finally {
-            setLoading(false)
-          }
-        }
-      } else {
-        setLoading(true)
-        try {
-          // const result = await fetchByRole("classActivity", "admin")
-          const result = await fetchFunction("classActivity/by-userRole", "admin")
-
-          if (result.error) {
-            throw new Error(result.error);
-          } else {
-            setAllActivities(result)
-          }
-        } catch (error) {
-          console.error('Error saving fetching the class activity:', error);
-          toast.error(`Error: We had some difficulty loading data`)
-        } finally {
-          setLoading(false)
-        }
-      }
-    };
-
-    fetchActivities();
+    if (userObj) {
+      setLoading(true)
+      fetchActivities(activityCreatedId, dispatchStudentsPage, userObj)
+      setLoading(false)
+    }
   }, [userObj])
 
-
   useEffect(() => {
-    const now = new Date()
-    if (allActivities.length === 0) {
-      return
+    if (allActivities.length > 0) {
+      setupActivities(dispatchStudentsPage, activityCreatedId, allActivities)
     }
-
-    let mostRecentActivity
-
-    if (activityCreatedId) {
-      mostRecentActivity = allActivities
-    } else {
-      mostRecentActivity = allActivities.reduce((latest, item) => {
-        const itemDate = new Date(item.date)
-        const latestDate = new Date(latest.date)
-
-        if (itemDate <= now) {
-          return itemDate > latestDate ? item : latest
-        }
-
-        return latest
-      })
-    }
-
-
-    if (mostRecentActivity.activitiesID.video) {
-      let currentVideo = mostRecentActivity.activitiesID.video
-
-      const opts = {
-        borderRadius: currentVideo.video.opts.borderRadius,
-        height: '200',
-        width: '320',
-        playerVars: currentVideo.video.opts.playerVars
-      };
-      setVideoOpts(opts)
-    }
-
-    if (mostRecentActivity?.activitiesID?.video) {
-      setVideoObj(mostRecentActivity.activitiesID.video);
-    }
-
-    if (mostRecentActivity?.activitiesID?.gapFill) {
-      setGapFill(mostRecentActivity.activitiesID.gapFill);
-    }
-
-    if (mostRecentActivity?.questions) {
-      setQuestions(mostRecentActivity.questions);
-    }
-
-    let chosenDate = formatDate(mostRecentActivity.date)
-    setChosenDate(chosenDate)
   }, [allActivities])
 
   useEffect(() => {
-    if (activityType === "youTubeFillGap") {
-      setInfoForExplanation(infoForYoutubeActivity)
-    } else if (activityType === "fillGapText") {
-      setInfoForExplanation(infoForGapfillText)
-    } else if (activityType === "questions") {
-      setInfoForExplanation(infoForQuestionActivity)
+    const activitiesObj = {
+      youTubeFillGap: infoForYoutubeActivity,
+      fillGapText: infoForGapfillText,
+      questions: infoForQuestionActivity,
+    }
+
+    if (activitiesObj[activityType]) {
+      dispatchStudentsPage({ type: 'SET_INFO_FOR_EXPLANATION', payload: activitiesObj[activityType] });
     }
   }, [activityType])
 
-  const chooseActivityButtons = [
-    {
-      id: 1,
-      name: "Video",
-      value: "youTubeFillGap"
-    },
-    {
-      id: 2,
-      name: "Fill gap text",
-      value: "fillGapText"
-    },
-    {
-      id: 3,
-      name: "Questions",
-      value: "questions",
-    },
-  ]
 
   return (
     <section className="studentsPageSection" >
       <Loading
         loading={loading}
       />
-      {chosenDate && (
+      {stateStudentsPage.chosenDate && (
         <>
           <div className="buttonsDateStudentsPage">
             <ActivityButtons
-              buttonArray={chooseActivityButtons}
-              setActivityType={setActivityType}
-              activityType={activityType}
+              dispatch={dispatchStudentsPage}
+              state={stateStudentsPage}
             />
           </div>
 
           {activityType === "youTubeFillGap" && (
             <div className="studentsPageYoutubeDiv">
-              {videoObj !== "" ? (
+              {stateStudentsPage.videoObj !== "" ? (
                 <>
                   <div className="studentsPageYouTube">
                     <YouTube
-                      videoId={videoObj.video.opts.videoId}
-                      opts={videoOpts}
+                      videoId={stateStudentsPage.videoObj.opts.videoId}
+                      opts={stateStudentsPage.videoObj.opts}
                       onReady={(e) => e.target.pauseVideo()}
                     />
                   </div>
                   {answersVideo && (
                     <GapFill
-                      chosenText={videoObj}
+                      chosenText={stateStudentsPage.gapFillVideo}
                       inputs={answersVideo}
-                      setInputs={setAnswersVideo}
                     />
                   )}
                 </>
@@ -274,38 +105,35 @@ const StudentsPage = ({ activityCreatedId }) => {
             </div>
           )}
 
-          {
-            activityType === "fillGapText" && (
-              <>
-                {gapFill !== "" ? (
-                  <GapFill
-                    chosenText={gapFill}
-                    inputs={answersGapFill}
-                    setInputs={setAnswersGapFill}
-                  />
-                ) : (
-                  <p className="noActivityNotificationStudentPage">No Gap Fill task has been assigned, check the other activity types</p>
-                )}
-              </>
-            )
-          }
+          {activityType === "fillGapText" && (
+            <>
+              {stateStudentsPage.gapFill !== "" ? (
+                <GapFill
+                  chosenText={stateStudentsPage.gapFill}
+                  inputs={answersGapFill}
+                />
+              ) : (
+                <p className="noActivityNotificationStudentPage">No Gap Fill task has been assigned, check the other activity types</p>
+              )}
+            </>
+          )}
 
           {activityType === "questions" && (
             <>
-              {questions.length > 0 ? (
+              {stateStudentsPage.questions.length > 0 ? (
                 <AudioRecorder
-                  questions={questions}
+                  questions={stateStudentsPage.questions}
                 />
               ) : (
                 <p>No Question task has been assigned, check the other activity types</p>
               )}
             </>
-          )
-          }
+          )}
         </>
-      )}
+      )
+      }
 
-      {!chosenDate && (
+      {!stateStudentsPage.chosenDate && (
         <div className="studentsPageNoContentDiv">
           <p>No Activities have been assigned to your class group</p>
           <p>Make sure that you have joined a class group</p>
@@ -315,7 +143,7 @@ const StudentsPage = ({ activityCreatedId }) => {
       {needHelp === true && (
         <PageExplanation
           setNeedHelp={setNeedHelp}
-          info={infoForExplanation}
+          info={stateStudentsPage.infoForExplanation}
         />
       )}
 

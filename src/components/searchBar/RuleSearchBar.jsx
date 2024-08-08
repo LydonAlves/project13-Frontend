@@ -1,11 +1,16 @@
+import useSearch from "../../hooks/useSearch"
 import "./RulesSearchBar.css"
 
 const RuleSearchBar = ({
-  searchQuery,
-  search,
-  filteredItems,
-  updateRuleInGap
+  dispatchExercise,
+  stateExercise
 }) => {
+  const { ruleList, gapIndex } = stateExercise
+  const { searchQuery, search, filteredItems } = useSearch(ruleList)
+
+  const updateRuleInGap = (item) => {
+    dispatchExercise({ type: 'UPDATE_INPUT', payload: { gapIndex, rule: item } })
+  }
 
   return (
     <div className="searchBarRules">
@@ -18,15 +23,17 @@ const RuleSearchBar = ({
           placeholder="Type here to search rules..."
         />
       </div>
-      <div className="rulesDropdownList">
-        {filteredItems.slice().reverse().slice(0, 2).map((item, index) => (
-          <div className="rulesContainer" key={item._id}>
-            <div className="ruleTitle" >{item.title}</div>
-            <p className="ruleExplanation">{item.explanation}</p>
-            <button onClick={() => updateRuleInGap(item, index)} className="buttonRuleSearchBar">Assign rule</button>
-          </div>
-        ))}
-      </div>
+      {filteredItems && filteredItems.length > 0 && (
+        <div className="rulesDropdownList">
+          {filteredItems.slice().reverse().slice(0, 2).map((item) => (
+            <div className="rulesContainer" key={item._id}>
+              <div className="ruleTitle" >{item.title}</div>
+              <p className="ruleExplanation">{item.explanation}</p>
+              <button onClick={() => updateRuleInGap(item)} className="buttonRuleSearchBar">Assign rule</button>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   )
 }

@@ -1,211 +1,67 @@
 import { useContext, useEffect, useReducer, useRef, useState } from 'react'
 import "./MyActivities.css"
-import ActivitySearchBar from './activitySearchBar/ActivitySearchBar'
 import YouTube from 'react-youtube'
-import { v4 as uuidv4 } from 'uuid';
 import { DateContext } from '../../context/DateContext'
-import ActivityCardClassManager from './activityCardClassManager/ActivityCardClassManager'
-import GapText from '../../components/fillGapForm/gapText/GapText'
-import StudentsPage from '../studentsPage/StudentsPage'
 import { useAuth } from '../../context/AuthContext';
-//import { fetchByUser } from '../../utils/fetchByUser'
-import useSearch from '../../components/searchBar/useSearch'
-import { UPDATE_ACTIVITIES_CHOSEN, assignActivityToClass } from './myActivitiesFunctions/useReducerMyClasses';
-import { saveClassActivity } from './myActivitiesFunctions/saveClassActivity';
 import Loading from '../../components/loading/Loading';
-import { toast } from 'react-toastify';
-import ActivityTypeIndicator from '../../components/activityTypeIndicator/ActivityTypeIndicator';
-import NextButtons from '../createTextAndVideoActivity/nextButtons/NextButtons';
-import { addActtivityToClassesFunction } from './myActivitiesFunctions/addActivityToClasses';
-import { chooseExerciseTypeButtons } from './myActivitiesFunctions/chooseExerciseTypeButtons';
-import QuestionList from './questionList/QuestionList';
-import CreateQuestionSidebar from './createQuestionSidebar/CreateQuestionSidebar';
-import AddTitleSideBar from './addTitleSideBar/AddTitleSideBar';
-import { fetchFunction } from '../../utils/fetchAll';
+import { UPDATE_ACTIVITIES_CHOSEN, assignActivityToClass } from '../../reducers/activitiesChosenReducer';
+import { INITIAL_MY_ACTIVITIES_PAGE, myActivitiesReducer } from '../../reducers/myActivitiesReducer';
+import StudentsPage from '../studentsPage/StudentsPage'
+import ActivityCardClassManager from './../../components/activityCardClassManager/ActivityCardClassManager';
+import ActivityTypeIndicator from './../../components/activityTypeIndicator/ActivityTypeIndicator';
+import NextButtons from './../../components/nextButtons/NextButtons';
+import { chooseExerciseTypeButtons } from '../../functions/myActivitiesFunctions/chooseExerciseTypeButtons';
+import QuestionList from './../../components/questionList/QuestionList';
+import CreateQuestionSidebar from '../../components/createQuestionSidebar/CreateQuestionSidebar';
+import AddTitleSideBar from './../../components/addTitleSideBar/AddTitleSideBar';
+import { loadExercises } from '../../functions/myActivitiesFunctions/loadExercises';
+import { saveActivity } from '../../functions/myActivitiesFunctions/saveActivityFunction';
+import ActivitySearchBar from './../../components/activitySearchBar/ActivitySearchBar';
+import GapText from '../../components/gapText/GapText';
+
 
 const MyActivities = () => {
-  const [assignedActivities, dispatachActivities] = useReducer(assignActivityToClass, UPDATE_ACTIVITIES_CHOSEN)
-  const [showSubmittedActivities, setShowSubmittedActivities] = useState(false)
-  const [savedActivity, setSavedActivity] = useState(null)
-  const [showSelectedTask, setShowSelectedTask] = useState("")
-  const [activityTypeSelected, setActivityTypeSelected] = useState("title")
-  const [toggleSubmit, setToggleSubmit] = useState(false)
-  const [gapFillExercises, setGapFillExercises] = useState([])
-  const [youTubeExercises, setYouTubeExercises] = useState([])
-  const [questionList, setQuestionList] = useState([])
-  const [question, setquestion] = useState("")
-  const [activityType, setActivityType] = useState([])
-  const [selectedId, setSelectedId] = useState(null)
-  const [nextButton, setNextButton] = useState(false)
-  const [loading, setLoading] = useState(false)
-  const [title, setTitle] = useState(null)
-  const titleRef = useRef(null)
-  const { searchQuery, search, filteredItems } = useSearch(activityType)
-  const { activities } = assignedActivities
-  const currentDate = useContext(DateContext)
   const { userObj } = useAuth()
+  const currentDate = useContext(DateContext)
+
+  const [assignedActivities, dispatchActivities] = useReducer(assignActivityToClass, UPDATE_ACTIVITIES_CHOSEN)
+  const { video, gapFill } = assignedActivities.activities
+
+  const [stateActivitiesPage, dispatchActivitiesPage] = useReducer(myActivitiesReducer, INITIAL_MY_ACTIVITIES_PAGE)
+  const { savedActivity, showSelectedTask, currentStep, title, youTubeExercises, gapFillExercises, questionList } = stateActivitiesPage
   const exerciseButtons = chooseExerciseTypeButtons(title)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    setSelectedId(0)
-    const fetchExercises = async () => {
-      let userId = userObj._id
-      setLoading(true)
-      try {
-        // const gapFillResult = await fetchByUser("gapfillText", userId,);
-        const gapFillResult = await fetchFunction("gapfillText/by-userId", userId,);
-        if (gapFillResult.error) {
-          throw new Error(gapFillResult.error);
-        } else {
-          setGapFillExercises(gapFillResult)
-        }
-
-        // const videoExerciseResult = await fetchByUser("videoExercise", userId);
-        const videoExerciseResult = await fetchFunction("videoExercise/by-userId", userId);
-
-
-        if (videoExerciseResult.error) {
-          throw new Error(videoExerciseResult.error);
-        } else {
-          setYouTubeExercises(videoExerciseResult)
-        }
-      } catch (error) {
-        console.error('Error fetching exercises:', error.message);
-        toast.error(`Error: Could not load the data for this page`)
-      } finally {
-        setLoading(false);
-      }
-    };
-
-
     if (userObj) {
-      fetchExercises();
+      loadExercises(userObj, setLoading, dispatchActivitiesPage);
     }
   }, [userObj])
 
   useEffect(() => {
-    setActivityType(gapFillExercises)
-  }, [gapFillExercises])
+    const typeSelected =
+      currentStep === 1 ? gapFillExercises :
+        currentStep === 2 ? youTubeExercises :
+          []
 
-  useEffect(() => {
-    if (activityTypeSelected === "gapFill") {
-      setActivityType(gapFillExercises)
-    } else if (activityTypeSelected === "video") {
-      setActivityType(youTubeExercises)
-    }
-    else {
-      setActivityType([])
-    }
-  }, [activityTypeSelected])
+    dispatchActivitiesPage({ type: 'SET_ACTIVITY_TYPE', payload: typeSelected })
+  }, [currentStep])
 
-  useEffect(() => {
-    if (activities.gapFill === "" && activities.video === "" && (questionList.length === 0)) {
-      setToggleSubmit(false)
-    } else {
-      setToggleSubmit(true)
-    }
-  }, [activities, questionList])
-
-
-  const addActivityToClasses = (activity) => {
-    addActtivityToClassesFunction(activityTypeSelected, dispatachActivities, activity)
-  }
-
-  const removeActivity = (value) => {
-    if (value === "video") {
-      dispatachActivities({
-        type: "UPDATE_ACTIVITIES_CHOSEN",
-        payload: {
-          video: ""
-        }
-      })
-    } else if (value === "gapFill") {
-      dispatachActivities({
-        type: "UPDATE_ACTIVITIES_CHOSEN",
-        payload: {
-          gapFill: ""
-        }
-      })
-    }
-  }
-
-
-  const saveQuestion = () => {
-    if (questionList.length === 3) {
-      toast.error(`You can have a max of three questions`)
-      return
-    }
-
-    if (question !== "") {
-      const questionObj = {
-        text: question,
-        id: uuidv4()
-      }
-      setQuestionList(prev => {
-        return [...prev, questionObj]
-      })
-      setquestion("")
-    }
-  }
-
-
-  const saveActivity = async () => {
-    let activitiesID = {
-      gapFill: activities.gapFill._id,
-      video: activities.video._id
-    }
-
-    let finalActivity = {
-      activitiesID,
-      date: currentDate,
-      id: uuidv4(),
-      title: title,
-      questions: questionList,
-      createdBy: userObj._id
-    }
-
-    setLoading(true)
-    try {
-      const savedActivity = await saveClassActivity(finalActivity)
-      if (savedActivity.error) {
-        throw new Error(videoExerciseResult.error);
-      } else {
-        setSavedActivity(savedActivity)
-        setShowSubmittedActivities(true)
-      }
-    } catch (error) {
-      console.error('Error saving class activity:', error);
-      toast.error(`Error: Could not save the activity`)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const addTitle = () => {
-    if (titleRef.current.value === "") {
-      toast.error(`You need to add a title to continue`)
-      return
-    } else {
-      setTitle(titleRef.current.value)
-    }
+  const handleSaveActivity = () => {
+    const { activities } = assignedActivities
+    saveActivity(
+      activities,
+      currentDate,
+      stateActivitiesPage,
+      dispatchActivitiesPage,
+      setLoading,
+      userObj
+    )
   }
 
   const resetPageValues = () => {
-    setShowSubmittedActivities(false)
-    setActivityTypeSelected("title")
-    dispatachActivities({
-      type: "UPDATE_ACTIVITIES_CHOSEN",
-      payload: {
-        gapFill: "",
-        video: ""
-      }
-    })
-    setShowSelectedTask("")
-    setSelectedId(0)
-    setQuestionList([])
-    setSavedActivity(null)
-    setquestion("")
-    setTitle(null)
+    dispatchActivities({ type: 'RESET_ACTIVITIES_CHOSEN' })
+    dispatchActivitiesPage({ type: 'RESET_MY_ACTIVITIES' })
   }
 
   return (
@@ -215,210 +71,150 @@ const MyActivities = () => {
         setLoading={setLoading}
       />
 
-      {
-        !showSubmittedActivities && (
-          <section className='myClassesSection'>
-            <div className='sideBarMyActivities'>
-              {/* <h1 className="H1myActivities">My Activities</h1> */}
+      {/* {!showSubmittedActivities && ( */}
+      {savedActivity === null && (
+        <section className='myClassesSection'>
+          <div className='sideBarMyActivities'>
+            <div className='activityTypeDiv'>
+              <ActivityTypeIndicator
+                activityButtonArray={exerciseButtons}
+                currentStep={currentStep}
+              />
+              {(gapFill !== "" || video !== "" || questionList.length > 0) && (
+                <button
+                  onClick={() => handleSaveActivity()}
+                  className='submitActivityButton'
+                >Save activity</button>
 
-              <div className='activityTypeDiv'>
-                <ActivityTypeIndicator
-                  activityButtonArray={exerciseButtons}
-                  selectedId={selectedId}
-                />
-                {toggleSubmit === true && (
-                  <button
-                    onClick={() => saveActivity()}
-                    className='submitActivityButton'
-                  >Save activity</button>
-
-                )}
-              </div>
-
-
-
-              <div className='activitiesShownSidebar'>
-
-                {activityTypeSelected === "title" && (
-                  <AddTitleSideBar
-                    title={title}
-                    titleRef={titleRef}
-                    addTitle={addTitle}
-                  />
-                )}
-
-                {/* Activity search bar */}
-                {(activityTypeSelected === "video" || activityTypeSelected === "gapFill") && (
-                  <div className='activitySearchBarMyAct'>
-                    <ActivitySearchBar
-                      searchQuery={searchQuery}
-                      search={search}
-                      filteredItems={filteredItems}
-                      addActivityToClasses={addActivityToClasses}
-                      setShowSelectedTask={setShowSelectedTask}
-                    />
-                  </div>
-                )}
-
-                {/* question*/}
-                {activityTypeSelected === "questions" && (
-                  <CreateQuestionSidebar
-                    setquestion={setquestion}
-                    question={question}
-                    saveQuestion={saveQuestion}
-                  />
-                )}
-
-                {title && (
-                  <div className='nextButtonsMyActivities'>
-                    <NextButtons
-                      activityButtonArray={exerciseButtons}
-                      chooseStepOfProcess={setActivityTypeSelected}
-                      nextButton={nextButton}
-                      setNextButton={setNextButton}
-                      setSelectedId={setSelectedId}
-                      selectedId={selectedId}
-                    />
-                  </div>
-                )}
-                {/* {toggleSubmit === true && (
-                  <button
-                    onClick={() => saveActivity()}
-                    className='submitActivityButton'
-                  >Save activity</button>
-
-                )} */}
-              </div>
+              )}
             </div>
 
-            <div className='activitiesSidebarAndChosenActivities'>
+            <div className='activitiesShownSidebar'>
+              {currentStep === 0 && (
+                <AddTitleSideBar
+                  title={stateActivitiesPage.title}
+                  dispatch={dispatchActivitiesPage}
+                  type={'SET_TITLE'}
+                />
+              )}
 
-              {/* Add exercises */}
-              <div className='activitiesChosenDiv'>
-                {/* <div className='activitiesShownSidebar'>
+              {(currentStep === 1 || currentStep === 2) && (
+                <div className='activitySearchBarMyAct'>
+                  <ActivitySearchBar
+                    dispatch={dispatchActivities}
+                    dispatchActivitiesPage={dispatchActivitiesPage}
+                    activityType={stateActivitiesPage.activityType}
+                    currentStep={stateActivitiesPage.currentStep}
+                  />
+                </div>
+              )}
 
-                  {activityTypeSelected === "title" && (
-                    <AddTitleSideBar
-                      title={title}
-                      titleRef={titleRef}
-                      addTitle={addTitle}
-                    />
-                  )}
+              {/* question*/}
+              {currentStep === 3 && (
+                <CreateQuestionSidebar
+                  dispatch={dispatchActivitiesPage}
+                  questionList={stateActivitiesPage.questionList}
+                  type={'ADD_QUESTION_TO_LIST'}
+                />
+              )}
 
-                  Activity search bar
-                  {(activityTypeSelected === "video" || activityTypeSelected === "gapFill") && (
-                    <div className='activitySearchBarMyAct'>
-                      <ActivitySearchBar
-                        searchQuery={searchQuery}
-                        search={search}
-                        filteredItems={filteredItems}
-                        addActivityToClasses={addActivityToClasses}
-                        setShowSelectedTask={setShowSelectedTask}
-                      />
-                    </div>
-                  )}
+              {title && (
+                <div className='nextButtonsMyActivities'>
+                  <NextButtons
+                    activityButtonArray={exerciseButtons}
+                    dispatch={dispatchActivitiesPage}
+                    currentStep={currentStep}
+                    type={'SET_CURRENT_STEP'}
+                  />
+                </div>
+              )}
+            </div>
+          </div>
 
-                  question
-                  {activityTypeSelected === "questions" && (
-                    <CreateQuestionSidebar
-                      setquestion={setquestion}
-                      question={question}
-                      saveQuestion={saveQuestion}
-                    />
-                  )}
+          <div className='activitiesSidebarAndChosenActivities'>
 
-                  {title && (
-                    <div className='nextButtonsMyActivities'>
-                      <NextButtons
-                        activityButtonArray={exerciseButtons}
-                        chooseStepOfProcess={setActivityTypeSelected}
-                        nextButton={nextButton}
-                        setNextButton={setNextButton}
-                        setSelectedId={setSelectedId}
-                        selectedId={selectedId}
-                      />
-                    </div>
-                  )}
-                </div> */}
+            {/* Add exercises */}
+            <div className='activitiesChosenDiv'>
 
-                {title === null && (
-                  <div className='myActivitiesInfo'>
-                    <p className='noActivityMyActivities'>Start by adding a title for your activity</p>
-                    <p className='noActivityMyActivities'>Then click next and continue by adding the different types of activities</p>
-                  </div>
-                )}
+              {title === null && (
+                <div className='myActivitiesInfo'>
+                  <p className='noActivityMyActivities'>Start by adding a title for your activity</p>
+                  <p className='noActivityMyActivities'>Then click next and continue by adding the different types of activities</p>
+                </div>
+              )}
 
-                {/* Activities selected and shown in the container */}
-                {title !== null && (
-                  <div className='selectedActivitiesDiv'>
-                    <p className='activityTitle'> Activity title:  <span className='tiltedTitle'>{title}</span></p>
+              {/* Activities selected and shown in the container */}
+              {title !== null && (
+                <div className='selectedActivitiesDiv'>
+                  <p className='activityTitle'> Activity title:  <span className='tiltedTitle'>{title}</span></p>
 
-                    <div className='allChosenActivitiesContainer'>
-                      <div className='gapfillAndVideoChosenDiv'>
+                  <div className='allChosenActivitiesContainer'>
+                    <div className='gapfillAndVideoChosenDiv'>
 
-                        <div className='activitiesExampleDiv'>
-                          {assignedActivities.activities.video !== "" && (
-                            <ActivityCardClassManager
-                              removeActivity={removeActivity}
-                              activityName={"video"}
-                              activityTypeTitle={"GAP FILL WITH VIDEO EXERCISE"}
-                              activityTitle={assignedActivities.activities.video.textObj.title}
-                              setShowSelectedTask={setShowSelectedTask}
-                              activitySelected={assignedActivities.activities.video}
-                            />
-                          )}
-
-                          {assignedActivities.activities.gapFill !== "" && (
-                            <ActivityCardClassManager
-                              removeActivity={removeActivity}
-                              activityName={"gapFill"}
-                              activityTypeTitle={"GAP FILL WITH TEXT EXERCISE"}
-                              activityTitle={assignedActivities.activities.gapFill.textObj.title}
-                              setShowSelectedTask={setShowSelectedTask}
-                              activitySelected={assignedActivities.activities.gapFill}
-                            />
-                          )}
-                        </div>
-
-                        {questionList.length > 0 && (
-                          <QuestionList
-                            questionList={questionList}
-                            setQuestionList={setQuestionList}
+                      <div className='activitiesExampleDiv'>
+                        {video !== "" && (
+                          <ActivityCardClassManager
+                            dispatch={dispatchActivities}
+                            dispatchActivitiesPage={dispatchActivitiesPage}
+                            activityName={"video"}
+                            activityTypeTitle={"GAP FILL WITH VIDEO EXERCISE"}
+                            activityTitle={video.textObj.title}
+                            activitySelected={video}
                           />
                         )}
 
+                        {gapFill !== "" && (
+                          <ActivityCardClassManager
+                            dispatch={dispatchActivities}
+                            dispatchActivitiesPage={dispatchActivitiesPage}
+                            activityName={"gapFill"}
+                            activityTypeTitle={"GAP FILL WITH TEXT EXERCISE"}
+                            activityTitle={gapFill.textObj.title}
+                            activitySelected={gapFill}
+                          />
+                        )}
                       </div>
+
+                      {questionList.length > 0 && (
+                        <QuestionList
+                          questionList={stateActivitiesPage.questionList}
+                          dispatch={dispatchActivitiesPage}
+                          type={'REMOVE_QUESTION_FROM_LIST'}
+                        />
+                      )}
+
                     </div>
                   </div>
-                )}
+                </div>
+              )}
 
+            </div>
+          </div>
+
+          {/* shows the preview of the activity */}
+          {showSelectedTask !== "" && (
+            <div className='previewVideoActivity'>
+              <button className='removePreviewActivitybutton'
+                onClick={() => dispatchActivitiesPage({ type: 'SET_SHOW_SELECTED_TASK', payload: "" })}>Close</button>
+              {showSelectedTask && showSelectedTask.video && (
+                <YouTube
+                  videoId={showSelectedTask.video.opts.videoId}
+                  opts={showSelectedTask.video.opts}
+                  onReady={(e) => e.target.pauseVideo()}
+                />
+              )}
+              <div className={showSelectedTask.video ? "previewWithVideo" : 'myClassPreviewGapTextDiv'}>
+                <GapText
+                  textObj={showSelectedTask.textObj}
+                />
               </div>
             </div>
-
-            {/* shows the preview of the activity */}
-            {showSelectedTask !== "" && (
-              <div className='previewVideoActivity'>
-                <button className='removePreviewActivitybutton'
-                  onClick={() => setShowSelectedTask("")}>Close</button>
-                {showSelectedTask && showSelectedTask.video && (
-                  <YouTube
-                    videoId={showSelectedTask.video.opts.videoId}
-                    opts={showSelectedTask.video.opts}
-                    onReady={(e) => e.target.pauseVideo()}
-                  />
-                )}
-                <div className={showSelectedTask.video ? "previewWithVideo" : 'myClassPreviewGapTextDiv'}>
-                  <GapText
-                    textObj={showSelectedTask.textObj}
-                  />
-                </div>
-              </div>
-            )}
-          </section>
-        )
+          )}
+        </section>
+      )
       }
 
-      {savedActivity !== null && (
+      {savedActivity !== null && savedActivity.activitiesID && (
         <>
           <StudentsPage
             activityCreatedId={savedActivity._id}

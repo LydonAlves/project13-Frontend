@@ -1,60 +1,36 @@
-import { useEffect, useState } from "react"
+import { useEffect, useReducer, useState } from "react"
 import "./PreviousSpeakingCorrections.css"
 import { formatDate } from "../../context/DateContext"
 import CarrouselOfItemsButtons from "../../components/carrouselOfItemsButtons/CarrouselOfItemsButtons"
-//import { fetchByUser } from "../../utils/fetchByUser"
 import { useAuth } from './../../context/AuthContext';
 import SpeakingCorrections from "../../components/speakingCorrections/SpeakingCorrections"
 import Loading from "../../components/loading/Loading"
-import { toast } from "react-toastify"
 import PageExplanation from "../../components/pageExplanation/PageExplanation"
 import { infoForPageExplanation } from "../../components/pageExplanation/infoForexplanations/infoForExplanations"
 import { formatUserFriendlyDate } from "../../utils/formatUserFriendlyDate"
-import { fetchFunction } from "../../utils/fetchAll";
+import { INITIAL_SPEAKING_CORRECTIONS, speakingCorrectionsReducer } from "../../reducers/previousSpeakingCorrectionsReducer";
+import { fetchCorrections } from "../../functions/previousSpeakingCorrections/fetchCorrections";
+
+
 
 const PreviousSpeakingCorrections = () => {
-  const [allSpeakingCorrections, setAllSpeakingCorrections] = useState([])
-  const [lastTenResults, setLastTenResults] = useState([])
-  const [currentItemIndex, setCurrentItemIndex] = useState(0);
-  const [dateOfCorrections, setDateOfCorrections] = useState("")
+  const { userObj } = useAuth()
+  const [stateSpeakingCorrections, dispatchSpeakingCorrections] = useReducer(speakingCorrectionsReducer, INITIAL_SPEAKING_CORRECTIONS)
+  const { allSpeakingCorrections, lastTenResults, dateOfCorrections, currentItemIndex } = stateSpeakingCorrections
+  const answersToShow = lastTenResults[currentItemIndex];
   const [needHelp, setNeedHelp] = useState(false)
   const [loading, setLoading] = useState(false)
-  const answersToShow = lastTenResults[currentItemIndex];
-  const { userObj } = useAuth()
 
   useEffect(() => {
-    const fetchCorrections = async () => {
-      setLoading(true)
-      try {
-        // const result = await fetchByUser("speakingCorrection", userObj._id);
-        const result = await fetchFunction("speakingCorrection/by-userId", userObj._id);
-        if (result.error === 404) {
-          toast.info(`Notice: There are no speaking corrections yet`)
-        }
-
-        if (result.error) {
-          throw new Error(result.error);
-        } else {
-          setAllSpeakingCorrections(result)
-        }
-      } catch (error) {
-        console.error('Error fetching speaking corrections:', error);
-        toast.error(`Error: We had some difficulty loading data`)
-
-      } finally {
-        setLoading(false)
-      }
-    }
-
     if (userObj) {
-      fetchCorrections()
+      fetchCorrections(dispatchSpeakingCorrections, setLoading, userObj)
     }
   }, [userObj])
 
   useEffect(() => {
     if (allSpeakingCorrections.length > 0) {
       const lastTenItems = allSpeakingCorrections.slice(-10);
-      setLastTenResults(lastTenItems)
+      dispatchSpeakingCorrections({ type: 'SET_LAST_TEN_RESULTS', payload: lastTenItems })
     }
   }, [allSpeakingCorrections])
 
@@ -62,7 +38,7 @@ const PreviousSpeakingCorrections = () => {
     if (answersToShow) {
       let chosenDate = formatDate(answersToShow.date)
       let userFriendlyDate = formatUserFriendlyDate(chosenDate)
-      setDateOfCorrections(userFriendlyDate)
+      dispatchSpeakingCorrections({ type: 'SET_DATE_OF_CORRECTIONS', payload: userFriendlyDate })
     }
   }, [answersToShow])
 
@@ -79,7 +55,7 @@ const PreviousSpeakingCorrections = () => {
           <div className="nextButtonsPrevSpeakingCorrections">
             <CarrouselOfItemsButtons
               items={allSpeakingCorrections}
-              setCurrentItemIndex={setCurrentItemIndex}
+              dispatch={dispatchSpeakingCorrections}
               currentItemIndex={currentItemIndex}
             />
           </div>

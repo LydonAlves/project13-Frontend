@@ -1,15 +1,20 @@
 import "./CarrouselOfItemsButtons.css"
 
-const CarrouselOfItemsButtons = ({ items, setCurrentItemIndex, currentItemIndex }) => {
+const CarrouselOfItemsButtons = ({
+  items,
+  dispatch,
+  currentItemIndex
+}) => {
+
   const nextItem = () => {
     if (currentItemIndex < items.length - 1) {
-      setCurrentItemIndex(currentItemIndex + 1);
+      dispatch({ type: 'INCREMENT_INDEX' });
     }
   };
 
   const prevItem = () => {
     if (currentItemIndex > 0) {
-      setCurrentItemIndex(currentItemIndex - 1);
+      dispatch({ type: 'DECREMENT_INDEX' });
     }
   };
 
