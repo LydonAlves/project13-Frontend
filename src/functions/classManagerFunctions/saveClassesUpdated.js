@@ -1,18 +1,13 @@
 import { toast } from "react-toastify";
 import { updateById } from "../../utils/updateById";
 import { saveActivityToClassGroup } from "./saveActivityToClassGroup";
+import { areArraysEqual } from "./areArraysEqual";
 
 export const saveClassesUpdated = async (dispatch, state, userObj) => {
   const { classList, classByDate, dateSelected } = state
+  const classListByDate = state.classByDate ? state.classByDate.classes : []
 
-  const checkIfupdateNeeded = () => {
-    if (state.classByDate) {
-      return state.classList !== state.classByDate && state.classByDate.classes.some(item => item.activityObj)
-    }
-    return
-  }
-
-  const updateNeeded = checkIfupdateNeeded()
+  const updateNeeded = areArraysEqual(state.classList, classListByDate)
 
   const classesUpdate = {
     classes: classList,
@@ -22,7 +17,7 @@ export const saveClassesUpdated = async (dispatch, state, userObj) => {
 
   try {
     let result;
-    if (updateNeeded) {
+    if (!updateNeeded) {
       result = await updateById("classActivityByDate", classByDate._id, classesUpdate);
     } else {
       result = await saveActivityToClassGroup(classesUpdate);
@@ -34,7 +29,7 @@ export const saveClassesUpdated = async (dispatch, state, userObj) => {
 
     dispatch({ type: 'SET_CLASSES_FOR_DAY', payload: result.classes });
 
-    if (!updateNeeded) {
+    if (updateNeeded) {
       dispatch({ type: 'SET_CLASS_BY_DATE', payload: result });
     }
 

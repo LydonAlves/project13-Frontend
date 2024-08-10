@@ -4,7 +4,6 @@
 }
 
 
-
 .sideBarTitleMyClasses{
   font-size: larger;
   font-weight: 600;
@@ -16,6 +15,10 @@
   margin-bottom: var(--margin-s);
   font-size: 15px;
   color: var(--color-102);
+}
+
+.textAreaSideBarMyClasses{
+ width: 100%;
 }
 
 .activitiesSidebarTitleButton{

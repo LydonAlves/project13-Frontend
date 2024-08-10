@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import useToggle from "../../hooks/useToggle";
 import { deleteByIdinDB } from "../../utils/deleteById";
 import Loading from "../loading/Loading";
+import { removeClassFromActivitiesById } from './../../functions/classManagerFunctions/removeClassFromActivitiesById';
 
 const CreateSelectClass = ({
   dispatch,
@@ -31,6 +32,7 @@ const CreateSelectClass = ({
     Loading(true)
     try {
       await deleteByIdinDB("classGroup", classId)
+      await removeClassFromActivitiesById(classId)
       toast.success(`Success: Your class has successfully been deleted`)
       dispatch({ type: 'REMOVE_CLASS_FROM_LIST', payload: classId })
     } catch (error) {

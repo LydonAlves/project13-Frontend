@@ -1,4 +1,5 @@
-import { backendURL } from "../../../utils/backendURL";
+import { backendURL } from "../../utils/backendURL";
+
 
 export const removeClassFromActivitiesById = async (classIDToRemove) => {
   try {
@@ -7,7 +8,7 @@ export const removeClassFromActivitiesById = async (classIDToRemove) => {
       headers: {
         'Content-Type': 'application/json'
       },
-    });
+    })
 
     if (response.status === 404) {
       return { message: `No document found with classID ${classIDToRemove}.` };
@@ -23,4 +24,4 @@ export const removeClassFromActivitiesById = async (classIDToRemove) => {
     console.error(`Failed to update class activities:`, error);
     throw error;
   }
-};
+}

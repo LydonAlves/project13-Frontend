@@ -12,7 +12,7 @@ export const INITIAL_CLASS_MANAGER = {
 }
 
 export function classManagerReducer(state = INITIAL_CLASS_MANAGER, action) {
-  console.log("action", action);
+
   switch (action.type) {
     case 'INITIALIZE_CLASS_MANAGER':
       return {
