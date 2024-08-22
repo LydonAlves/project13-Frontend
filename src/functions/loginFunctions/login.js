@@ -10,15 +10,19 @@ export const loginFunction = async (registerObj) => {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({ email, password })
-  });
+  })
 
-  const result = await response.json();
+  console.log(response);
 
-  if (!response.ok) {
-    toast.error(`Error: ${error.message}`);
-    throw new Error(result.error || 'An unknown error occurred');
+  if (response.status == 401) {
+    toast.error(`Error: The email or password are incorect`)
+    return
   }
+
+  const result = await response.json()
 
   return result
 
 }
+
+

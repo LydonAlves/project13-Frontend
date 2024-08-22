@@ -25,7 +25,7 @@ import { checkScreenSize } from "../../functions/videoFunctions/checkScreenSize"
 
 const CreateTextAndVideoExercise = () => {
   const { userObj } = useAuth()
-  const date = useContext(DateContext);
+  const date = useContext(DateContext)
   const [stateExercise, dispatchExercise] = useReducer(exerciseReducer, INITIAL_EXERCISE_STATE)
   const { savedFinalExercise, currentStep, exerciseType, videoData } = stateExercise
   const videoId = videoData !== "" ? videoData.opts.videoId : ""

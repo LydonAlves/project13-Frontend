@@ -61,7 +61,7 @@ export const audioRecorderReducer = (state = INITIAL_AUDIO_RECORDER, action) => 
         answersToShow: action.payload
       }
 
-    case 'SET_TODAYS_CORRECTIONS':
+    case 'SET_ALL_SPEAKING_CORRECTIONS':
       return {
         ...state,
         todaysCorrections: action.payload

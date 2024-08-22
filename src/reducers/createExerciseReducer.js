@@ -19,6 +19,12 @@ export function exerciseReducer(state = initialState, action) {
         savedFinalExercise: action.payload,
       }
 
+    case 'SET_RULES':
+      return {
+        ...state,
+        ruleList: action.payload,
+      }
+
     case 'CREATE_EXERCISE_PAGE_VALUES':
       return {
         ...state,

@@ -12,7 +12,7 @@ export const submitForm = async (isRegister, setLoading, dispatch, registerObj) 
 
   setLoading(true);
   try {
-    let result;
+    let result
     if (isRegister) {
       result = await registerFunction(registerObj);
       dispatch({ type: 'SET_REGISTRATION_DATA', payload: result });
@@ -21,9 +21,13 @@ export const submitForm = async (isRegister, setLoading, dispatch, registerObj) 
       result = await loginFunction(registerObj);
       login(result);
     }
+    if (result == 401) {
+      toast.error(`Error: ${result}`)
+    }
+
   } catch (error) {
+    toast.error(`Error: ${result}`)
     console.error(isRegister ? "Error during registration:" : "Login failed", error);
-    toast.error(`Error: ${error.message}`);
   } finally {
     setLoading(false);
   }

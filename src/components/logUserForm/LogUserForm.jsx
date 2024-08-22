@@ -20,7 +20,6 @@ const LogUserForm = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("login info", stateLoginRegister);
     submitForm(isRegister, setLoading, dispatch, registerObj)
   }
 

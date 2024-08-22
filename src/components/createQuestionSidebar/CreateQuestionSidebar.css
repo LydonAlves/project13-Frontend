@@ -19,6 +19,7 @@
 
 .textAreaSideBarMyClasses{
  width: 100%;
+ padding: var(--padding-xs);
 }
 
 .activitiesSidebarTitleButton{

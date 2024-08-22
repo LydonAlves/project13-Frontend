@@ -22,4 +22,4 @@ export const fetchRules = async (dispatchExercise, setLoading) => {
   } finally {
     setLoading(false)
   }
-}
+} 

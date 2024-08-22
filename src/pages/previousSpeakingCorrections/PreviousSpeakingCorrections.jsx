@@ -1,6 +1,6 @@
-import { useEffect, useReducer, useState } from "react"
+import { useContext, useEffect, useReducer, useState } from "react"
 import "./PreviousSpeakingCorrections.css"
-import { formatDate } from "../../context/DateContext"
+import { DateContext, formatDate } from "../../context/DateContext"
 import CarrouselOfItemsButtons from "../../components/carrouselOfItemsButtons/CarrouselOfItemsButtons"
 import { useAuth } from './../../context/AuthContext';
 import SpeakingCorrections from "../../components/speakingCorrections/SpeakingCorrections"
@@ -9,21 +9,30 @@ import PageExplanation from "../../components/pageExplanation/PageExplanation"
 import { infoForPageExplanation } from "../../components/pageExplanation/infoForexplanations/infoForExplanations"
 import { formatUserFriendlyDate } from "../../utils/formatUserFriendlyDate"
 import { INITIAL_SPEAKING_CORRECTIONS, speakingCorrectionsReducer } from "../../reducers/previousSpeakingCorrectionsReducer";
-import { fetchCorrections } from "../../functions/previousSpeakingCorrections/fetchCorrections";
+import { fetchCorrections } from "../../functions/audioRecorderFunctions/fetchCorrections";
 
+
+// For fetchCorrections
+//! I have to see if I need to set up a way to distinguish between todaysCorrections and corrections in general
+//? I need to compare the practice and jus the view of the corrections
 
 
 const PreviousSpeakingCorrections = () => {
   const { userObj } = useAuth()
+  const date = useContext(DateContext)
   const [stateSpeakingCorrections, dispatchSpeakingCorrections] = useReducer(speakingCorrectionsReducer, INITIAL_SPEAKING_CORRECTIONS)
   const { allSpeakingCorrections, lastTenResults, dateOfCorrections, currentItemIndex } = stateSpeakingCorrections
   const answersToShow = lastTenResults[currentItemIndex];
   const [needHelp, setNeedHelp] = useState(false)
   const [loading, setLoading] = useState(false)
 
+
   useEffect(() => {
     if (userObj) {
-      fetchCorrections(dispatchSpeakingCorrections, setLoading, userObj)
+      console.log("working");
+      setLoading(true)
+      fetchCorrections(dispatchSpeakingCorrections, date, userObj)
+      setLoading(false)
     }
   }, [userObj])
 

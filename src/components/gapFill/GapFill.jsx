@@ -20,7 +20,6 @@ const GapFill = ({ chosenText, inputs, }) => {
   }, [chosenText])
 
   useState(() => {
-    console.log("inputs", inputs);
     if (inputs && inputs.length > 0) {
       setInitialAnswersSubmitted(true)
       dispatchGapfill({ type: 'SET_MANAGE_INPUTS', payload: inputs })

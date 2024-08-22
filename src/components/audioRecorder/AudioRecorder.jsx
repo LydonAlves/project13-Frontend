@@ -26,6 +26,10 @@ const AudioRecorder = ({ questions }) => {
   const mediaRecorder = useRef(null)
   const [loading, setLoading] = useState(false)
 
+
+  console.log("state", stateAudioRecorder);
+
+
   useEffect(() => {
     const savedAnswersToShow = localStorage.getItem('answersToShow')
     if (savedAnswersToShow) {

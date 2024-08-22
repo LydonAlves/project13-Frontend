@@ -6,6 +6,7 @@ import useToggle from '../../hooks/useToggle';
 const RulesSearchAndCreate = ({ dispatchExercise, stateExercise, setLoading }) => {
   const [seeSearchBar, setSeeSearchBar] = useToggle()
 
+
   return (
     <div className="rulesDiv" >
       <p className="rulesSearchTitle">RULES</p>
